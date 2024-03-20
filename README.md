@@ -14,31 +14,36 @@ The Hajj Management System is an advanced and efficient solution that streamline
 ### Clone the repository
 
 ```bash
-    git clone https://github.com/lamoud/hajj-management.git
+git clone https://github.com/lamoud/hajj-management.git
 ```
 
 ### Navigate into the project directory
 
 ```bash
-    cd hajj-management
+cd hajj-management
 ```
 
 ### Install dependencies
 
 ```bash
-    composer install
+composer install
 ```
 
 ### Install noude modules
 
 ```bash
-    npm install
+npm install
+```
+
+### Build the frontend assets:
+```bash
+npm run build
 ```
 
 ### Create a copy of the .env.example file and rename it to .env
 
 ```bash
-    cp .env.example .env
+cp .env.example .env
 ```
 ### Creating a New Database & Set up your database connection in the `.env` file.
 
@@ -49,13 +54,13 @@ Configuring the Environment File (.env): Specify the connection information for 
 ### Generate application key
 
 ```bash
-    php artisan key:generate
+php artisan key:generate
 ```
 
 ### Run the database migrations && seeders
 
 ```bash
-    php artisan migrate --seed
+php artisan migrate --seed
 ```
 
 ## Usage
@@ -63,7 +68,7 @@ Configuring the Environment File (.env): Specify the connection information for 
 ### Start the development server
 
 ```bash
-    php artisan serve
+php artisan serve
 ```
 ### Open your web browser and go to [http://localhost:8000](http://localhost:8000).
 

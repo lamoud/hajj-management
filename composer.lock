@@ -1588,63 +1588,6 @@
             "time": "2023-12-03T19:50:20+00:00"
         },
         {
-            "name": "haruncpi/laravel-simple-filemanager",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/haruncpi/laravel-simple-filemanager.git",
-                "reference": "99820d9fb17cbdb9522df5010dff6b9cb17136f6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/haruncpi/laravel-simple-filemanager/zipball/99820d9fb17cbdb9522df5010dff6b9cb17136f6",
-                "reference": "99820d9fb17cbdb9522df5010dff6b9cb17136f6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Haruncpi\\LaravelSimpleFilemanager\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Haruncpi\\LaravelSimpleFilemanager\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "cc-by-nc-4.0"
-            ],
-            "authors": [
-                {
-                    "name": "MD.HARUN-UR-RASHID",
-                    "email": "harun.cox@gmail.com"
-                }
-            ],
-            "description": "A simple filemanager for Laravel",
-            "keywords": [
-                "Media Manager",
-                "Simple",
-                "file manager",
-                "filemanager",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/haruncpi/laravel-simple-filemanager/issues",
-                "source": "https://github.com/haruncpi/laravel-simple-filemanager/tree/v1.0.2"
-            },
-            "time": "2020-12-10T08:33:24+00:00"
-        },
-        {
             "name": "laravel/fortify",
             "version": "v1.20.1",
             "source": {
