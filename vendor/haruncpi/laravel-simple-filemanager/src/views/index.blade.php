@@ -17,16 +17,56 @@
             display: none !important;
         }
     </style>
-
     <script>
         window.translations = {!! collect(trans('filemanager::filemanager'))->toJson() !!}
     </script>
+    <style>
+        header {
+
+            background: #282a39;
+        }
+        body {
+            background: #fff;
+        }
+        .wrapper .sidebar {
+            /* background: #ddd; */
+        }
+    </style>
+
+@if (App::getLocale() == 'ar')
+    <style>
+        body {
+            direction: rtl
+        }
+
+        .wrapper .gallery .gl_item .name input[type="checkbox"] {
+            margin-right: 0;
+            margin-left: 8px;
+        }
+        header .app_title span {
+            margin-left: 0;
+            margin-right: 5px;
+        }
+        .wrapper .gallery .gl_item .name p {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+        header .right .clear_search,
+        header .right .searching {
+            right: auto;
+            left: 0;
+            border-left: unset;
+            border-right: 1px solid #ddd;
+        }
+
+    </style>
+@endif
 </head>
 
 <body ng-cloak ng-controller="FilemanagerCtrl" class="{{config('app.locale')}}">
     <header>
         <h2 class="app_title"><img src="{{asset('filemanager/img/logo.png')}}"
-                alt=""><span>{{trans('filemanager::filemanager.title')}}</span></h2>
+                alt=""><span>{{ __('Media') }}</span></h2>
 
         <div class="right">
             <button class="btn_bulk_actions danger" ng-click="bulkDelete()" ng-show="checkedIds.length>1"
@@ -44,8 +84,8 @@
                     <i class="fa fa-times"></i>
                 </div>
             </div>
-            <a class="btn-doc" href="https://laravelarticle.com/laravel-simple-filemanager"><i
-                    class="fa fa-info-circle"></i> {{trans('filemanager::filemanager.doc')}}</a>
+            {{-- <a class="btn-doc" href="https://laravelarticle.com/laravel-simple-filemanager"><i
+                    class="fa fa-info-circle"></i> {{trans('filemanager::filemanager.doc')}}</a> --}}
         </div>
     </header>
     <!--custom preview-->

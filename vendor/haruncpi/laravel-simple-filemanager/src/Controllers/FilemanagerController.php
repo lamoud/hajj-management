@@ -20,6 +20,12 @@ class FilemanagerController extends Controller
     protected $config;
     protected $tinyPNGtoken = "";
 
+    private $baseUrl;
+    private $imageFormat;
+    private $imageVideoFormat;
+    private $videoFormat;
+    private $pdfFormat;
+
     public function __construct()
     {
         $this->fields = ['id', 'name', 'ext', 'file_size', 'absolute_url', 'extra', 'created_at', 'updated_at'];
@@ -27,7 +33,10 @@ class FilemanagerController extends Controller
         $this->basePath = public_path('filemanager/uploads');
         $this->baseUrl = url('filemanager/uploads');
         $this->config = config('filemanager');
-        $this->imageFormat = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $this->imageFormat = config('filemanager.images_format');
+        $this->imageVideoFormat = config('filemanager.imgs_vds_format');
+        $this->videoFormat = config('filemanager.videos_format');
+        $this->pdfFormat = config('filemanager.pdfs_format');
     }
 
     public function getIndex(Request $request)
@@ -93,6 +102,15 @@ class FilemanagerController extends Controller
                 case 'image';
                     $data = $data->whereIn('ext', $this->imageFormat);
                     break;
+                case 'imagevideo';
+                    $data = $data->whereIn('ext', $this->imageVideoFormat);
+                    break;
+                case 'video';
+                    $data = $data->whereIn('ext', $this->videoFormat);
+                    break;
+                case 'pdf';
+                    $data = $data->whereIn('ext', $this->pdfFormat);
+                    break;
             }
         }
 
@@ -110,7 +128,7 @@ class FilemanagerController extends Controller
         $name = $request->get('name');
         $ext = $request->get('ext');
         $convertExt = $request->get('format');
-        $imageExtensions = ['png', 'jpg', 'gif', 'jpeg', 'webp'];
+        $imageExtensions =  config('filemanager.images_format');
 
         if (!in_array($ext, $imageExtensions)) {
             return ['success' => false, 'msg' => 'Only image can convert'];
@@ -183,7 +201,7 @@ class FilemanagerController extends Controller
 
             File::move($fromName, $toName);
 
-            $imageExtensions = ['png', 'jpg', 'gif', 'jpeg', 'webp'];
+            $imageExtensions =  config('filemanager.images_format');
             if (in_array($oldData->ext, $imageExtensions)) {
                 $fromThumb = $this->basePath . '/thumbs/' . $oldData->name;
                 $toThumb = $this->basePath . '/thumbs/' . $finalName;
@@ -269,7 +287,7 @@ class FilemanagerController extends Controller
         $extension = $photo->getClientOriginalExtension();
         $fileSizeInByte = $photo->getSize();
         $dateTime = date('Y-m-d H:i:s');
-        $imageExtensions = ['png', 'jpg', 'gif', 'jpeg', 'webp'];
+        $imageExtensions =  config('filemanager.images_format');
         $extra = [];
         DB::beginTransaction();
 
