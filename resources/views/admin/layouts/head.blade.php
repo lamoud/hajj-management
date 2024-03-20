@@ -6,7 +6,7 @@
 @yield('css')
 <!--- Style css -->
 <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/izitoast/css/iziToast.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('izitoast/css/iziToast.min.css') }}">
 
 
 <!--- Style css -->

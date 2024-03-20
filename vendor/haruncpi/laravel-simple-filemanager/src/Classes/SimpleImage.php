@@ -37,12 +37,11 @@ class SimpleImage {
     //
     // Destroys the image resource
     //
-    //lamoud edit
-    // public function __destruct() {
-    //     if($this->image !== null && get_resource_type($this->image) === 'gd') {
-    //         imagedestroy($this->image);
-    //     }
-    // }
+    public function __destruct() {
+        if($this->image !== null && get_resource_type($this->image) === 'gd') {
+            imagedestroy($this->image);
+        }
+    }
 
     public function fromDataUri($uri) {
 

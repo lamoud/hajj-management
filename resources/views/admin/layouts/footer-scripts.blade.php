@@ -27,5 +27,5 @@
 <!-- lobilist -->
 <script src="{{ asset('admin/assets/js/lobilist.js') }}"></script>
 <!-- custom -->
-<script src="{{ asset('frontend/izitoast/js/iziToast.min.js') }}"></script>
+<script src="{{ asset('izitoast/js/iziToast.min.js') }}"></script>
 <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
