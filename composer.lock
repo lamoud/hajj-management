@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "132b665c8f2f844564d07f20b4f0eae2",
+    "content-hash": "0a8377beffa431ea189f50dd68e6b4df",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1586,6 +1586,63 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "lamoud/laravel-filemanager",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lamoud/laravel-file-manager.git",
+                "reference": "cb97a7b315f622f42bd9edce0c43a86b92295eb7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lamoud/laravel-file-manager/zipball/cb97a7b315f622f42bd9edce0c43a86b92295eb7",
+                "reference": "cb97a7b315f622f42bd9edce0c43a86b92295eb7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lamoud\\LaravelSimpleFilemanager\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Lamoud\\LaravelSimpleFilemanager\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "cc-by-nc-4.0"
+            ],
+            "authors": [
+                {
+                    "name": "MD.HARUN-UR-RASHID",
+                    "email": "harun.cox@gmail.com"
+                }
+            ],
+            "description": "A simple filemanager for Laravel",
+            "keywords": [
+                "Media Manager",
+                "Simple",
+                "file manager",
+                "filemanager",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/lamoud/laravel-file-manager/issues",
+                "source": "https://github.com/lamoud/laravel-file-manager/tree/v1.0"
+            },
+            "time": "2024-03-20T14:18:58+00:00"
         },
         {
             "name": "laravel/fortify",
