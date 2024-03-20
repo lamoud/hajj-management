@@ -77,7 +77,7 @@ class RolesSeeder extends Seeder
             'name'               => 'Super Admin',
             'email'              => 'betalamoud@gmail.com',
             'email_verified_at'  => Carbon::now(),
-            'password'           => Hash::make('SuperAdmin_123@#')
+            'password'           => Hash::make('Admin_123@#')
         ]);
 
         $superAdmin->assignRole('super_admin');
@@ -90,14 +90,6 @@ class RolesSeeder extends Seeder
         ]);
 
         $admin->assignRole('admin');
-        
-        $user = User::create([
-            'name'               => 'User',
-            'email'              => 'user@betalamoud.com',
-            'email_verified_at'  => Carbon::now(),
-            'password'           => Hash::make('User_123@#')
-        ]);
-        $user->assignRole('user');
     
     }
 }
