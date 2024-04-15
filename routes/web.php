@@ -43,6 +43,7 @@ Route::middleware([
         
         Route::get('/dashboard', 'admin_show')->name('dashboard');
 
+        Route::get('/dashboard/season-management', 'season_management')->name('season_management')->middleware(['can:season_view']);
         Route::get('/dashboard/agency-management', 'agency_management')->name('agency_management')->middleware(['can:agency_view']);
         Route::get('/dashboard/camps-management', 'camps_management')->name('camps_management')->middleware(['can:camps_view']);
         Route::get('/dashboard/units-management', 'units_management')->name('units_management')->middleware(['can:units_view']);

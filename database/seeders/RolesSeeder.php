@@ -42,6 +42,11 @@ class RolesSeeder extends Seeder
         $media_update = Permission::create(['guard_name'=>'web','name' => 'media_update', 'display_name'=> 'تعديل جهة', 'display_name_en'=> 'Update media']);
         $media_delete = Permission::create(['guard_name'=>'web','name' => 'media_delete', 'display_name'=> 'حذف جهة', 'display_name_en'=> 'Delete media']);
 
+        $season_view = Permission::create(['guard_name'=>'web','name' => 'season_view', 'display_name'=> 'عرض مواسم الحج', 'display_name_en'=> 'View season']);
+        $season_add = Permission::create(['guard_name'=>'web','name' => 'season_add', 'display_name'=> 'إضافة موسم حج', 'display_name_en'=> 'Add season']);
+        $season_update = Permission::create(['guard_name'=>'web','name' => 'season_update', 'display_name'=> 'تعديل موسم حج', 'display_name_en'=> 'Update aseason']);
+        $season_delete = Permission::create(['guard_name'=>'web','name' => 'season_delete', 'display_name'=> 'حذف موسم حج', 'display_name_en'=> 'Delete season']);
+
         $agency_view = Permission::create(['guard_name'=>'web','name' => 'agency_view', 'display_name'=> 'عرض  الجهات', 'display_name_en'=> 'View agency']);
         $agency_add = Permission::create(['guard_name'=>'web','name' => 'agency_add', 'display_name'=> 'إضافة جهة', 'display_name_en'=> 'Add agency']);
         $agency_update = Permission::create(['guard_name'=>'web','name' => 'agency_update', 'display_name'=> 'تعديل جهة', 'display_name_en'=> 'Update agency']);

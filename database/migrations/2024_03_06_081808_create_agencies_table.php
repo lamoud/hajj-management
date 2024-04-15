@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('contact_number')->nullable();
             $table->string('address')->nullable();
-            $table->unsignedBigInteger('season_id')->nullable();
+            $table->unsignedBigInteger('season_id');
             $table->text('description')->nullable();
             $table->timestamps();
     

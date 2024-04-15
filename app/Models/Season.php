@@ -2,16 +2,22 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Season extends Model
 {
-    use HasFactory;
-    protected $fillable = ['name', 'contact_number', 'address', 'season_id', 'description'];
-
-    public function season()
+    use HasFactory, Sluggable;
+    protected $guarded = [];
+    
+    public function sluggable(): array
     {
-        return $this->belongsTo(Season::class);
+        return [
+            'slug' => [
+                'source' => 'name',
+            ],
+        ];
     }
+
 }

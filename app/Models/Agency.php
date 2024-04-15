@@ -23,5 +23,14 @@ class Agency extends Model
     {
         return $this->hasMany(Pilgrim::class, 'agency_id');
     }
+    public function pilgrims2()
+    {
+        return 'kkkkkkkkkkkk';
+    }
+
+    public function season()
+    {
+        return $this->belongsTo(Season::class, 'season_id');
+    }
 
 }

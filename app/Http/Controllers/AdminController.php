@@ -48,6 +48,23 @@ class AdminController extends Controller
         ));
     }
 
+    // Start season_management
+    public function season_management()
+    {
+        $title = __('Season management');
+        $pageType = 'season_management';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.season.season_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    // End season_management
+
     // Start agency_management
     public function agency_management()
     {

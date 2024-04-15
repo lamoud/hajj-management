@@ -35,6 +35,16 @@
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('name') }}</small>
                             @endif
                         </div>
+                        <!-- Agency season -->
+                        <div class="form-group">
+                            <label for="description">{{ __('Season') }}</label>
+                            <input type="text" class="form-control" placeholder="{{ __('Season name') }}" aria-label="{{ __('Season') }}" aria-describedby="season_name" wire:model.defer="season_name" disabled readonly>
+                            @if($errors->has('season_name'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('season_name') }}</small>
+                            @else
+                                <small class="mt-1 d-block">يتم اختيار موسم الحج تلقائياً بدلالة الموسم النشط.</small>
+                            @endif
+                        </div>
 
                         <!-- Agency description -->
                         <div class="form-group">
@@ -75,6 +85,16 @@
                             </div>
                             @if($errors->has('up_name'))
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_name') }}</small>
+                            @endif
+                        </div>
+                        <!-- Agency season -->
+                        <div class="form-group">
+                            <label for="description">{{ __('Season') }}</label>
+                            <input type="text" class="form-control" placeholder="{{ __('Season name') }}" aria-label="{{ __('Season') }}" aria-describedby="season_name" wire:model.defer="up_season_name" disabled readonly>
+                            @if($errors->has('season_name'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('season_name') }}</small>
+                            @else
+                                <small class="mt-1 d-block">يتم اختيار موسم الحج تلقائياً بدلالة الموسم النشط.</small>
                             @endif
                         </div>
                         <!-- Agency description -->

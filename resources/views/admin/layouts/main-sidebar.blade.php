@@ -18,19 +18,38 @@
                 </ul>
             </li>
 
+            @can('season_view')
+            {{-- Start season_management --}}
+                    @php
+                        $season_route = ['season_management'];
+                    @endphp
+                    <li class="{{ in_array($pageType, $season_route) ? 'active' : '' }}">
+                        <a href="{{ route('season_management') }}" data-toggle="collapse" data-target="#season" aria-expanded="{{ in_array($pageType, $season_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $season_route) ? '' : 'collapsed' }}">
+                            <div class="pull-left"><i class="ti-credit-card"></i><span class="right-nav-text">{{ __('Season management') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="season" class="{{ in_array($pageType, $season_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                            <li class="{{ $pageType === 'season_management' ? 'active' : '' }}"> <a href="{{ route('season_management') }}">{{ __('Season management') }}</a> </li>
+                        </ul>
+                    </li>
+            {{-- End season_management --}}
+            @endcan
+
             @can('agency_view')
             {{-- Start agency_management --}}
                     @php
                         $agency_route = ['agency_management'];
                     @endphp
                     <li class="{{ in_array($pageType, $agency_route) ? 'active' : '' }}">
-                        <a href="{{ route('agency_management') }}" data-toggle="collapse" data-target="#platforms" aria-expanded="{{ in_array($pageType, $agency_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $agency_route) ? '' : 'collapsed' }}">
+                        <a href="{{ route('agency_management') }}" data-toggle="collapse" data-target="#agency" aria-expanded="{{ in_array($pageType, $agency_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $agency_route) ? '' : 'collapsed' }}">
                             <div class="pull-left"><i class="ti-package"></i><span class="right-nav-text">{{ __('Agency management') }}</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
-                        <ul id="platforms" class="{{ in_array($pageType, $agency_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                        <ul id="agency" class="{{ in_array($pageType, $agency_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'agency_management' ? 'active' : '' }}"> <a href="{{ route('agency_management') }}">{{ __('Agency management') }}</a> </li>
                         </ul>
                     </li>

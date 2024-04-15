@@ -1,4 +1,5 @@
-<p align="center">Hajj Management System</p>
+<h1 align="center">Hajj Management System</h1>
+
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>

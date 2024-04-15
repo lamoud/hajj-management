@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Livewire\Admin\Agency;
+namespace App\Livewire\Admin\Camps;
 
 use App\Exports\agenciesExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Agency;
+use App\Models\Camp;
 use Maatwebsite\Excel\Facades\Excel;
 
-class AgencyDatatable extends DataTableComponent
+class CampsDatatable extends DataTableComponent
 {
-    protected $model = Agency::class;
+    protected $model = Camp::class;
 
     
     public function configure(): void

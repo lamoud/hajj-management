@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Livewire\Admin\Agency;
+namespace App\Livewire\Admin\Season;
 
 use App\Exports\agenciesExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Agency;
+use App\Models\Season;
 use Maatwebsite\Excel\Facades\Excel;
 
-class AgencyDatatable extends DataTableComponent
+class SeasonDatatable extends DataTableComponent
 {
-    protected $model = Agency::class;
+    protected $model = Season::class;
 
     
     public function configure(): void
     {
-        
         $this->setPrimaryKey('id');
         $this->setEmptyMessage('No data');
         $this->setRememberColumnSelectionEnabled();
@@ -52,24 +51,26 @@ class AgencyDatatable extends DataTableComponent
             Column::make(__('Description'), "description")
                 ->sortable()
                 ->deselected(),
-            Column::make(__('Pilgrims'))
-                ->label(
-                    fn($row, Column $column) => '<strong>'.$row->pilgrims->count().'</strong>'
-                )
-                ->html()
-                ->sortable()
-                ->excludeFromColumnSelect(),
-                Column::make("Season id", "season_id")
-                ->excludeFromColumnSelect(),
-                Column::make("Season", "season_id")
-                ->label(function($row) { return optional($row->season)->name ?? 'No Season'; }),            
-            Column::make(__('Phone'), "contact_number")
+            // Column::make(__('Pilgrims'))
+            //     ->label(
+            //         fn($row, Column $column) => '<strong>'.$row->pilgrims->count().'</strong>'
+            //     )
+            //     ->html()
+            //     ->sortable()
+            //     ->excludeFromColumnSelect(),
+            // Column::make(__('Phone'), "contact_number")
+            //     ->sortable()
+            //     ->deselected(),
+            // Column::make(__('Address'), "address")
+            //     ->sortable()
+            //     ->deselected(),
+            // Column::make(__('Created at'), "created_at")
+            //     ->sortable()
+            //     ->deselected(),
+            Column::make(__('Start date'), "start_date")
                 ->sortable()
                 ->deselected(),
-            Column::make(__('Address'), "address")
-                ->sortable()
-                ->deselected(),
-            Column::make(__('Created at'), "created_at")
+            Column::make(__('End date'), "end_date")
                 ->sortable()
                 ->deselected(),
             Column::make(__('Last update'), "updated_at")
@@ -77,11 +78,11 @@ class AgencyDatatable extends DataTableComponent
                 ->deselected(),
             Column::make(__('Action' ))
                 ->label(
-                    fn ($row, Column $column) => view('components.datatables.action-column')->with(
+                    fn ($row, Column $column) => view('components.datatables.season.action-column')->with(
                         [
-                            'viewLink' => '#',
+                            //'viewLink' => $row->id,
                             'editLink' => $row->id,
-                            'deleteLink' => '#',
+                            'deleteLink' => $row->id,
                         ]
                     )
                 )->html()
@@ -130,7 +131,7 @@ class AgencyDatatable extends DataTableComponent
     
         // التحقق مما إذا كانت هناك جهات محددة لحذفها
         if (!empty($selectedAgencyIds)) {
-            Agency::whereIn('id', $selectedAgencyIds)->delete();
+            Season::whereIn('id', $selectedAgencyIds)->delete();
             $this->clearSelected();
             $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف الجهات بنجاح.'));
         }
@@ -140,9 +141,14 @@ class AgencyDatatable extends DataTableComponent
     {
 
         // Emit event to pass data to AgencyManagement page
-        $this->dispatch('editAgency', [
-            'id' => $id,
-        ]);
+        return $this->dispatch('editSeason', id: $id);
+    }
+
+    public function startDelete( $id )
+    {
+        // Emit event to pass data to AgencyManagement page
+        return $this->dispatch('deleteSeason', id: $id);
+
     }
 
     
