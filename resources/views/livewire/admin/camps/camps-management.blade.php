@@ -124,10 +124,52 @@
                 $('#modal-camp').modal('hide');
                 $('#modal-editcamp').modal('hide');
         })
-        window.addEventListener('showEditCampModal', event => {
 
-            $('#modal-editcamp').modal('show');
+        window.addEventListener('editCamp', event => {
+
+            @this.confirm_edit(event.detail.id)
 
         })
+
+window.addEventListener('showEditCampModal', event => {
+
+$('#modal-editcamp').modal('show');
+
+})
+
+window.addEventListener('deleteCamp', event => {
+
+@this.confirm_delete(event.detail.id)
+
+})
+
+window.addEventListener('deleteCampConfirm', event => {
+
+window["iziToast"][event.detail.type]({
+        // title: `${event.detail.title}`,
+        message: `${event.detail.msg}`,
+        rtl: true,
+        timeout: 20000,
+        overlay: true,
+        displayMode: 'once',
+        id: 'question',
+        zindex: 999999999,
+        position: 'center',
+        buttons: [
+            ['<button><b>YES</b></button>', function (instance, toast) {
+
+                @this.delete_current_camp()
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                
+            }, true],
+            ['<button>NO</button>', function (instance, toast) {
+    
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+    
+            }],
+        ]
+});
+
+})
     </script>
 </div>

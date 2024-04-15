@@ -2,10 +2,9 @@
 
 namespace App\Livewire\Admin\Camps;
 
-use App\Exports\agenciesExport;
+use App\Exports\CampsExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Agency;
 use App\Models\Camp;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -23,8 +22,6 @@ class CampsDatatable extends DataTableComponent
         $this->setDefaultSort('created_at', 'desc');
         $this->setHideBulkActionsWhenEmptyStatus(true);
         $this->setSearchDebounce(1000);
-        //$this->setColumnSelectStatus(false);
-        //$this->setSingleSortingDisabled();
 
         $this->setBulkActionConfirmMessages([
             'deleteSelected' => 'Are you sure you want to delete these items?',
@@ -59,14 +56,12 @@ class CampsDatatable extends DataTableComponent
                 )
                 ->html()
                 ->sortable()
-                ->excludeFromColumnSelect(),
-                Column::make("Season id", "season_id")
-                ->excludeFromColumnSelect(),
-                Column::make("Season", "season_id")
-                ->label(function($row) { return optional($row->season)->name ?? 'No Season'; }),            
-            Column::make(__('Phone'), "contact_number")
-                ->sortable()
                 ->deselected(),
+                Column::make("Season id", "season_id")
+                ->deselected()
+                ->excludeFromColumnSelect(),
+                Column::make(__('Season'), "season")
+                ->label(function($row) { return optional($row->season)->name ?? 'No Season'; }),
             Column::make(__('Address'), "address")
                 ->sortable()
                 ->deselected(),
@@ -78,11 +73,11 @@ class CampsDatatable extends DataTableComponent
                 ->deselected(),
             Column::make(__('Action' ))
                 ->label(
-                    fn ($row, Column $column) => view('components.datatables.action-column')->with(
+                    fn ($row, Column $column) => view('components.datatables.camps.action-column')->with(
                         [
-                            'viewLink' => '#',
+                            'viewLink' => $row->id,
                             'editLink' => $row->id,
-                            'deleteLink' => '#',
+                            'deleteLink' => $row->id,
                         ]
                     )
                 )->html()
@@ -106,20 +101,20 @@ class CampsDatatable extends DataTableComponent
             
             // If there are no selected agencies, return with an error message
             if (empty($selectedIds)) {
-                return back()->withError('No agencies selected for export.');
+                return back()->withError('No camps selected for export.');
             }
     
             // Create a new export instance with the selected IDs
-            $export = new AgenciesExport($selectedIds);
+            $export = new CampsExport($selectedIds);
     
             $this->clearSelected();
 
             // Download the file
-            return Excel::download($export, 'agencies.xlsx');
+            return Excel::download($export, 'camps.xlsx');
     
         } catch (\Exception $e) {
             // Handle any exceptions and return with an error message
-            return back()->withError('Failed to export selected agencies: ' . $e->getMessage());
+            return back()->withError('Failed to export selected camps: ' . $e->getMessage());
         }
     }
     
@@ -127,13 +122,13 @@ class CampsDatatable extends DataTableComponent
     public function deleteSelected()
     {
 
-        $selectedAgencyIds = $this->getSelected();
+        $selectedCampIds = $this->getSelected();
     
         // التحقق مما إذا كانت هناك جهات محددة لحذفها
-        if (!empty($selectedAgencyIds)) {
-            Agency::whereIn('id', $selectedAgencyIds)->delete();
+        if (!empty($selectedCampIds)) {
+            Camp::whereIn('id', $selectedCampIds)->delete();
             $this->clearSelected();
-            $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف الجهات بنجاح.'));
+            $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف المخيمات بنجاح.'));
         }
     }
 
@@ -141,18 +136,14 @@ class CampsDatatable extends DataTableComponent
     {
 
         // Emit event to pass data to AgencyManagement page
-        $this->dispatch('editAgency', [
-            'id' => $id,
-        ]);
+        return $this->dispatch('editCamp', id: $id);
     }
 
-    
-    // public function startEdit( $id )
-    // {
+    public function startDelete( $id )
+    {
+        // Emit event to pass data to AgencyManagement page
+        return $this->dispatch('deleteCamp', id: $id);
 
-    //     $this->active_agency( $id );
-
-    //     return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.').$id);
-    // }
+    }
 
 }
