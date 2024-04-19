@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Livewire\Admin\Agency;
+namespace App\Livewire\Admin\Units;
 
-use App\Exports\agenciesExport;
+use App\Exports\UnitsExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Agency;
+use App\Models\Unit;
 use Maatwebsite\Excel\Facades\Excel;
 
-class AgencyDatatable extends DataTableComponent
+class UnitsDatatable extends DataTableComponent
 {
-    protected $model = Agency::class;
+    protected $model = Unit::class;
 
     
     public function configure(): void
@@ -22,8 +22,6 @@ class AgencyDatatable extends DataTableComponent
         $this->setDefaultSort('created_at', 'desc');
         $this->setHideBulkActionsWhenEmptyStatus(true);
         $this->setSearchDebounce(1000);
-        //$this->setColumnSelectStatus(false);
-        //$this->setSingleSortingDisabled();
 
         $this->setBulkActionConfirmMessages([
             'deleteSelected' => 'Are you sure you want to delete these items?',
@@ -49,25 +47,22 @@ class AgencyDatatable extends DataTableComponent
                 ->sortable()
                 ->searchable()
                 ->excludeFromColumnSelect(),
-            Column::make(__('Description'), "description")
-                ->sortable()
-                ->deselected(),
             Column::make(__('Pilgrims'))
                 ->label(
                     fn($row, Column $column) => '<strong>'.$row->pilgrims->count().'</strong>'
                 )
                 ->html()
                 ->sortable()
-                ->excludeFromColumnSelect(),
-                Column::make("Season", "season.name")
-                ->deselected()
-                ->excludeFromColumnSelect(),
-            Column::make(__('Phone'), "contact_number")
-                ->sortable()
                 ->deselected(),
-            Column::make(__('Address'), "address")
-                ->sortable()
+            Column::make(__('Season'), "season.name")
                 ->deselected(),
+            Column::make(__('Size'), "size")
+                ->deselected(),
+            Column::make(__('Capacity'), "capacity")
+                ->deselected(),
+            Column::make(__('Camp'), "camp.name"),
+            Column::make(__('Bed type'), "bedType.name"),
+            Column::make(__('Unit type'), "unitType.name"),
             Column::make(__('Created at'), "created_at")
                 ->sortable()
                 ->deselected(),
@@ -76,11 +71,11 @@ class AgencyDatatable extends DataTableComponent
                 ->deselected(),
             Column::make(__('Action' ))
                 ->label(
-                    fn ($row, Column $column) => view('components.datatables.action-column')->with(
+                    fn ($row, Column $column) => view('components.datatables.units.action-column')->with(
                         [
-                            'viewLink' => '#',
+                            'viewLink' => $row->id,
                             'editLink' => $row->id,
-                            'deleteLink' => '#',
+                            'deleteLink' => $row->id,
                         ]
                     )
                 )->html()
@@ -104,34 +99,33 @@ class AgencyDatatable extends DataTableComponent
             
             // If there are no selected agencies, return with an error message
             if (empty($selectedIds)) {
-                return back()->withError('No agencies selected for export.');
+                return back()->withError('No units selected for export.');
             }
     
             // Create a new export instance with the selected IDs
-            $export = new AgenciesExport($selectedIds);
+            $export = new UnitsExport($selectedIds);
     
             $this->clearSelected();
 
             // Download the file
-            return Excel::download($export, 'agencies.xlsx');
+            return Excel::download($export, 'units.xlsx');
     
         } catch (\Exception $e) {
             // Handle any exceptions and return with an error message
-            return back()->withError('Failed to export selected agencies: ' . $e->getMessage());
+            return back()->withError('Failed to export selected units: ' . $e->getMessage());
         }
     }
     
-
     public function deleteSelected()
     {
 
-        $selectedAgencyIds = $this->getSelected();
+        $selectedUnitIds = $this->getSelected();
     
         // التحقق مما إذا كانت هناك جهات محددة لحذفها
-        if (!empty($selectedAgencyIds)) {
-            Agency::whereIn('id', $selectedAgencyIds)->delete();
+        if (!empty($selectedUnitIds)) {
+            Unit::whereIn('id', $selectedUnitIds)->delete();
             $this->clearSelected();
-            $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف الجهات بنجاح.'));
+            $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف المخيمات بنجاح.'));
         }
     }
 
@@ -139,18 +133,14 @@ class AgencyDatatable extends DataTableComponent
     {
 
         // Emit event to pass data to AgencyManagement page
-        $this->dispatch('editAgency', [
-            'id' => $id,
-        ]);
+        return $this->dispatch('editUnit', id: $id);
     }
 
-    
-    // public function startEdit( $id )
-    // {
+    public function startDelete( $id )
+    {
+        // Emit event to pass data to AgencyManagement page
+        return $this->dispatch('deleteUnit', id: $id);
 
-    //     $this->active_agency( $id );
-
-    //     return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.').$id);
-    // }
+    }
 
 }

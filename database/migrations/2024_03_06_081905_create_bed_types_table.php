@@ -11,19 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('buses', function (Blueprint $table) {
+        Schema::create('bed_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('number');
-            $table->string('declaration');
             $table->string('slug')->unique();
-            $table->unsignedBigInteger('season_id');
-            $table->integer('capacity');
+            $table->unsignedBigInteger('season_id')->nullable();
             $table->text('description')->nullable();
             $table->json('extra')->nullable();
             $table->timestamps();
             
             $table->foreign('season_id')->references('id')->on('seasons')->onDelete('cascade');
+
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('buses');
+        Schema::dropIfExists('bed_types');
     }
 };

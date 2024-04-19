@@ -16,10 +16,12 @@ class AgencyManagement extends Component
     public $user;
 
     public $name;
+    public $size;
     public $description;
 
     public $selectedAgency;
     public $up_name;
+    public $up_size;
     public $up_season_name;
     public $up_description;
     public $showEditModal = false;

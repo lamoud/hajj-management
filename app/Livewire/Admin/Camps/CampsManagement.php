@@ -39,7 +39,7 @@ class CampsManagement extends Component
         $this->season_name = $season->name ?? 'غير معروف';
         
     }
-        
+    
     public function active_camp(  $camp_id ){
 
         $camp = Camp::where(['id'=> $camp_id])->first();        
@@ -91,49 +91,6 @@ class CampsManagement extends Component
         $this->reset('name', 'description');
         
     }
-
-    // public function editCamp($id)
-    // {
-
-    //     $camp = Camp::where('id', $id)->first();
-
-    //     if( ! $camp ){
-
-    //         return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('لم يتم العثور على الجهة، أو ربما تم حذفها.'));
-        
-    //     }
-
-    //     $this->selectedCamp = $camp;
-    //     $this->up_name = $camp['name'];
-    //     $this->up_season_name = $camp->season->name ?? 'غير معروف';
-    //     $this->up_description = $camp['description'];
-
-    //     return $this->dispatch('showEditCampModal');
-
-    // }
-
-    // public function updateCamp()
-    // {
-    //     if( ! $this->user->can('camp_update') ){
-    //         return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
-    //     }
-
-    //     $this->validate([
-    //         'up_name' => ['required', 'string', 'min:3', 'max:100'],
-    //         'up_description' => ['nullable'],
-    //     ]);
-
-    //     $this->selectedCamp->update([
-    //         'name'=> $this->up_name,
-    //         'description'=> $this->up_description,
-    //     ]);
-
-    //     $this->dispatch('refreshDatatable');
-    //     $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: 'تم حفظ التغييرات بنجاح!');
-    //     $this->reset('up_name', 'up_description');
-        
-    // }
-
     public function confirm_edit( $camp_id )
     {
         if( ! $this->user->can('camps_update') ){

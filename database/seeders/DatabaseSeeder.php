@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(RolesSeeder::class);
         $this->call(SettingsSeeder::class);
+        $this->call(BedTypeSeeder::class);
+        $this->call(UnitTypeSeeder::class);
         $this->call(NotificationTemplatesSeeder::class);
     }
 }

@@ -19,4 +19,9 @@ class Camp extends Model
     {
         return $this->hasMany(Pilgrim::class, 'camp_id');
     }
+
+    public function units()
+    {
+        return $this->hasMany(Unit::class, 'camp_id');
+    }
 }

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('agency_id');
             $table->string('phone');
             $table->string('image')->nullable();
+            $table->json('extra')->nullable();
             $table->timestamps();
     
             $table->foreign('tent_id')->references('id')->on('tents')->onDelete('cascade');

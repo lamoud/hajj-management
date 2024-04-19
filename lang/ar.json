@@ -1504,5 +1504,12 @@
     "Add a new camp": "إضافة مخيم جديد",
     "Camp name": "اسم المخيم",
     "Season": "موسم الحج",
+    "Add a new unit": "إضافة خيمة جديد",
+    "Unit number": "رقم الخيمة",
+    "Unit size": "مقاس الخيمة",
+    "Bed type": "نوع السرير",
+    "Unit type": "نوع الخيمة",
+    "Camp": "المخيم",
+    "Unit Accommodation": "استيعاب الخيمة",
     "Copyright": "cحقوق النشر"
 }

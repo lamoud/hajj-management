@@ -16,18 +16,21 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('size');
             $table->integer('capacity');
-            $table->string('bed_type');
-            $table->string('unit_type');
+            $table->unsignedBigInteger('bed_type');
+            $table->unsignedBigInteger('unit_type');
             $table->unsignedBigInteger('season_id');
             $table->unsignedBigInteger('camp_id');
             $table->unsignedBigInteger('tent_id')->nullable();
             $table->integer('floor')->nullable();
+            $table->json('extra')->nullable();
             $table->timestamps();
-    
+            
             $table->foreign('season_id')->references('id')->on('seasons')->onDelete('cascade');
             $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
+            $table->foreign('bed_type')->references('id')->on('bed_types')->onDelete('cascade');
+            $table->foreign('unit_type')->references('id')->on('unit_types')->onDelete('cascade');
             $table->foreign('tent_id')->references('id')->on('tents')->onDelete('cascade');
-    
+            
         });
     }
 

@@ -10,6 +10,11 @@ class Unit extends Model
     use HasFactory;
     protected $fillable = ['name', 'size', 'capacity', 'bed_type', 'unit_type', 'season_id', 'camp_id', 'tent_id', 'floor'];
 
+    public function pilgrims()
+    {
+        return $this->hasMany(Pilgrim::class, 'agency_id');
+    }
+
     public function season()
     {
         return $this->belongsTo(Season::class);
@@ -20,8 +25,13 @@ class Unit extends Model
         return $this->belongsTo(Camp::class);
     }
 
-    public function tent()
+    public function bedType()
     {
-        return $this->belongsTo(Tent::class);
+        return $this->belongsTo(BedType::class, 'bed_type');
+    }
+
+    public function unitType()
+    {
+        return $this->belongsTo(UnitType::class, 'unit_type');
     }
 }

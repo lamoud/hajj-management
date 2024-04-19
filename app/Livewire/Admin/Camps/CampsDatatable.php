@@ -57,11 +57,15 @@ class CampsDatatable extends DataTableComponent
                 ->html()
                 ->sortable()
                 ->deselected(),
-                Column::make("Season id", "season_id")
-                ->deselected()
-                ->excludeFromColumnSelect(),
-                Column::make(__('Season'), "season")
-                ->label(function($row) { return optional($row->season)->name ?? 'No Season'; }),
+            Column::make(__('Units'))
+                ->label(
+                    fn($row, Column $column) => '<strong>'.$row->units->count().'</strong>'
+                )
+                ->html()
+                ->sortable()
+                ->deselected(),
+                Column::make("Season", "season.name")
+                ->deselected(),
             Column::make(__('Address'), "address")
                 ->sortable()
                 ->deselected(),

@@ -131,45 +131,45 @@
 
         })
 
-window.addEventListener('showEditCampModal', event => {
+        window.addEventListener('showEditCampModal', event => {
 
-$('#modal-editcamp').modal('show');
+            $('#modal-editcamp').modal('show');
 
-})
+        })
 
-window.addEventListener('deleteCamp', event => {
+        window.addEventListener('deleteCamp', event => {
 
-@this.confirm_delete(event.detail.id)
+            @this.confirm_delete(event.detail.id)
 
-})
+        })
 
-window.addEventListener('deleteCampConfirm', event => {
+        window.addEventListener('deleteCampConfirm', event => {
 
-window["iziToast"][event.detail.type]({
-        // title: `${event.detail.title}`,
-        message: `${event.detail.msg}`,
-        rtl: true,
-        timeout: 20000,
-        overlay: true,
-        displayMode: 'once',
-        id: 'question',
-        zindex: 999999999,
-        position: 'center',
-        buttons: [
-            ['<button><b>YES</b></button>', function (instance, toast) {
+            window["iziToast"][event.detail.type]({
+                    // title: `${event.detail.title}`,
+                    message: `${event.detail.msg}`,
+                    rtl: true,
+                    timeout: 20000,
+                    overlay: true,
+                    displayMode: 'once',
+                    id: 'question',
+                    zindex: 999999999,
+                    position: 'center',
+                    buttons: [
+                        ['<button><b>YES</b></button>', function (instance, toast) {
 
-                @this.delete_current_camp()
-                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                            @this.delete_current_camp()
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                            
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
                 
-            }, true],
-            ['<button>NO</button>', function (instance, toast) {
-    
-                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-    
-            }],
-        ]
-});
+                            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                
+                        }],
+                    ]
+            });
 
-})
+        })
     </script>
 </div>
