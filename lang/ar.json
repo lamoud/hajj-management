@@ -1483,6 +1483,7 @@
     "All camps": "جميع المخيمات",
     "Units management": "إدارة الخيام (الوحدات)",
     "Units": "الخيام (الوحدات)",
+    "Unit": "الخيمة (الوحدة)",
     "All units": "جميع الوحدات",
     "Pilgrims management": "إدارة الحجاج",
     "All pilgrims": "جميع الحجاج",
@@ -1511,5 +1512,14 @@
     "Unit type": "نوع الخيمة",
     "Camp": "المخيم",
     "Unit Accommodation": "استيعاب الخيمة",
+    "Add a new pilgrim": "إضافة حاج جديد",
+    "Pilgrim number": "رقم الحاج",
+    "Pilgrim name": "اسم الحاج",
+    "National id": "رقم الهوية",
+    "Nationality": "الجنسية",
+    "Arrival": "القدوم",
+    "External": "خارجي",
+    "Agency": "الجهة",
+    "male": "ذكر",
     "Copyright": "cحقوق النشر"
 }

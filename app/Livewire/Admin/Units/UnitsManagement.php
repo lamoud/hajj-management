@@ -208,7 +208,7 @@ class UnitsManagement extends Component
 
         $this->bedTypes = BedType::get();
         $this->unitTypes = UnitType::get();
-        $this->camps = Camp::where('season_id', $this->current_season->id)->get();
+        $this->camps = Camp::where('season_id', $this->current_season->id ?? null)->get();
     }
 
     public function render()

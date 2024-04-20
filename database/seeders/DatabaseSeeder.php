@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingsSeeder::class);
         $this->call(BedTypeSeeder::class);
         $this->call(UnitTypeSeeder::class);
+        $this->call(NationalitySeeder::class);
         $this->call(NotificationTemplatesSeeder::class);
     }
 }

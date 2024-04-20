@@ -12,7 +12,7 @@ class Unit extends Model
 
     public function pilgrims()
     {
-        return $this->hasMany(Pilgrim::class, 'agency_id');
+        return $this->hasMany(Pilgrim::class, 'unit_id');
     }
 
     public function season()

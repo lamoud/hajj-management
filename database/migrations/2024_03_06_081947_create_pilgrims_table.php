@@ -19,20 +19,22 @@ return new class extends Migration
             $table->string('nationality');
             $table->enum('gender', ['male', 'female']);
             $table->unsignedBigInteger('tent_id')->nullable();
-            $table->unsignedBigInteger('camp_id');
-            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('camp_id')->nullable();
+            $table->unsignedBigInteger('unit_id')->nullable();
             $table->enum('arrival_type', ['internal', 'external']);
             $table->unsignedBigInteger('agency_id');
             $table->string('phone');
             $table->string('image')->nullable();
             $table->json('extra')->nullable();
+            $table->unsignedBigInteger('season_id');
             $table->timestamps();
     
             $table->foreign('tent_id')->references('id')->on('tents')->onDelete('cascade');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
             $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
             $table->foreign('agency_id')->references('id')->on('agencies')->onDelete('cascade');
-    
+            $table->foreign('season_id')->references('id')->on('seasons')->onDelete('cascade');
+
         });
     }
 
