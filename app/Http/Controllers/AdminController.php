@@ -166,7 +166,6 @@ class AdminController extends Controller
     {
         $title = __('Roles');
         $pageType = 'admin_roles';
-        $roles = Role::paginate(20)->appends(request()->query());
         $SEOData = new SEOData(
             title: $title,
             description: settings('appName'),
@@ -174,7 +173,7 @@ class AdminController extends Controller
             site_name: settings('appName'),
             image: settings('appLogo'),
         );
-        return view('admin.roles.admin_roles', compact('title', 'SEOData', 'pageType', 'roles'));
+        return view('admin.roles.admin_roles', compact('title', 'SEOData', 'pageType'));
     }
     // End admin_roles
     // Start users

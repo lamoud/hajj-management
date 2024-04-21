@@ -1436,7 +1436,7 @@
     "Write the name of the platform as it will appear to users and search engines.": "أكتب اسم المنصة كما ستظهر للمستخدمين ومحركات البحث.",
     "Menus settings": "اعدادات القوائم",
     "Users mangement": "ادارة المستخدمين",
-    "Add a new role": "إضافة صلاحية جديدة",
+    "Add a new role": "إضافة وظيفة جديدة",
     "UUID": "الرمز الفريد",
     "Distinctive color": "اللون المميز",
     "Role name (Arabic)": "اسم الوظيفة (عربي)",
@@ -1521,5 +1521,7 @@
     "External": "خارجي",
     "Agency": "الجهة",
     "male": "ذكر",
+    "Role name": "اسم الوظيفة",
+    "English name": "الإسم بالإنجليزي",
     "Copyright": "cحقوق النشر"
 }
