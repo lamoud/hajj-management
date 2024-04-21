@@ -1,6 +1,5 @@
 <?php
 
-use App\Exports\UsersExport;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileSettingsController;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +21,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-
-    Route::get('users/export/', function(){
-        return Excel::download(new UsersExport, 'users.xlsx');
-    });
 
     Route::get('/', function () {
         return redirect()->to(route('dashboard'));
@@ -58,11 +53,6 @@ Route::middleware([
     
         // Start user
         Route::get('/dashboard/users', 'dashboard_users')->name('dashboard_users');
-        Route::get('/dashboard/users/new', 'dashboard_users_new')->name('dashboard_users_new');
-        Route::post('/dashboard/users/new', 'validate_dashboard_users_new')->name('validate_dashboard_users_new');
-        Route::get('/dashboard/users/update/{id}-{email}', 'dashboard_users_update')->name('dashboard_users_update');
-        Route::post('/dashboard/users/update/{id}-{email}', 'validate_dashboard_users_update')->name('validate_dashboard_users_update');
-        Route::delete('/dashboard/users/delete/{id}-{email}', 'validate_dashboard_users_delete')->name('validate_dashboard_users_delete');
         // End users
         // Start settings
         Route::get('/admin/admin_settings', 'admin_settings')->name('admin_settings')->middleware(['can:settings_view']);

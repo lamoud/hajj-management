@@ -187,8 +187,6 @@
                     </a>
                     <ul id="users" class="{{ in_array($pageType, $users_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                         <li class="{{ $pageType === 'dashboard_users' ? 'active' : '' }}"> <a href="{{ route('dashboard_users') }}">{{ __('All users') }}</a> </li>
-                        
-                            <li class="{{ $pageType === 'dashboard_users_new' ? 'active' : '' }}"> <a href="{{ route('dashboard_users_new') }}">{{ __('Add new') }}</a> </li>
                     </ul>
                 </li>
             {{-- End Users --}}
