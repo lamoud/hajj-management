@@ -3,6 +3,9 @@
         .lm-td {
             vertical-align: top !important
         }
+        .input-group-append span {
+            width: 110px;
+        }
     </style>
 
     <div class="my-5 p-2 bg-white">

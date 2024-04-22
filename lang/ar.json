@@ -1524,5 +1524,10 @@
     "Role name": "اسم الوظيفة",
     "English name": "الإسم بالإنجليزي",
     "Add a new user": "إضافة موظف جديد",
+    "Add a new bus": "إضافة باص جديد",
+    "Bus number": "رقم الباص",
+    "Board number": "رقم اللوحة",
+    "Declaration": "رقم التصريح",
+    "Number of sets": "عدد المقاعد",
     "Copyright": "cحقوق النشر"
 }

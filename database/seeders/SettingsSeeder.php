@@ -17,11 +17,6 @@ class SettingsSeeder extends Seeder
             [
                 ['key'=>'appName', 'value'=> config('app.name')],
                 ['key'=>'appDisc', 'value'=> config('app.name')],
-                // ['key'=>'appLogo', 'value'=> config('app.url').'/filemanager/uploads/E&S-01.png'],
-                // ['key'=>'appMiniLogo', 'value'=> config('app.url').'/filemanager/uploads/EDU-01.png'],
-                // ['key'=>'appDarkLogo', 'value'=> config('app.url').'/filemanager/uploads/E&S-01.png'], 
-                // ['key'=>'appMiniDarkLogo', 'value'=> config('app.url').'/filemanager/uploads/EDU-01.png'], 
-                // ['key'=>'appIcon', 'value'=> config('app.url').'/filemanager/uploads/EDU-01.png'],
                 ['key'=>'appMail', 'value'=> 'betalamoud@gmail.com'],
                 ['key'=>'appMobile', 'value'=> '+201062332549'],
                 ['key'=>'appAddress', 'value'=> 'المملكة العربية السعودية'],

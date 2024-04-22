@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,11 +17,10 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
+    <body style="background-image: url('filemanager/bg-main.jpeg');background-size: cover;background-position:center;">
+        <div class="font-sans antialiased">
             {{ $slot }}
         </div>
-
         @livewireScripts
     </body>
 </html>
