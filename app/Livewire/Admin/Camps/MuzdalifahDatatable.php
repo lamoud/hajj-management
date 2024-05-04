@@ -9,15 +9,13 @@ use App\Models\Camp;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Facades\Excel;
 
-class CampsDatatable extends DataTableComponent
+class MuzdalifahDatatable extends DataTableComponent
 {
     protected $model = Camp::class;
-    
     public function builder(): Builder
     {
-        return Camp::query()->where('type', 'mena');
+        return Camp::query()->where('type', 'muzdalifah');
     }
-
     public function configure(): void
     {
         

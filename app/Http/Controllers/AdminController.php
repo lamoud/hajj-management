@@ -84,7 +84,7 @@ class AdminController extends Controller
     // Start camps_management
     public function camps_management()
     {
-        $title = __('Camps management');
+        $title = __('Mena camps');
         $pageType = 'camps_management';
         $SEOData = new SEOData(
             title: $title,
@@ -98,7 +98,7 @@ class AdminController extends Controller
     }
     public function arafa_camps()
     {
-        $title = __('Camps management');
+        $title = __('Arafa camps');
         $pageType = 'arafa_camps';
         $SEOData = new SEOData(
             title: $title,
@@ -107,12 +107,12 @@ class AdminController extends Controller
             site_name: settings('appName'),
             image: settings('appLogo'),
         );
-        return view('admin.camps.camps_management', compact('title', 'pageType', 'SEOData'));
+        return view('admin.camps.arafa_camps', compact('title', 'pageType', 'SEOData'));
 
     }
     public function muzdalifah_camps()
     {
-        $title = __('Camps management');
+        $title = __('Muzdalifah camps');
         $pageType = 'muzdalifah_camps';
         $SEOData = new SEOData(
             title: $title,
@@ -121,7 +121,7 @@ class AdminController extends Controller
             site_name: settings('appName'),
             image: settings('appLogo'),
         );
-        return view('admin.camps.camps_management', compact('title', 'pageType', 'SEOData'));
+        return view('admin.camps.muzdalifah_camps', compact('title', 'pageType', 'SEOData'));
 
     }
     // End camps_management

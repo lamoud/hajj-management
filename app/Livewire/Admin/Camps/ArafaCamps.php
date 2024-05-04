@@ -7,9 +7,8 @@ use App\Models\Season;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class CampsManagement extends Component
+class ArafaCamps extends Component
 {
-
     public $seasons;
     public $season_name = 'غير معروف';
     public $status;
@@ -46,7 +45,7 @@ class CampsManagement extends Component
     
     public function active_camp(  $camp_id ){
 
-        $camp = Camp::where(['id'=> $camp_id, 'type'=> 'mena'])->first();        
+        $camp = Camp::where(['id'=> $camp_id, 'type'=> 'arafa'])->first();        
         if( ! $camp ){
             $this->current_camp = null;
             return  $this->dispatch('makeAction', type: 'error', title: __('Error'), msg: 'لم يتم العثور على المخيم!');
@@ -91,7 +90,7 @@ class CampsManagement extends Component
         Camp::create([
             'name'=> $this->name,
             'season_id'=> $this->current_season->id,
-            'type'=> 'mena',
+            'type'=> 'arafa',
             'start_from'=> $this->start_from,
             'end_to'=> $this->end_to,
             'description'=> $this->description,
@@ -188,9 +187,8 @@ class CampsManagement extends Component
             $this->active_season( $date->id, $date->slug);
         }
     }
-
     public function render()
     {
-        return view('livewire.admin.camps.camps-management');
+        return view('livewire.admin.camps.arafa-camps');
     }
 }

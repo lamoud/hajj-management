@@ -9,7 +9,7 @@
     </style>
 
     <div class="my-5 p-2 bg-white">
-        <livewire:admin.camps.camps-datatable />
+        <livewire:admin.camps.muzdalifah-datatable />
     </div>
 
     <div class="modal modal-blur fade" id="modal-camp" tabindex="-1" style="display: none;" aria-hidden="true" wire:ignore.self>

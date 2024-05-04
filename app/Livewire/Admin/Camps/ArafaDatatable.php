@@ -9,13 +9,14 @@ use App\Models\Camp;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Facades\Excel;
 
-class CampsDatatable extends DataTableComponent
+class ArafaDatatable extends DataTableComponent
 {
     protected $model = Camp::class;
     
+
     public function builder(): Builder
     {
-        return Camp::query()->where('type', 'mena');
+        return Camp::query()->where('type', 'arafa');
     }
 
     public function configure(): void
@@ -52,9 +53,9 @@ class CampsDatatable extends DataTableComponent
                 ->sortable()
                 ->searchable()
                 ->excludeFromColumnSelect(),
-                Column::make(__('Type'), "type")
+            Column::make(__('Type'), "type")
                 ->sortable(),
-                Column::make(__('Start'), "start_from")
+            Column::make(__('Start'), "start_from")
                 ->sortable(),
             Column::make(__('End'), "end_to")
                 ->sortable(),
