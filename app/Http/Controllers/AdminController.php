@@ -96,6 +96,34 @@ class AdminController extends Controller
         return view('admin.camps.camps_management', compact('title', 'pageType', 'SEOData'));
 
     }
+    public function arafa_camps()
+    {
+        $title = __('Camps management');
+        $pageType = 'arafa_camps';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.camps.camps_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    public function muzdalifah_camps()
+    {
+        $title = __('Camps management');
+        $pageType = 'muzdalifah_camps';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.camps.camps_management', compact('title', 'pageType', 'SEOData'));
+
+    }
     // End camps_management
     // Start units_management
     public function units_management()
@@ -144,7 +172,125 @@ class AdminController extends Controller
         return view('admin.buses.buses_management', compact('title', 'pageType', 'SEOData'));
 
     }
+    public function bus_escalation()
+    {
+        $title = __('Bus escalation');
+        $pageType = 'bus_escalation';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.buses.bus_escalation', compact('title', 'pageType', 'SEOData'));
+
+    }
+    public function buses_swap()
+    {
+        $title = __('Buses swap');
+        $pageType = 'buses_swap';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.buses.buses_swap', compact('title', 'pageType', 'SEOData'));
+
+    }
     // End buses_management
+    // Start gift_management
+    public function gift_management()
+    {
+        $title = __('Gift management');
+        $pageType = 'gift_management';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.gifts.gift_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    public function gift_distribution()
+    {
+        $title = __('Gifts distribution');
+        $pageType = 'gift_distribution';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.gifts.gift_distribution', compact('title', 'pageType', 'SEOData'));
+
+    }
+    // End gift_management
+    // Start services_management
+    public function services_management()
+    {
+        $title = __('Services management');
+        $pageType = 'services_management';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.services.services_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    public function service_providing()
+    {
+        $title = __('Service providing');
+        $pageType = 'service_providing';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.services.service_providing', compact('title', 'pageType', 'SEOData'));
+
+    }
+    // End services_management
+    // Start attachments_management
+    public function bracelets_management()
+    {
+        $title = __('Bracelets management');
+        $pageType = 'bracelets_management';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.attachments.bracelets_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    public function stickers_management()
+    {
+        $title = __('Stickers management');
+        $pageType = 'stickers_management';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.attachments.stickers_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    // End attachments_management
     // Start media
     public function admin_media ()
     {

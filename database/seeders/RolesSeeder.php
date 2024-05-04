@@ -72,6 +72,32 @@ class RolesSeeder extends Seeder
         $buses_update = Permission::create(['guard_name'=>'web','name' => 'buses_update', 'display_name'=> 'تعديل ياص', 'display_name_en'=> 'Update bus']);
         $buses_delete = Permission::create(['guard_name'=>'web','name' => 'buses_delete', 'display_name'=> 'حذف ياص', 'display_name_en'=> 'Delete bus']);
 
+        $gifts_view = Permission::create(['guard_name'=>'web','name' => 'gifts_view', 'display_name'=> 'عرض الهدايا', 'display_name_en'=> 'View gifts']);
+        $gift_add = Permission::create(['guard_name'=>'web','name' => 'gift_add', 'display_name'=> 'إضافة هدية', 'display_name_en'=> 'Add gift']);
+        $gift_update = Permission::create(['guard_name'=>'web','name' => 'gift_update', 'display_name'=> 'تعديل هدية', 'display_name_en'=> 'Update gift']);
+        $gift_delete = Permission::create(['guard_name'=>'web','name' => 'gift_delete', 'display_name'=> 'حذف هدية', 'display_name_en'=> 'Delete gift']);
+        $gift_distribution = Permission::create(['guard_name'=>'web','name' => 'gift_distribution', 'display_name'=> 'توزيع الهدايا', 'display_name_en'=> 'Gift distribution']);
+
+        $services_view = Permission::create(['guard_name'=>'web','name' => 'services_view', 'display_name'=> 'عرض الخدمات', 'display_name_en'=> 'View services']);
+        $service_add = Permission::create(['guard_name'=>'web','name' => 'service_add', 'display_name'=> 'إضافة خدمة', 'display_name_en'=> 'Add service']);
+        $service_update = Permission::create(['guard_name'=>'web','name' => 'service_update', 'display_name'=> 'تعديل خدمة', 'display_name_en'=> 'Update service']);
+        $service_delete = Permission::create(['guard_name'=>'web','name' => 'service_delete', 'display_name'=> 'حذف خدمة', 'display_name_en'=> 'Delete service']);
+        $service_providing = Permission::create(['guard_name'=>'web','name' => 'service_providing', 'display_name'=> 'تقديم خدمة', 'display_name_en'=> 'Service providing']);
+
+        $attachments_view = Permission::create(['guard_name'=>'web','name' => 'attachments_view', 'display_name'=> 'عرض الأساور والإستيكرات', 'display_name_en'=> 'View attachments']);
+        $attachment_add = Permission::create(['guard_name'=>'web','name' => 'attachment_add', 'display_name'=> 'إضافة أساور &استيكرات', 'display_name_en'=> 'Add attachment']);
+        $attachment_update = Permission::create(['guard_name'=>'web','name' => 'attachment_update', 'display_name'=> 'تعديل أساور &استيكرات', 'display_name_en'=> 'Update attachment']);
+        $attachment_delete = Permission::create(['guard_name'=>'web','name' => 'attachment_delete', 'display_name'=> 'حذف أساور &استيكرات', 'display_name_en'=> 'Delete attachment']);
+        $attachment_print = Permission::create(['guard_name'=>'web','name' => 'attachment_print', 'display_name'=> 'طباعة أساور &استيكرات', 'display_name_en'=> 'print attachment']);
+        $attachment_delivery = Permission::create(['guard_name'=>'web','name' => 'attachment_delivery', 'display_name'=> 'تسليم أساور &استيكرات', 'display_name_en'=> 'Delivery attachment']);
+
+        $employees_view = Permission::create(['guard_name'=>'web','name' => 'employees_view', 'display_name'=> 'عرض الموظفين', 'display_name_en'=> 'View employees']);
+        $employee_add = Permission::create(['guard_name'=>'web','name' => 'employee_add', 'display_name'=> 'إضافة موظف', 'display_name_en'=> 'Add employee']);
+        $employee_update = Permission::create(['guard_name'=>'web','name' => 'employee_update', 'display_name'=> 'تعديل موظف', 'display_name_en'=> 'Update employee']);
+        $employee_delete = Permission::create(['guard_name'=>'web','name' => 'employee_delete', 'display_name'=> 'حذف موظف', 'display_name_en'=> 'Delete employee']);
+        $employee_print = Permission::create(['guard_name'=>'web','name' => 'employee_print', 'display_name'=> 'طباعة بطاقة موظف', 'display_name_en'=> 'print employee card']);
+        $employee_delivery = Permission::create(['guard_name'=>'web','name' => 'employee_delivery', 'display_name'=> 'تسليم راتب موظف', 'display_name_en'=> 'Delivery employee salary']);
+
         
         $permissions = Permission::pluck('name')->toArray();
         $adminRole->syncPermissions($permissions);

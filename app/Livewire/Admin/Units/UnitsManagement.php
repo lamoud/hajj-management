@@ -8,6 +8,7 @@ use App\Models\Season;
 use App\Models\Unit;
 use App\Models\UnitType;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class UnitsManagement extends Component
@@ -80,7 +81,10 @@ class UnitsManagement extends Component
 
 
         $this->validate([
-            'name' => ['required', 'string', 'min:3', 'max:100'],
+            'name' => ['required', 'string', 'min:3', 'max:100', Rule::unique('units', 'name')->where(function ($query) {
+                    return $query->where('season_id', $this->current_season->id);
+                }),
+            ],
             'unit_size' => ['required'],
             'bed_type' => ['required', 'exists:bed_types,id'],
             'unit_type' => ['required', 'exists:unit_types,id'],

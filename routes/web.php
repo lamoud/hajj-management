@@ -40,10 +40,32 @@ Route::middleware([
 
         Route::get('/dashboard/season-management', 'season_management')->name('season_management')->middleware(['can:season_view']);
         Route::get('/dashboard/agency-management', 'agency_management')->name('agency_management')->middleware(['can:agency_view']);
-        Route::get('/dashboard/camps-management', 'camps_management')->name('camps_management')->middleware(['can:camps_view']);
+        Route::get('/dashboard/mena-camps', 'camps_management')->name('camps_management')->middleware(['can:camps_view']);
+        Route::get('/dashboard/arafa-camps', 'arafa_camps')->name('arafa_camps')->middleware(['can:camps_view']);
+        Route::get('/dashboard/muzdalifah-camps', 'muzdalifah_camps')->name('muzdalifah_camps')->middleware(['can:camps_view']);
         Route::get('/dashboard/units-management', 'units_management')->name('units_management')->middleware(['can:units_view']);
         Route::get('/dashboard/pilgrims-management', 'pilgrims_management')->name('pilgrims_management')->middleware(['can:pilgrims_view']);
-        Route::get('/dashboard/buses-management', 'buses_management')->name('buses_management')->middleware(['can:pilgrims_view']);
+        
+        Route::get('/dashboard/buses-management', 'buses_management')->name('buses_management')->middleware(['can:buses_view']);
+        Route::get('/dashboard/bus_escalation', 'bus_escalation')->name('bus_escalation')->middleware(['can:buses_escalation']);
+        Route::get('/dashboard/buses_swap', 'buses_swap')->name('buses_swap')->middleware(['can:buses_swap']);
+        
+        Route::get('/dashboard/gift-management', 'gift_management')->name('gift_management')->middleware(['can:gift_view']);
+        Route::get('/dashboard/gift_distribution', 'gift_distribution')->name('gift_distribution')->middleware(['can:gift_distribution']);
+        
+        Route::get('/dashboard/services-management', 'services_management')->name('services_management')->middleware(['can:services_view']);
+        Route::get('/dashboard/service-providing', 'service_providing')->name('service_providing')->middleware(['can:service_providing']);
+        
+        //Route::get('/dashboard/attachments_management', 'attachments_management')->name('attachments_management')->middleware(['can:attachments_view']);
+        Route::get('/dashboard/bracelets_management', 'bracelets_management')->name('bracelets_management')->middleware(['can:attachments_view']);
+        Route::get('/dashboard/stickers_management', 'stickers_management')->name('stickers_management')->middleware(['can:attachments_view']);
+        
+        //Route::get('/dashboard/attachments_management', 'attachments_management')->name('attachments_management')->middleware(['can:attachments_view']);
+        Route::get('/dashboard/employees_management', 'employees_management')->name('employees_management')->middleware(['can:employees_view']);
+        Route::get('/dashboard/employees_salaries', 'employee_salaries')->name('employee_salaries')->middleware(['can:employees_view']);
+        Route::get('/dashboard/employees_rewards', 'employee_rewards')->name('employee_rewards')->middleware(['can:employees_view']);
+        Route::get('/dashboard/employees_requests', 'employee_requests')->name('employee_requests')->middleware(['can:employees_view']);
+        Route::get('/dashboard/employees_positions', 'employee_positions')->name('employee_positions')->middleware(['can:employees_view']);
 
         // Start media
         Route::get('/dashboard/media', 'admin_media')->name('admin_media');

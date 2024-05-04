@@ -59,7 +59,7 @@
             @can('camps_view')
             {{-- Start camps-management --}}
                     @php
-                        $camps_route = ['camps_management'];
+                        $camps_route = ['camps_management', 'arafa_camps', 'muzdalifah_camps'];
                     @endphp
                     <li class="{{ in_array($pageType, $camps_route) ? 'active' : '' }}">
                         <a href="{{ route('camps_management') }}" data-toggle="collapse" data-target="#camps" aria-expanded="{{ in_array($pageType, $camps_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $camps_route) ? '' : 'collapsed' }}">
@@ -69,7 +69,9 @@
                             <div class="clearfix"></div>
                         </a>
                         <ul id="camps" class="{{ in_array($pageType, $camps_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
-                            <li class="{{ $pageType === 'camps_management' ? 'active' : '' }}"> <a href="{{ route('camps_management') }}">{{ __('Camps management') }}</a> </li>
+                            <li class="{{ $pageType === 'camps_management' ? 'active' : '' }}"> <a href="{{ route('camps_management') }}">{{ __('Mena camps') }}</a> </li>
+                            <li class="{{ $pageType === 'arafa_camps' ? 'active' : '' }}"> <a href="{{ route('arafa_camps') }}">{{ __('Arafa camps') }}</a> </li>
+                            <li class="{{ $pageType === 'muzdalifah_camps' ? 'active' : '' }}"> <a href="{{ route('muzdalifah_camps') }}">{{ __('Muzdalifah camps') }}</a> </li>
                         </ul>
                     </li>
             {{-- End camps_management --}}
@@ -108,6 +110,8 @@
                         </a>
                         <ul id="pilgrims" class="{{ in_array($pageType, $pilgrims_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'pilgrims_management' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management') }}">{{ __('Pilgrims management') }}</a> </li>
+                            <li class="{{ $pageType === 'pilgrims_management' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management') }}">{{ __('تسكين الحجاج') }}</a> </li>
+                            <li class="{{ $pageType === 'pilgrims_management' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management') }}">{{ __('تبديل الخيام') }}</a> </li>
                         </ul>
                     </li>
             {{-- End pilgrims_management --}}
@@ -116,7 +120,7 @@
             @can('buses_view')
             {{-- Start buses_management --}}
                     @php
-                        $buses_route = ['buses_management'];
+                        $buses_route = ['buses_management', 'bus_escalation', 'buses_swap'];
                     @endphp
                     <li class="{{ in_array($pageType, $buses_route) ? 'active' : '' }}">
                         <a href="{{ route('buses_management') }}" data-toggle="collapse" data-target="#buses" aria-expanded="{{ in_array($pageType, $buses_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $buses_route) ? '' : 'collapsed' }}">
@@ -127,9 +131,90 @@
                         </a>
                         <ul id="buses" class="{{ in_array($pageType, $buses_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'buses_management' ? 'active' : '' }}"> <a href="{{ route('buses_management') }}">{{ __('Buses management') }}</a> </li>
+                            <li class="{{ $pageType === 'bus_escalation' ? 'active' : '' }}"> <a href="{{ route('bus_escalation') }}">{{ __('Bus escalation') }}</a> </li>
+                            <li class="{{ $pageType === 'buses_swap' ? 'active' : '' }}"> <a href="{{ route('buses_swap') }}">{{ __('Buses swap') }}</a> </li>
                         </ul>
                     </li>
             {{-- End buses_management --}}
+            @endcan
+            @can('gift_view')
+            {{-- Start gift_management --}}
+                    @php
+                        $gifts_route = ['gift_management', 'gift_distribution'];
+                    @endphp
+                    <li class="{{ in_array($pageType, $gifts_route) ? 'active' : '' }}">
+                        <a href="{{ route('gift_management') }}" data-toggle="collapse" data-target="#gifts" aria-expanded="{{ in_array($pageType, $gifts_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $gifts_route) ? '' : 'collapsed' }}">
+                            <div class="pull-left"><i class="fa fa-gift"></i><span class="right-nav-text">{{ __('Gift management') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="gifts" class="{{ in_array($pageType, $gifts_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                            <li class="{{ $pageType === 'gift_management' ? 'active' : '' }}"> <a href="{{ route('gift_management') }}">{{ __('Gift management') }}</a> </li>
+                            <li class="{{ $pageType === 'gift_distribution' ? 'active' : '' }}"> <a href="{{ route('gift_distribution') }}">{{ __('Gifts distribution') }}</a> </li>
+                        </ul>
+                    </li>
+            {{-- End gift_management --}}
+            @endcan
+            @can('services_view')
+            {{-- Start services_view --}}
+                    @php
+                        $services_route = ['services_management', 'service_providing'];
+                    @endphp
+                    <li class="{{ in_array($pageType, $services_route) ? 'active' : '' }}">
+                        <a href="{{ route('services_management') }}" data-toggle="collapse" data-target="#services" aria-expanded="{{ in_array($pageType, $services_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $services_route) ? '' : 'collapsed' }}">
+                            <div class="pull-left"><i class="fa fa-cutlery"></i><span class="right-nav-text">{{ __('إدارة خدمات الخيام') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="services" class="{{ in_array($pageType, $services_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                            <li class="{{ $pageType === 'services_management' ? 'active' : '' }}"> <a href="{{ route('services_management') }}">{{ __('Services management') }}</a> </li>
+                            <li class="{{ $pageType === 'service_providing' ? 'active' : '' }}"> <a href="{{ route('service_providing') }}">{{ __('Service providing') }}</a> </li>
+                        </ul>
+                    </li>
+            {{-- End services_view --}}
+            @endcan
+            @can('attachments_view')
+            {{-- Start stickers_management --}}
+                    @php
+                        $attachments_route = ['stickers_management', 'bracelets_management'];
+                    @endphp
+                    <li class="{{ in_array($pageType, $attachments_route) ? 'active' : '' }}">
+                        <a href="{{ route('stickers_management') }}" data-toggle="collapse" data-target="#attachments" aria-expanded="{{ in_array($pageType, $attachments_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $attachments_route) ? '' : 'collapsed' }}">
+                            <div class="pull-left"><i class="fa fa-circle-o-notch"></i><span class="right-nav-text">{{ __('الأساور والإستيكرات') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="attachments" class="{{ in_array($pageType, $attachments_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                            <li class="{{ $pageType === 'stickers_management' ? 'active' : '' }}"> <a href="{{ route('stickers_management') }}">{{ __('Stickers management') }}</a> </li>
+                            <li class="{{ $pageType === 'bracelets_management' ? 'active' : '' }}"> <a href="{{ route('bracelets_management') }}">{{ __('Bracelets management') }}</a> </li>
+                        </ul>
+                    </li>
+            {{-- End stickers_management --}}
+            @endcan
+            @can('employees_view')
+            {{-- Start employee_management --}}
+                    @php
+                        $employees_route = ['employees_management', 'employee_salaries', 'employee_rewards', 'employee_requests', 'employee_positions'];
+                    @endphp
+                    <li class="{{ in_array($pageType, $employees_route) ? 'active' : '' }}">
+                        <a href="{{ route('employees_management') }}" data-toggle="collapse" data-target="#employees" aria-expanded="{{ in_array($pageType, $employees_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $employees_route) ? '' : 'collapsed' }}">
+                            <div class="pull-left"><i class="fa fa-user-md"></i><span class="right-nav-text">{{ __('إدارة الموظفين') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="employees" class="{{ in_array($pageType, $employees_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                            <li class="{{ $pageType === 'employees_management' ? 'active' : '' }}"> <a href="{{ route('employees_management') }}">{{ __('Employees management') }}</a> </li>
+                            <li class="{{ $pageType === 'employee_salaries' ? 'active' : '' }}"> <a href="{{ route('employee_salaries') }}">{{ __('Salaries') }}</a> </li>
+                            <li class="{{ $pageType === 'employee_rewards' ? 'active' : '' }}"> <a href="{{ route('employee_rewards') }}">{{ __('Rewards') }}</a> </li>
+                            <li class="{{ $pageType === 'employee_positions' ? 'active' : '' }}"> <a href="{{ route('employee_positions') }}">{{ __('Positions') }}</a> </li>
+                            <li class="{{ $pageType === 'employee_requests' ? 'active' : '' }}"> <a href="{{ route('employee_requests') }}">{{ __('Employment applications') }}</a> </li>
+                        </ul>
+                    </li>
+            {{-- End employee_management --}}
             @endcan
 
             @can('media_view')
@@ -187,6 +272,24 @@
                     </a>
                     <ul id="users" class="{{ in_array($pageType, $users_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                         <li class="{{ $pageType === 'dashboard_users' ? 'active' : '' }}"> <a href="{{ route('dashboard_users') }}">{{ __('All users') }}</a> </li>
+                    </ul>
+                </li>
+            {{-- End Users --}}
+            @endcan
+            @can('users_view')
+            {{-- Start Users --}}
+                @php
+                    $users_route = ['dashboard_users', 'dashboard_users_new', 'dashboard_users_update'];
+                @endphp
+                <li class="{{ in_array($pageType, $users_route) ? 'active' : '' }}">
+                    <a href="{{ route('dashboard_users') }}" data-toggle="collapse" data-target="#support" aria-expanded="{{ in_array($pageType, $users_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $users_route) ? '' : 'collapsed' }}">
+                        <div class="pull-left"><i class="fa fa-support"></i><span class="right-nav-text">{{ __('الدعم الفني') }}</span>
+                        </div>
+                        <div class="pull-right"><i class="ti-plus"></i></div>
+                        <div class="clearfix"></div>
+                    </a>
+                    <ul id="support" class="{{ in_array($pageType, $users_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                        <li class="{{ $pageType === 'dashboard_users' ? 'active' : '' }}"> <a href="{{ route('dashboard_users') }}">{{ __('تذاكر الدعم') }}</a> </li>
                     </ul>
                 </li>
             {{-- End Users --}}

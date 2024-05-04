@@ -99,7 +99,7 @@ class PilgrimsManagement extends Component
         $this->validate([
             'name' => ['required', 'string', 'min:3', 'max:100'],
             'pilgrim_number' => ['required', 'numeric', 'digits_between:1,15'],
-            'national_id' => ['required', 'numeric', 'digits_between:8,20'],
+            'national_id' => ['required', 'numeric', 'digits_between:10,11'],
             'nationality' => ['required', 'exists:nationalities,slug'],
             'gender' => ['required', 'in:male,female'],
             'camp_id' => ['required', 'exists:camps,id'],
