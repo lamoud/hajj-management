@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Unit extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'size', 'capacity', 'bed_type', 'unit_type', 'season_id', 'camp_id', 'tent_id', 'floor'];
+    protected $guarded = [];
 
     public function pilgrims()
     {
@@ -23,6 +23,10 @@ class Unit extends Model
     public function camp()
     {
         return $this->belongsTo(Camp::class);
+    }
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
     }
 
     public function bedType()

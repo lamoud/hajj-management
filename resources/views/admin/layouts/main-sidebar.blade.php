@@ -77,10 +77,28 @@
             {{-- End camps_management --}}
             @endcan
 
+            @can('buildings_view')
+            {{-- Start buildings-management --}}
+                    @php
+                        $buildings_route = ['buildings_management'];
+                    @endphp
+                    <li class="{{ in_array($pageType, $buildings_route) ? 'active' : '' }}">
+                        <a href="{{ route('buildings_management') }}" data-toggle="collapse" data-target="#buildings" aria-expanded="{{ in_array($pageType, $buildings_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $buildings_route) ? '' : 'collapsed' }}">
+                            <div class="pull-left"><i class="fa fa-building"></i><span class="right-nav-text">{{ __('Buildings management') }}</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="buildings" class="{{ in_array($pageType, $buildings_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
+                            <li class="{{ $pageType === 'buildings_management' ? 'active' : '' }}"> <a href="{{ route('buildings_management') }}">{{ __('Buildings management') }}</a> </li>
+                        </ul>
+                    </li>
+            {{-- End buildings_management --}}
+            @endcan
             @can('units_view')
             {{-- Start units-management --}}
                     @php
-                        $units_route = ['units_management'];
+                        $units_route = ['units_management', 'units_management_type'];
                     @endphp
                     <li class="{{ in_array($pageType, $units_route) ? 'active' : '' }}">
                         <a href="{{ route('units_management') }}" data-toggle="collapse" data-target="#units" aria-expanded="{{ in_array($pageType, $units_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $units_route) ? '' : 'collapsed' }}">
@@ -91,6 +109,7 @@
                         </a>
                         <ul id="units" class="{{ in_array($pageType, $units_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'units_management' ? 'active' : '' }}"> <a href="{{ route('units_management') }}">{{ __('Units management') }}</a> </li>
+                            <li class="{{ $pageType === 'units_management_type' ? 'active' : '' }}"> <a href="{{ route('units_management_type') }}">{{ __('Units type') }}</a> </li>
                         </ul>
                     </li>
             {{-- End units_management --}}

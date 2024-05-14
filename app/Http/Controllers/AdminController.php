@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agency;
+use App\Models\Building;
 use App\Models\Bus;
 use App\Models\Camp;
 use App\Models\Pilgrim;
@@ -22,6 +23,7 @@ class AdminController extends Controller
         $pageType = 'admin_show';
         $agencies = Agency::count();
         $camps = Camp::count();
+        $buildings = Building::count();
         $units = Unit::count();
         $pilgrims = Pilgrim::count();
         $users = User::count();
@@ -38,6 +40,7 @@ class AdminController extends Controller
             'title',
             'SEOData',
             'pilgrims',
+            'buildings',
             'units',
             'camps',
             'agencies',
@@ -125,6 +128,22 @@ class AdminController extends Controller
 
     }
     // End camps_management
+    // Start buildings_management
+    public function buildings_management()
+    {
+        $title = __('Buildings management');
+        $pageType = 'buildings_management';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.buildings.buildings_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    // End buildings_management
     // Start units_management
     public function units_management()
     {
@@ -138,6 +157,20 @@ class AdminController extends Controller
             image: settings('appLogo'),
         );
         return view('admin.units.units_management', compact('title', 'pageType', 'SEOData'));
+
+    }
+    public function units_management_type()
+    {
+        $title = __('Units type');
+        $pageType = 'units_management_type';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.units.units_management_type', compact('title', 'pageType', 'SEOData'));
 
     }
     // End units_management

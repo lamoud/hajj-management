@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Admin\Units;
 
-use App\Exports\UnitsExport;
+use App\Exports\UnitTypesExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Unit;
+use App\Models\UnitType;
 use Maatwebsite\Excel\Facades\Excel;
 
-class UnitsDatatable extends DataTableComponent
+class UnitTypesDatatable extends DataTableComponent
 {
-    protected $model = Unit::class;
+    protected $model = UnitType::class;
 
     
     public function configure(): void
@@ -47,26 +47,10 @@ class UnitsDatatable extends DataTableComponent
                 ->sortable()
                 ->searchable()
                 ->excludeFromColumnSelect(),
-            Column::make(__('Pilgrims'))
-                ->label(
-                    fn($row, Column $column) => '<strong>'.$row->pilgrims->count().'</strong>'
-                )
-                ->html()
+            Column::make(__('Description'), "description")
                 ->sortable()
+                ->searchable()
                 ->deselected(),
-            Column::make(__('Season'), "season.name")
-                ->deselected(),
-            Column::make(__('Size'), "size")
-                ->deselected(),
-            Column::make('الأسرة الفردية', "single_beds")
-                ->deselected(),
-            Column::make('الأسرة الزوجية', "double_beds")
-                ->deselected(),
-            Column::make(__('Capacity'), "capacity")
-                ->deselected(),
-            Column::make(__('Camp'), "camp.name"),
-            Column::make(__('Building'), "building.name"),
-            Column::make(__('Unit type'), "unitType.name"),
             Column::make(__('Created at'), "created_at")
                 ->sortable()
                 ->deselected(),
@@ -107,7 +91,7 @@ class UnitsDatatable extends DataTableComponent
             }
     
             // Create a new export instance with the selected IDs
-            $export = new UnitsExport($selectedIds);
+            $export = new UnitTypesExport($selectedIds);
     
             $this->clearSelected();
 
@@ -123,11 +107,11 @@ class UnitsDatatable extends DataTableComponent
     public function deleteSelected()
     {
 
-        $selectedUnitIds = $this->getSelected();
+        $selectedUnitTypeIds = $this->getSelected();
     
         // التحقق مما إذا كانت هناك جهات محددة لحذفها
-        if (!empty($selectedUnitIds)) {
-            Unit::whereIn('id', $selectedUnitIds)->delete();
+        if (!empty($selectedUnitTypeIds)) {
+            UnitType::whereIn('id', $selectedUnitTypeIds)->delete();
             $this->clearSelected();
             $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف المخيمات بنجاح.'));
         }
@@ -137,13 +121,13 @@ class UnitsDatatable extends DataTableComponent
     {
 
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('editUnit', id: $id);
+        return $this->dispatch('editUnitType', id: $id);
     }
 
     public function startDelete( $id )
     {
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('deleteUnit', id: $id);
+        return $this->dispatch('deleteUnitType', id: $id);
 
     }
 

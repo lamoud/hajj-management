@@ -43,7 +43,9 @@ Route::middleware([
         Route::get('/dashboard/mena-camps', 'camps_management')->name('camps_management')->middleware(['can:camps_view']);
         Route::get('/dashboard/arafa-camps', 'arafa_camps')->name('arafa_camps')->middleware(['can:camps_view']);
         Route::get('/dashboard/muzdalifah-camps', 'muzdalifah_camps')->name('muzdalifah_camps')->middleware(['can:camps_view']);
+        Route::get('/dashboard/buildings-management', 'buildings_management')->name('buildings_management')->middleware(['can:buildings_view']);
         Route::get('/dashboard/units-management', 'units_management')->name('units_management')->middleware(['can:units_view']);
+        Route::get('/dashboard/units-management/types', 'units_management_type')->name('units_management_type')->middleware(['can:units_view']);
         Route::get('/dashboard/pilgrims-management', 'pilgrims_management')->name('pilgrims_management')->middleware(['can:pilgrims_view']);
         
         Route::get('/dashboard/buses-management', 'buses_management')->name('buses_management')->middleware(['can:buses_view']);

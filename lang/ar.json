@@ -1481,7 +1481,7 @@
     "Camps management": "إدارة المخيمات",
     "Camps": "المخيمات",
     "All camps": "جميع المخيمات",
-    "Units management": "إدارة الخيام (الوحدات)",
+    "Units management": "إدارة الخيام",
     "Units": "الخيام (الوحدات)",
     "Unit": "الخيمة (الوحدة)",
     "All units": "جميع الوحدات",
@@ -1545,5 +1545,10 @@
     "Rewards": "المكافآت",
     "Positions": "المسميات الوظيفية",
     "Employment applications": "طلبات التوظيف",
+    "Buildings management": "إدارة البنايات",
+    "Units type": "أنواع الوحدات",
+    "Buildings": "البنايات",
+    "All buildings": "جميع البنايات",
+    "Building": "المبنى",
     "Copyright": "cحقوق النشر"
 }

@@ -42,6 +42,28 @@
             <div class="card-body">
                 <div class="clearfix">
                 <div class="float-left">
+                    <span class="text-secondary">
+                    <i class="fa fa-building highlight-icon" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="float-right text-end">
+                    <p class="card-text text-dark">{{ __('Buildings') }}</p>
+                    <h4>{{ $buildings ?? 0 }}</h4>
+                </div>
+                </div>
+                <p class="text-muted pt-3 mb-0 mt-2 border-top">
+                    <a href="{{ route('buildings_management') }}">
+                        <i class="fa fa-folder-open me-1" aria-hidden="true"></i> {{ __('All buildings') }}
+                    </a>
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-20">
+            <div class="card card-statistics h-100">
+            <div class="card-body">
+                <div class="clearfix">
+                <div class="float-left">
                     <span class="text-warning">
                     <i class="fa fa-home highlight-icon" aria-hidden="true"></i>
                     </span>

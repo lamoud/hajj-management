@@ -98,6 +98,11 @@ class RolesSeeder extends Seeder
         $employee_print = Permission::create(['guard_name'=>'web','name' => 'employee_print', 'display_name'=> 'طباعة بطاقة موظف', 'display_name_en'=> 'print employee card']);
         $employee_delivery = Permission::create(['guard_name'=>'web','name' => 'employee_delivery', 'display_name'=> 'تسليم راتب موظف', 'display_name_en'=> 'Delivery employee salary']);
 
+        $buildings_view = Permission::create(['guard_name'=>'web','name' => 'buildings_view', 'display_name'=> 'عرض البنايات', 'display_name_en'=> 'View buildings']);
+        $building_add = Permission::create(['guard_name'=>'web','name' => 'building_add', 'display_name'=> 'إضافة مبنى', 'display_name_en'=> 'Add building']);
+        $building_update = Permission::create(['guard_name'=>'web','name' => 'building_update', 'display_name'=> 'تعديل مبنى', 'display_name_en'=> 'Update building']);
+        $building_delete = Permission::create(['guard_name'=>'web','name' => 'building_delete', 'display_name'=> 'حذف مبنى', 'display_name_en'=> 'Delete building']);
+        $building_print = Permission::create(['guard_name'=>'web','name' => 'building_print', 'display_name'=> 'طباعة المباني', 'display_name_en'=> 'print building']);
         
         $permissions = Permission::pluck('name')->toArray();
         $adminRole->syncPermissions($permissions);

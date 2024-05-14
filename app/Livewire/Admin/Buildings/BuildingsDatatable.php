@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Livewire\Admin\Units;
+namespace App\Livewire\Admin\Buildings;
 
-use App\Exports\UnitsExport;
+use App\Exports\BuildingsExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Unit;
+use App\Models\Building;
 use Maatwebsite\Excel\Facades\Excel;
 
-class UnitsDatatable extends DataTableComponent
+class BuildingsDatatable extends DataTableComponent
 {
-    protected $model = Unit::class;
+    protected $model = Building::class;
 
-    
     public function configure(): void
     {
         
@@ -47,6 +46,7 @@ class UnitsDatatable extends DataTableComponent
                 ->sortable()
                 ->searchable()
                 ->excludeFromColumnSelect(),
+            Column::make(__('Camp'), "camp.name"),
             Column::make(__('Pilgrims'))
                 ->label(
                     fn($row, Column $column) => '<strong>'.$row->pilgrims->count().'</strong>'
@@ -54,19 +54,18 @@ class UnitsDatatable extends DataTableComponent
                 ->html()
                 ->sortable()
                 ->deselected(),
-            Column::make(__('Season'), "season.name")
+            Column::make(__('Units'))
+                ->label(
+                    fn($row, Column $column) => '<strong>'.$row->units->count().'</strong>'
+                )
+                ->html()
+                ->sortable()
                 ->deselected(),
-            Column::make(__('Size'), "size")
+                Column::make("Season", "season.name")
                 ->deselected(),
-            Column::make('الأسرة الفردية', "single_beds")
+            Column::make(__('Address'), "address")
+                ->sortable()
                 ->deselected(),
-            Column::make('الأسرة الزوجية', "double_beds")
-                ->deselected(),
-            Column::make(__('Capacity'), "capacity")
-                ->deselected(),
-            Column::make(__('Camp'), "camp.name"),
-            Column::make(__('Building'), "building.name"),
-            Column::make(__('Unit type'), "unitType.name"),
             Column::make(__('Created at'), "created_at")
                 ->sortable()
                 ->deselected(),
@@ -75,7 +74,7 @@ class UnitsDatatable extends DataTableComponent
                 ->deselected(),
             Column::make(__('Action' ))
                 ->label(
-                    fn ($row, Column $column) => view('components.datatables.units.action-column')->with(
+                    fn ($row, Column $column) => view('components.datatables.buildings.action-column')->with(
                         [
                             'viewLink' => $row->id,
                             'editLink' => $row->id,
@@ -103,31 +102,32 @@ class UnitsDatatable extends DataTableComponent
             
             // If there are no selected agencies, return with an error message
             if (empty($selectedIds)) {
-                return back()->withError('No units selected for export.');
+                return back()->withError('No buildings selected for export.');
             }
     
             // Create a new export instance with the selected IDs
-            $export = new UnitsExport($selectedIds);
+            $export = new BuildingsExport($selectedIds);
     
             $this->clearSelected();
 
             // Download the file
-            return Excel::download($export, 'units.xlsx');
+            return Excel::download($export, 'buildings.xlsx');
     
         } catch (\Exception $e) {
             // Handle any exceptions and return with an error message
-            return back()->withError('Failed to export selected units: ' . $e->getMessage());
+            return back()->withError('Failed to export selected buildings: ' . $e->getMessage());
         }
     }
     
+
     public function deleteSelected()
     {
 
-        $selectedUnitIds = $this->getSelected();
+        $selectedBuildingIds = $this->getSelected();
     
         // التحقق مما إذا كانت هناك جهات محددة لحذفها
-        if (!empty($selectedUnitIds)) {
-            Unit::whereIn('id', $selectedUnitIds)->delete();
+        if (!empty($selectedBuildingIds)) {
+            Building::whereIn('id', $selectedBuildingIds)->delete();
             $this->clearSelected();
             $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف المخيمات بنجاح.'));
         }
@@ -137,13 +137,13 @@ class UnitsDatatable extends DataTableComponent
     {
 
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('editUnit', id: $id);
+        return $this->dispatch('editBuilding', id: $id);
     }
 
     public function startDelete( $id )
     {
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('deleteUnit', id: $id);
+        return $this->dispatch('deleteBuilding', id: $id);
 
     }
 

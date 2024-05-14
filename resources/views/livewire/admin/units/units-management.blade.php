@@ -24,7 +24,7 @@
                 <form class="w-100" wire:submit.prevent="addNewUnit">
                     <div class="modal-body">
 
-                        <!-- Unit nume -->
+                        <!-- Unit name -->
                         <div class="mb-3">
                             <div class="input-group">
                                 <div class="input-group-append">
@@ -50,40 +50,47 @@
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('unit_size') }}</small>
                             @endif
                         </div>
+                        
+                        <!-- single beds -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text required" id="single_beds">الأسرة الفردية</span>
+                                </div>
+
+                                <input type="number" class="form-control" placeholder="1" aria-label="عدد الأسرة الفردية" aria-describedby="single_beds" wire:model.live="single_beds">
+                            </div>
+                            @if($errors->has('single_beds'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('single_beds') }}</small>
+                            @endif
+                        </div>
+                        <!-- double beds -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text required" id="double_beds">الأسرة الزوجية</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="1" aria-label="عدد الأسرة الزوجية" aria-describedby="double_beds" wire:model.live="double_beds">
+
+                            </div>
+                            @if($errors->has('double_beds'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('double_beds') }}</small>
+                            @endif
+                        </div>
+
                         <!-- Unit accommodation -->
                         <div class="mb-3">
                             <div class="input-group">
                                 <div class="input-group-append">
                                     <span class="input-group-text required" id="unit_accommodation">{{ __('Unit Accommodation') }}</span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="50" aria-label="{{ __('Unit Accommodation') }}" aria-describedby="unit_accommodation" wire:model.defer="unit_accommodation">
+                                <input type="number" class="form-control" placeholder="50" aria-label="{{ __('Unit Accommodation') }}" aria-describedby="unit_accommodation" wire:model.live="unit_accommodation" disabled readonly>
                             </div>
                             @if($errors->has('unit_accommodation'))
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('unit_accommodation') }}</small>
                             @endif
                         </div>
-                        
-                        <!-- bed_type -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text required" id="bed_type">{{ __('Bed type') }}</span>
-                                </div>
 
-                                <select class="custom-select" name="bed_type" id="bed_type" aria-label="{{ __('bed_type') }}" aria-describedby="bed_type" wire:model.defer="bed_type">
-                                <option value="0">--اختر--</option>
-                                    @forelse ($bedTypes as $bed)
-                                        <option value="{{ $bed->id }}">{{ $bed->name }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-
-                            </div>
-                            @if($errors->has('bed_type'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('bed_type') }}</small>
-                            @endif
-                        </div>
                         <!-- unit_types -->
                         <div class="mb-3">
                             <div class="input-group">
@@ -112,7 +119,7 @@
                                     <span class="input-group-text required" id="camp_id">{{ __('Camp') }}</span>
                                 </div>
 
-                                <select class="custom-select" id="camp_id" aria-label="{{ __('camp_id') }}" aria-describedby="camp_id" wire:model.defer="camp_id">
+                                <select class="custom-select" id="camp_id" aria-label="{{ __('camp_id') }}" aria-describedby="camp_id" wire:model.live="camp_id">
                                     <option value="0">--اختر--</option>
                                     @forelse ($camps as $camp)
                                         <option value="{{ $camp->id }}">{{ $camp->name }}</option>
@@ -126,6 +133,45 @@
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('camp_id') }}</small>
                             @endif
                         </div>
+                        <!-- buildings -->
+                        
+                        @if (isset($buildings) && count($buildings) > 0)
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text required" id="building_id">{{ __('Building') }}</span>
+                                    </div>
+
+                                    <select class="custom-select" id="building_id" aria-label="{{ __('building_id') }}" aria-describedby="building_id" wire:model.live="building_id">
+                                        <option value="0">--اختر--</option>
+                                        @forelse ($buildings as $bld)
+                                            <option value="{{ $bld->id }}">{{ $bld->name }}</option>
+                                        @empty
+                                            <option value="0">{{ __('No data') }}</option>
+                                        @endforelse
+                                    </select>
+
+                                </div>
+                                @if($errors->has('building_id'))
+                                    <small class="invalid-feedback mt-1 d-block">{{ $errors->first('building_id') }}</small>
+                                @endif
+                            </div>
+                        @endif
+
+                        <!-- clone_count -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text required" id="clone_count">مرات التكرار</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="1" aria-label="سيتم التكرار بهذا العدد" aria-describedby="clone_count" wire:model.live="clone_count">
+
+                            </div>
+                            @if($errors->has('clone_count'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('clone_count') }}</small>
+                            @endif
+                        </div>
+
                         
                         <!-- Unit season -->
                         <div class="form-group">
@@ -160,7 +206,7 @@
                 <form class="w-100" wire:submit.prevent="updateUnit">
                     <div class="modal-body">
 
-                        <!-- Unit nume -->
+                        <!-- Unit name -->
                         <div class="mb-3">
                             <div class="input-group">
                                 <div class="input-group-append">
@@ -186,48 +232,54 @@
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_unit_size') }}</small>
                             @endif
                         </div>
+                        <!-- single beds -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text required" id="up_single_beds">الأسرة الفردية</span>
+                                </div>
+
+                                <input type="number" class="form-control" placeholder="1" aria-label="عدد الأسرة الفردية" aria-describedby="up_single_beds" wire:model.live="up_single_beds">
+                            </div>
+                            @if($errors->has('up_single_beds'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_single_beds') }}</small>
+                            @endif
+                        </div>
+                        <!-- double beds -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text required" id="up_double_beds">الأسرة الزوجية</span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="1" aria-label="عدد الأسرة الزوجية" aria-describedby="up_double_beds" wire:model.live="up_double_beds">
+
+                            </div>
+                            @if($errors->has('up_double_beds'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_double_beds') }}</small>
+                            @endif
+                        </div>
+
                         <!-- Unit accommodation -->
                         <div class="mb-3">
                             <div class="input-group">
                                 <div class="input-group-append">
-                                    <span class="input-group-text required" id="unit_accommodation">{{ __('Unit Accommodation') }}</span>
+                                    <span class="input-group-text required" id="up_unit_accommodation">{{ __('Unit Accommodation') }}</span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="50" aria-label="{{ __('Unit Accommodation') }}" aria-describedby="up_unit_accommodation" wire:model.defer="up_unit_accommodation">
+                                <input type="number" class="form-control" placeholder="50" aria-label="{{ __('Unit Accommodation') }}" aria-describedby="up_unit_accommodation" wire:model.live="up_unit_accommodation" disabled readonly>
                             </div>
                             @if($errors->has('up_unit_accommodation'))
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_unit_accommodation') }}</small>
                             @endif
                         </div>
-                        
-                        <!-- bed_type -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text required" id="bed_type">{{ __('Bed type') }}</span>
-                                </div>
 
-                                <select class="custom-select" name="bed_type" id="bed_type" aria-label="{{ __('bed_type') }}" aria-describedby="up_bed_type" wire:model.defer="up_bed_type">
-                                <option value="0">--اختر--</option>
-                                    @forelse ($bedTypes as $bed)
-                                        <option value="{{ $bed->id }}">{{ $bed->name }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-
-                            </div>
-                            @if($errors->has('up_bed_type'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_bed_type') }}</small>
-                            @endif
-                        </div>
                         <!-- unit_types -->
                         <div class="mb-3">
                             <div class="input-group">
                                 <div class="input-group-append">
-                                    <span class="input-group-text required" id="unit_type">{{ __('Unit type') }}</span>
+                                    <span class="input-group-text required" id="up_unit_type">{{ __('Unit type') }}</span>
                                 </div>
 
-                                <select class="custom-select" id="up_unit_type" aria-label="{{ __('unit_type') }}" aria-describedby="up_unit_type" wire:model.defer="up_unit_type">
+                                <select class="custom-select" id="up_unit_type" aria-label="{{ __('up_unit_type') }}" aria-describedby="up_unit_type" wire:model.defer="up_unit_type">
                                     <option value="0">--اختر--</option>
                                     @forelse ($unitTypes as $unit)
                                         <option value="{{ $unit->id }}">{{ $unit->name }}</option>
@@ -248,7 +300,7 @@
                                     <span class="input-group-text required" id="up_camp_id">{{ __('Camp') }}</span>
                                 </div>
 
-                                <select class="custom-select" id="up_camp_id" aria-label="{{ __('up_camp_id') }}" aria-describedby="up_camp_id" wire:model.defer="up_camp_id">
+                                <select class="custom-select" id="up_camp_id" aria-label="{{ __('up_camp_id') }}" aria-describedby="up_camp_id" wire:model.live="up_camp_id">
                                     <option value="0">--اختر--</option>
                                     @forelse ($camps as $camp)
                                         <option value="{{ $camp->id }}">{{ $camp->name }}</option>
@@ -262,6 +314,30 @@
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_camp_id') }}</small>
                             @endif
                         </div>
+                        <!-- buildings -->
+                        
+                        @if (isset($buildings) && count($buildings) > 0)
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text required" id="up_building_id">{{ __('Building') }}</span>
+                                    </div>
+
+                                    <select class="custom-select" id="up_building_id" aria-label="{{ __('up_building_id') }}" aria-describedby="up_building_id" wire:model.live="up_building_id">
+                                        <option value="0">--اختر--</option>
+                                        @forelse ($buildings as $bld)
+                                            <option value="{{ $bld->id }}">{{ $bld->name }}</option>
+                                        @empty
+                                            <option value="0">{{ __('No data') }}</option>
+                                        @endforelse
+                                    </select>
+
+                                </div>
+                                @if($errors->has('up_building_id'))
+                                    <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_building_id') }}</small>
+                                @endif
+                            </div>
+                        @endif
                         
                     </div>
                     <div class="modal-footer">
