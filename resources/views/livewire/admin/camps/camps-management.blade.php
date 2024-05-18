@@ -74,6 +74,28 @@
                             @endif
                         </div>
 
+                        <!-- Camp front_pilgrim_card -->
+                        <div class="form-group">
+                            <label for="description">وجه بطاقة الحاج</label>
+                            <input onclick="filemanager.selectFile('front_pilgrim_card')" name="front_pilgrim_card" type="text" class="form-control" id="front_pilgrim_card" wire:model.blur="front_pilgrim_card">
+                            @if($errors->has('front_pilgrim_card'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('front_pilgrim_card') }}</small>
+                            @else
+                                <small class="mt-1 d-block">أضف وجه بطاقة الحاج (سيتم طباعة بيانات الحاج عليه).</small>
+                            @endif
+                        </div>
+
+                        <!-- Camp back_pilgrim_card -->
+                        <div class="form-group">
+                            <label for="description">ظهر بطاقة الحاج</label>
+                            <input onclick="filemanager.selectFile('back_pilgrim_card')" name="back_pilgrim_card" type="text" class="form-control" id="back_pilgrim_card" wire:model.blur="back_pilgrim_card">
+                            @if($errors->has('back_pilgrim_card'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('back_pilgrim_card') }}</small>
+                            @else
+                                <small class="mt-1 d-block">أضف ظهر بطاقة الحاج (لن يتم طباعة شئ عليه).</small>
+                            @endif
+                        </div>
+
                         <!-- Camp description -->
                         <div class="form-group">
                             <label for="description">{{ __('Additional info') }}</label>
@@ -82,7 +104,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn me-auto" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                        <button type="submit" onclick="@this.frontBackPilgrimCardChanged(document.querySelector('#front_pilgrim_card').value, document.querySelector('#back_pilgrim_card').value)" class="btn btn-primary">{{ __('Save') }}</button>
                     </div>
                 </form>
         </div>
@@ -151,6 +173,27 @@
                                 <small class="mt-1 d-block">يتم اختيار موسم الحج تلقائياً بدلالة الموسم النشط.</small>
                             @endif
                         </div>
+                        <!-- Camp front_pilgrim_card -->
+                        <div class="form-group">
+                            <label for="description">وجه بطاقة الحاج</label>
+                            <input onclick="filemanager.selectFile('up_front_pilgrim_card')" name="up_front_pilgrim_card" type="text" class="form-control" id="up_front_pilgrim_card" wire:model.blur="up_front_pilgrim_card">
+                            @if($errors->has('up_front_pilgrim_card'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_front_pilgrim_card') }}</small>
+                            @else
+                                <small class="mt-1 d-block">أضف وجه بطاقة الحاج (سيتم طباعة بيانات الحاج عليه).</small>
+                            @endif
+                        </div>
+
+                        <!-- Camp back_pilgrim_card -->
+                        <div class="form-group">
+                            <label for="description">ظهر بطاقة الحاج</label>
+                            <input onclick="filemanager.selectFile('up_back_pilgrim_card')" name="up_back_pilgrim_card" type="text" class="form-control" id="up_back_pilgrim_card" wire:model.blur="up_back_pilgrim_card">
+                            @if($errors->has('up_back_pilgrim_card'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_back_pilgrim_card') }}</small>
+                            @else
+                                <small class="mt-1 d-block">أضف ظهر بطاقة الحاج (لن يتم طباعة شئ عليه).</small>
+                            @endif
+                        </div>
                         <!-- Camp description -->
                         <div class="form-group">
                             <label for="up_description">{{ __('Additional info') }}</label>
@@ -158,7 +201,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-                            <button type="submit" class="btn btn-primary">{{ __('Save Changes') }}</button>
+                            <button onclick="@this.frontBackPilgrimCardChanged(document.querySelector('#up_front_pilgrim_card').value, document.querySelector('#up_back_pilgrim_card').value)" type="submit" class="btn btn-primary">{{ __('Save Changes') }}</button>
                         </div>
                     </form>
                 </div>

@@ -189,6 +189,20 @@ class AdminController extends Controller
         return view('admin.pilgrims.pilgrims_management', compact('title', 'pageType', 'SEOData'));
 
     }
+    public function pilgrims_management_actions()
+    {
+        $title = 'عمليات فردية';
+        $pageType = 'pilgrims_management_actions';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.pilgrims.pilgrims_management_actions', compact('title', 'pageType', 'SEOData'));
+
+    }
     // End pilgrims_management
     // Start buses_management
     public function buses_management()

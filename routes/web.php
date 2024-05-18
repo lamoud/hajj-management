@@ -47,6 +47,7 @@ Route::middleware([
         Route::get('/dashboard/units-management', 'units_management')->name('units_management')->middleware(['can:units_view']);
         Route::get('/dashboard/units-management/types', 'units_management_type')->name('units_management_type')->middleware(['can:units_view']);
         Route::get('/dashboard/pilgrims-management', 'pilgrims_management')->name('pilgrims_management')->middleware(['can:pilgrims_view']);
+        Route::get('/dashboard/pilgrims_management_actions', 'pilgrims_management_actions')->name('pilgrims_management_actions')->middleware(['can:pilgrims_update']);
         
         Route::get('/dashboard/buses-management', 'buses_management')->name('buses_management')->middleware(['can:buses_view']);
         Route::get('/dashboard/bus_escalation', 'bus_escalation')->name('bus_escalation')->middleware(['can:buses_escalation']);

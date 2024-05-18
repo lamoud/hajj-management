@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('coordinates')->nullable();
             $table->unsignedBigInteger('season_id');
+            $table->string('back_pilgrim_card')->nullable();
+            $table->string('front_pilgrim_card')->nullable();
+            $table->string('back_user_card')->nullable();
+            $table->string('front_user_card')->nullable();
             $table->text('description')->nullable();
             $table->string('start_from');
             $table->string('end_to');

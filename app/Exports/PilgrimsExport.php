@@ -13,13 +13,17 @@ class PilgrimsExport implements FromCollection
 
     protected $units;
 
-    public function __construct(array $units)
+    public function __construct(array $units = null)
     {
         $this->units = $units;
     }
 
     public function collection()
     {
-        return Pilgrim::whereIn('id', $this->units)->get();
+        if( $this->units ){
+            return Pilgrim::whereIn('unit_id', $this->units)->get();
+        }else{
+            return Pilgrim::all();
+        }
     }
 }

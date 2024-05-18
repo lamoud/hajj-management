@@ -118,7 +118,7 @@
             @can('pilgrims_view')
             {{-- Start pilgrims-management --}}
                     @php
-                        $pilgrims_route = ['pilgrims_management'];
+                        $pilgrims_route = ['pilgrims_management', 'pilgrims_management_actions'];
                     @endphp
                     <li class="{{ in_array($pageType, $pilgrims_route) ? 'active' : '' }}">
                         <a href="{{ route('pilgrims_management') }}" data-toggle="collapse" data-target="#pilgrims" aria-expanded="{{ in_array($pageType, $pilgrims_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $pilgrims_route) ? '' : 'collapsed' }}">
@@ -129,8 +129,7 @@
                         </a>
                         <ul id="pilgrims" class="{{ in_array($pageType, $pilgrims_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'pilgrims_management' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management') }}">{{ __('Pilgrims management') }}</a> </li>
-                            <li class="{{ $pageType === 'pilgrims_management' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management') }}">{{ __('تسكين الحجاج') }}</a> </li>
-                            <li class="{{ $pageType === 'pilgrims_management' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management') }}">{{ __('تبديل الخيام') }}</a> </li>
+                            <li class="{{ $pageType === 'pilgrims_management_actions' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management_actions') }}">{{ __('عمليات فردية') }}</a> </li>
                         </ul>
                     </li>
             {{-- End pilgrims_management --}}

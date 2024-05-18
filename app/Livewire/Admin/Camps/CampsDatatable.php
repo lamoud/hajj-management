@@ -75,6 +75,22 @@ class CampsDatatable extends DataTableComponent
                 ->html()
                 ->sortable()
                 ->deselected(),
+            Column::make('', "back_pilgrim_card")->deselected(),
+            Column::make(__('Back card'))
+                ->label(
+                    fn($row, Column $column) => '<a href="'.$row->back_pilgrim_card.'" target="_blank"><img src="'.$row->back_pilgrim_card.'" style="width:50px"></img></a>'
+                )
+                ->html()
+                ->sortable()
+                ->deselected(),
+            Column::make('', "front_pilgrim_card")->deselected(),
+            Column::make(__('Front card'))
+                ->label(
+                    fn($row, Column $column) => '<a href="'.$row->front_pilgrim_card.'" target="_blank"><img src="'.$row->front_pilgrim_card.'" style="width:50px"></img><a>'
+                )
+                ->html()
+                ->sortable()
+                ->deselected(),
                 Column::make("Season", "season.name")
                 ->deselected(),
             Column::make(__('Address'), "address")

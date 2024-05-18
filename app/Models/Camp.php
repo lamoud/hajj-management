@@ -15,6 +15,11 @@ class Camp extends Model
         return $this->belongsTo(Season::class, 'season_id');
     }
 
+    public function back_card()
+    {
+        return $this->back_pilgrim_card;
+    }
+
     public function pilgrims()
     {
         return $this->hasMany(Pilgrim::class, 'camp_id');

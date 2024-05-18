@@ -13,25 +13,36 @@ return new class extends Migration
     {
         Schema::create('pilgrims', function (Blueprint $table) {
             $table->id();
-            $table->string('pilgrim_number')->unique();
+            $table->string('number')->nullable();
+            $table->string('declaration')->nullable();
             $table->string('name');
-            $table->string('national_id')->unique();
-            $table->string('nationality');
-            $table->enum('gender', ['male', 'female']);
-            $table->unsignedBigInteger('tent_id')->nullable();
+            $table->string('national_id')->nullable();
+            $table->string('nationality')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->unsignedBigInteger('building_id')->nullable();
             $table->unsignedBigInteger('camp_id')->nullable();
+            $table->unsignedBigInteger('arafa_id')->nullable();
+            $table->unsignedBigInteger('muzdalifah_id')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
-            $table->enum('arrival_type', ['internal', 'external']);
-            $table->unsignedBigInteger('agency_id');
-            $table->string('phone');
+            $table->unsignedBigInteger('bus_id')->nullable();
+            $table->enum('arrival_type', ['internal', 'external'])->nullable();
+            $table->unsignedBigInteger('agency_id')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('phone2')->nullable();
             $table->string('image')->nullable();
             $table->json('extra')->nullable();
             $table->unsignedBigInteger('season_id');
+            $table->string('slug')->unique();
             $table->timestamps();
+
+            $table->softDeletes();
     
-            $table->foreign('tent_id')->references('id')->on('tents')->onDelete('cascade');
+            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
+            $table->foreign('bus_id')->references('id')->on('buses')->onDelete('cascade');
             $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
+            $table->foreign('arafa_id')->references('id')->on('camps')->onDelete('cascade');
+            $table->foreign('muzdalifah_id')->references('id')->on('camps')->onDelete('cascade');
             $table->foreign('agency_id')->references('id')->on('agencies')->onDelete('cascade');
             $table->foreign('season_id')->references('id')->on('seasons')->onDelete('cascade');
 
