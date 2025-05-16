@@ -94,7 +94,7 @@ function get_words($str, $count = 10)
     );
 }
 
-function seTools (string $title, string $disc, string $type = 'home', string $url, string $keyword, $cat = '', $img='')
+function seTools (string $title, string $disc, string $url, string $keyword, string $type = 'home', $cat = '', $img='')
 {
     SEOMeta::setTitle($title .' &raquo; '. settings('appName') ?? config('app.name'), '' );
     SEOMeta::setDescription( $disc );

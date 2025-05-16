@@ -149,13 +149,13 @@
                         </a>
                         <ul id="buses" class="{{ in_array($pageType, $buses_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'buses_management' ? 'active' : '' }}"> <a href="{{ route('buses_management') }}">{{ __('Buses management') }}</a> </li>
-                            <li class="{{ $pageType === 'bus_escalation' ? 'active' : '' }}"> <a href="{{ route('bus_escalation') }}">{{ __('Bus escalation') }}</a> </li>
-                            <li class="{{ $pageType === 'buses_swap' ? 'active' : '' }}"> <a href="{{ route('buses_swap') }}">{{ __('Buses swap') }}</a> </li>
+                            {{-- <li class="{{ $pageType === 'bus_escalation' ? 'active' : '' }}"> <a href="{{ route('bus_escalation') }}">{{ __('Bus escalation') }}</a> </li>
+                            <li class="{{ $pageType === 'buses_swap' ? 'active' : '' }}"> <a href="{{ route('buses_swap') }}">{{ __('Buses swap') }}</a> </li> --}}
                         </ul>
                     </li>
             {{-- End buses_management --}}
             @endcan
-            @can('gift_view')
+            @can('gifts_view')
             {{-- Start gift_management --}}
                     @php
                         $gifts_route = ['gift_management', 'gift_distribution'];
@@ -215,19 +215,20 @@
             @can('employees_view')
             {{-- Start employee_management --}}
                     @php
-                        $employees_route = ['employees_management', 'employee_salaries', 'employee_rewards', 'employee_requests', 'employee_positions'];
+                        $employees_route = ['employees_management', 'employee_salaries', 'employee_rewards', 'employee_requests', 'employees_positions_categories', 'employee_positions'];
                     @endphp
                     <li class="{{ in_array($pageType, $employees_route) ? 'active' : '' }}">
                         <a href="{{ route('employees_management') }}" data-toggle="collapse" data-target="#employees" aria-expanded="{{ in_array($pageType, $employees_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $employees_route) ? '' : 'collapsed' }}">
-                            <div class="pull-left"><i class="fa fa-user-md"></i><span class="right-nav-text">{{ __('إدارة الموظفين') }}</span>
+                            <div class="pull-left"><i class="fa fa-user-md"></i><span class="right-nav-text">{{ __('Employees management') }}</span>
                             </div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="employees" class="{{ in_array($pageType, $employees_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'employees_management' ? 'active' : '' }}"> <a href="{{ route('employees_management') }}">{{ __('Employees management') }}</a> </li>
-                            <li class="{{ $pageType === 'employee_salaries' ? 'active' : '' }}"> <a href="{{ route('employee_salaries') }}">{{ __('Salaries') }}</a> </li>
-                            <li class="{{ $pageType === 'employee_rewards' ? 'active' : '' }}"> <a href="{{ route('employee_rewards') }}">{{ __('Rewards') }}</a> </li>
+                            {{-- <li class="{{ $pageType === 'employee_salaries' ? 'active' : '' }}"> <a href="{{ route('employee_salaries') }}">{{ __('Salaries') }}</a> </li>
+                            <li class="{{ $pageType === 'employee_rewards' ? 'active' : '' }}"> <a href="{{ route('employee_rewards') }}">{{ __('Rewards') }}</a> </li> --}}
+                            <li class="{{ $pageType === 'employees_positions_categories' ? 'active' : '' }}"> <a href="{{ route('employees_positions_categories') }}">{{ __('تصنيفات الوظائف') }}</a> </li>
                             <li class="{{ $pageType === 'employee_positions' ? 'active' : '' }}"> <a href="{{ route('employee_positions') }}">{{ __('Positions') }}</a> </li>
                             <li class="{{ $pageType === 'employee_requests' ? 'active' : '' }}"> <a href="{{ route('employee_requests') }}">{{ __('Employment applications') }}</a> </li>
                         </ul>

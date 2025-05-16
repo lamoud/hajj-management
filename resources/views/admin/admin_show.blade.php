@@ -195,6 +195,75 @@
             </div>
             </div>
         </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-20">
+            <div class="card card-statistics h-100">
+            <div class="card-body">
+                <div class="clearfix">
+                <div class="float-left">
+                    <span class="text-info">
+                    <i class="fa fa-briefcase highlight-icon" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="float-right text-end">
+                    <p class="card-text text-dark">المسميات الوظيفية</p>
+                    <h4>{{ $jobs ?? 0 }}</h4>
+                </div>
+                </div>
+                <p class="text-muted pt-3 mb-0 mt-2 border-top">
+                    <a href="{{ route('employee_positions') }}">
+                        <i class="fa fa-folder-open me-1" aria-hidden="true"></i> جميع الوظائف
+                    </a>
+                </p>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-20">
+            <div class="card card-statistics h-100">
+            <div class="card-body">
+                <div class="clearfix">
+                <div class="float-left">
+                    <span class="text-success">
+                    <i class="fa fa-address-card highlight-icon" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="float-right text-end">
+                    <p class="card-text text-dark">الموظفين</p>
+                    <h4>{{ $emloyes ?? 0 }}</h4>
+                </div>
+                </div>
+                <p class="text-muted pt-3 mb-0 mt-2 border-top">
+                    <a href="{{ route('employees_management') }}">
+                        <i class="fa fa-folder-open me-1" aria-hidden="true"></i> جميع الموظفين
+                    </a>
+                </p>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 mb-20">
+            <div class="card card-statistics h-100">
+            <div class="card-body">
+                <div class="clearfix">
+                <div class="float-left">
+                    <span class="text-warning">
+                    <i class="fa fa-first-order	 highlight-icon" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="float-right text-end">
+                    <p class="card-text text-dark">طلبات التوظيف</p>
+                    <h4>{{ $emloyReq ?? 0 }}</h4>
+                </div>
+                </div>
+                <p class="text-muted pt-3 mb-0 mt-2 border-top">
+                    <a href="{{ route('employee_requests') }}">
+                        <i class="fa fa-folder-open me-1" aria-hidden="true"></i> جميع الطلبات
+                    </a>
+                </p>
+            </div>
+            </div>
+        </div>
         
     </div>
 

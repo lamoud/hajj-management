@@ -47,7 +47,7 @@
 
 <!-- headar section start -->
 <header>
-<div class="headerarea headerarea__2 header__sticky header__area">
+{{-- <div class="headerarea headerarea__2 header__sticky header__area">
     <div class="container desktop__menu__wrapper">
         <div class="row">
             <div class="col-xl-2 col-lg-2 col-md-6">
@@ -321,13 +321,13 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 </header>
 <!-- header section end -->
 <!-- Mobile Menu Start Here -->
 <div class="mobile-off-canvas-active">
 <a class="mobile-aside-close"><i class="icofont icofont-close-line"></i></a>
-<div class="header-mobile-aside-wrap">
+{{-- <div class="header-mobile-aside-wrap">
     <div class="mobile-search">
         <form class="search-form" action="#">
             <input type="text" placeholder="{{ __('Search') }}">
@@ -409,7 +409,7 @@
         <a class="instagram" href="{{ settings('appInstagram') ?? 'javascript:void(0)' }}"><i class="icofont icofont-instagram"></i></a>
         <a class="google" href="{{ settings('appYoutube') ?? 'javascript:void(0)' }}"><i class="icofont icofont-youtube-play"></i></a>
     </div>
-</div>
+</div> --}}
 </div>
 <!-- Mobile Menu End Here -->
 <!-- theme fixed shadow -->

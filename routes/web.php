@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmploymentApplicationController;
 use App\Http\Controllers\ProfileSettingsController;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -67,8 +68,9 @@ Route::middleware([
         Route::get('/dashboard/employees_management', 'employees_management')->name('employees_management')->middleware(['can:employees_view']);
         Route::get('/dashboard/employees_salaries', 'employee_salaries')->name('employee_salaries')->middleware(['can:employees_view']);
         Route::get('/dashboard/employees_rewards', 'employee_rewards')->name('employee_rewards')->middleware(['can:employees_view']);
-        Route::get('/dashboard/employees_requests', 'employee_requests')->name('employee_requests')->middleware(['can:employees_view']);
+        Route::get('/dashboard/employment_applications', 'employee_requests')->name('employee_requests')->middleware(['can:employees_view']);
         Route::get('/dashboard/employees_positions', 'employee_positions')->name('employee_positions')->middleware(['can:employees_view']);
+        Route::get('/dashboard/employees_positions_categories', 'employees_positions_categories')->name('employees_positions_categories')->middleware(['can:employees_view']);
 
         // Start media
         Route::get('/dashboard/media', 'admin_media')->name('admin_media');
@@ -102,4 +104,9 @@ Route::middleware([
         Route::get('/user/profile-show/{email}', 'user_profile')->name('user_profile');
     });
 
+});
+
+
+Route::controller(EmploymentApplicationController::class)->group(function () {
+    Route::get('/employment_application', 'show')->name('employment_application');
 });

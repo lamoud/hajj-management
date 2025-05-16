@@ -13,119 +13,328 @@ use Spatie\Permission\PermissionRegistrar;
 
 class RolesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    private array $roles = [
+        'super_admin' => ['display_name' => 'المدير العام', 'display_name_en' => 'Super Administrator', 'color' => 'purple'],
+        'admin' => ['display_name' => 'مدير', 'display_name_en' => 'Administrator'],
+        'user' => ['display_name' => 'مستخدم', 'display_name_en' => 'User'],
+    ];
+
+    private array $permissionGroups = [
+        // صلاحيات المدير - إدارة لوحة التحكم
+        'admin' => [
+            'view' => ['عرض لوحة التحكم', 'View dashboard'],
+        ],
+
+        // صلاحيات الأدوار - إدارة صلاحيات المستخدمين
+        'roles' => [
+            'view' => ['عرض الصلاحيات', 'View roles'],
+            'add' => ['إضافة صلاحيات', 'Add roles'],
+            'update' => ['تعديل الصلاحيات', 'Update roles'],
+            'delete' => ['حذف صلاحيات', 'Delete roles'],
+        ],
+
+        // صلاحيات المستخدمين - إدارة حسابات المستخدمين
+        'users' => [
+            'view' => ['عرض المستخدمين', 'View users'],
+            'add' => ['إضافة مستخدمين', 'Add users'],
+            'update' => ['تعديل مستخدمين', 'Update users'],
+            'delete' => ['حذف مستخدمين', 'Delete users'],
+        ],
+
+        // صلاحيات الإعدادات - إدارة إعدادات النظام
+        'settings' => [
+            'view' => ['عرض الإعدادات', 'View settings'],
+            'update' => ['تعديل الإعدادات', 'Update settings'],
+            'upload_logo' => ['رفع شعار الموقع', 'Upload site logo'],
+            'add_description' => ['اضافة وصف الموقع', 'Add site description'],
+            'update_description' => ['تعديل وصف الموقع', 'Update site description'],
+            'delete_description' => ['حذف وصف الموقع', 'Delete site description']
+        ],
+
+        // صلاحيات الملفات - إدارة الوسائط والمرفقات
+        'media' => [
+            'view' => ['عرض الوسائط', 'View media'],
+            'add' => ['إضافة وسائط', 'Add media'],
+            'update' => ['تعديل وسائط', 'Update media'],
+            'delete' => ['حذف وسائط', 'Delete media'],
+        ],
+
+        // صلاحيات المواسم - إدارة مواسم الحج
+        'season' => [
+            'view' => ['عرض مواسم الحج', 'View season'],
+            'add' => ['إضافة موسم حج', 'Add season'],
+            'update' => ['تعديل موسم حج', 'Update season'],
+            'delete' => ['حذف موسم حج', 'Delete season'],
+        ],
+
+        // صلاحيات الجهات - إدارة الجهات المسؤولة
+        'agency' => [
+            'view' => ['عرض الجهات', 'View agency'],
+            'add' => ['إضافة جهة', 'Add agency'],
+            'update' => ['تعديل جهة', 'Update agency'],
+            'delete' => ['حذف جهة', 'Delete agency'],
+        ],
+
+        // صلاحيات المخيمات - إدارة المخيمات
+        'camps' => [
+            'view' => ['عرض المخيمات', 'View camps'],
+            'add' => ['إضافة مخيم', 'Add camp'],
+            'update' => ['تعديل مخيم', 'Update camp'],
+            'delete' => ['حذف مخيم', 'Delete camp'],
+            'upload_pilgrim_front' => ['رفع تصميم بطاقة الحاج', 'Upload pilgrim card front design'],
+            'upload_pilgrim_back' => ['رفع تصميم البطاقة الخلفية للحجاج', 'Upload pilgrim card back design']
+        ],
+
+        // صلاحيات الوحدات السكنية - إدارة الوحدات
+        'units' => [
+            'view' => ['عرض الوحدات', 'View units'],
+            'add' => ['إضافة وحدة', 'Add unit'],
+            'update' => ['تعديل وحدة', 'Update unit'],
+            'delete' => ['حذف وحدة', 'Delete unit'],
+        ],
+
+        // صلاحيات الحجاج - إدارة بيانات الحجاج
+        'pilgrims' => [
+            'view' => ['عرض الحجاج', 'View pilgrims'],
+            'add' => ['إدخال بيانات الحجاج', 'Add pilgrim data'],
+            'update' => ['تعديل بيانات الحجاج', 'Update pilgrim data'],
+            'delete' => ['حذف بيانات الحجاج', 'Delete pilgrim data'],
+            'archive' => ['أرشفة بيانات الحجاج', 'Archive pilgrim data'],
+            'print_card' => ['طباعة بطاقة الحاج', 'Print pilgrim card'],
+            'update_name' => ['تعديل اسم الحاج', 'Update pilgrim name'],
+            'update_id' => ['تعديل رقم هوية الحاج', 'Update pilgrim ID'],
+            'update_permit' => ['تعديل رقم تصريح الحاج', 'Update pilgrim permit'],
+            'housing' => ['تسكين الحاج', 'Pilgrim housing'],
+            'tent_transfer' => ['نقل الحاج بين الخيام', 'Transfer pilgrim between tents'],
+            'bus_transfer' => ['نقل الحاج بين الباصات', 'Transfer pilgrim between buses'],
+            'escalate' => ['تصعيد الحاج', 'Escalate pilgrim'],
+            'show_barcode' => ['اظهار باركود الحاج من الجدول', 'Show pilgrim barcode in table'],
+            'hide_barcode' => ['اخفاء باركود الحاج من الجدول', 'Hide pilgrim barcode in table'],
+        ],
+
+        // صلاحيات الباصات - إدارة وسائل النقل
+        'buses' => [
+            'view' => ['عرض الباصات', 'View buses'],
+            'add' => ['إضافة باص', 'Add bus'],
+            'update' => ['تعديل باص', 'Update bus'],
+            'delete' => ['حذف باص', 'Delete bus'],
+        ],
+
+        // صلاحيات الهدايا - إدارة الهدايا وتوزيعها
+        'gifts' => [
+            'view' => ['عرض الهدايا', 'View gifts'],
+            'add' => ['إضافة هدية', 'Add gift'],
+            'update' => ['تعديل هدية', 'Update gift'],
+            'delete' => ['حذف هدية', 'Delete gift'],
+            'distribution' => ['توزيع الهدايا', 'Gift distribution'],
+            'hide_page' => ['اخفاء صفحة الهدايا وقائمة الهدايا', 'Hide gifts page and list'],
+        ],
+
+        // صلاحيات الخدمات - إدارة الخدمات المقدمة
+        'services' => [
+            'view' => ['عرض الخدمات', 'View services'],
+            'add' => ['إضافة خدمة', 'Add service'],
+            'update' => ['تعديل خدمة', 'Update service'],
+            'delete' => ['حذف خدمة', 'Delete service'],
+            'providing' => ['تقديم خدمة', 'Service providing'],
+            'hide_page' => ['اخفاء صفحة الخدمات وقائمة الخدمات', 'Hide services page and list'],
+        ],
+
+        // صلاحيات المرفقات - إدارة الأساور والاستيكرات
+        'attachments' => [
+            'view' => ['عرض الأساور والإستيكرات', 'View attachments'],
+            'add' => ['إضافة أساور واستيكرات', 'Add attachment'],
+            'update' => ['تعديل أساور واستيكرات', 'Update attachment'],
+            'delete' => ['حذف أساور واستيكرات', 'Delete attachment'],
+            'print' => ['طباعة أساور واستيكرات', 'Print attachment'],
+            'delivery' => ['تسليم أساور واستيكرات', 'Delivery attachment'],
+            'show' => ['اظهار المرفقات', 'Show attachments'],
+            'hide' => ['اخفاء المرفقات', 'Hide attachments'],
+            'upload' => ['رفع المرفقات', 'Upload attachments'],
+        ],
+
+        // صلاحيات الموظفين - إدارة شؤون الموظفين
+        'employees' => [
+            'view' => ['عرض الموظفين', 'View employees'],
+            'add' => ['إضافة موظف', 'Add employee'],
+            'update' => ['تعديل موظف', 'Update employee'],
+            'delete' => ['حذف موظف', 'Delete employee'],
+            'archive' => ['ارشفة موظف', 'Archive employee'],
+            'print_card' => ['طباعة بطاقة موظف', 'Print employee card'],
+            'print_experience' => ['طباعة شهادة الخبرة', 'Print experience certificate'],
+            'add_salary' => ['اضافة الراتب', 'Add salary'],
+            'update_salary' => ['تعديل الراتب', 'Update salary'],
+            'delete_salary' => ['حذف الراتب', 'Delete salary'],
+            'deliver_salary' => ['تسليم راتب موظف', 'Delivery employee salary'],
+            'show_salary' => ['اظهار راتب الموظف', 'Show employee salary'],
+            'hide_salary' => ['اخفاء راتب الموظف', 'Hide employee salary'],
+            'add_bonus' => ['اضافة مكافئة', 'Add bonus'],
+            'update_bonus' => ['تعديل مكافئة', 'Update bonus'],
+            'delete_bonus' => ['حذف مكافئة', 'Delete bonus'],
+            'deliver_bonus' => ['تسليم المكافئة', 'Deliver bonus'],
+            'show_bonus' => ['اظهار مكافئة الموظف', 'Show employee bonus'],
+            'hide_bonus' => ['اخفاء مكافئة الموظف', 'Hide employee bonus'],
+            'upload_id_image' => ['تحميل مرفقات صورة الهوية', 'Upload ID image'],
+            'show_id_image' => ['اظهار مرفقات صورة الهوية', 'Show ID image'],
+            'hide_id_image' => ['اخفاء مرفقات صورة الهوية', 'Hide ID image'],
+            'show_id_date' => ['اظهار تاريخ هوية الموظف', 'Show employee ID date'],
+            'hide_id_date' => ['اخفاء تاريخ هوية الموظف', 'Hide employee ID date'],
+            'upload_photo' => ['رفع الصورة الشخصية للموظفين', 'Upload employee photo'],
+            'upload_card_front' => ['رفع تصميم بطاقة الموظفين', 'Upload employee card front design'],
+            'upload_card_back' => ['رفع تصميم البطاقة الخلفية للموظفين', 'Upload employee card back design'],
+
+        ],
+
+        // صلاحيات المباني - إدارة المباني
+        'buildings' => [
+            'view' => ['عرض البنايات', 'View buildings'],
+            'add' => ['إضافة مبنى', 'Add building'],
+            'update' => ['تعديل مبنى', 'Update building'],
+            'delete' => ['حذف مبنى', 'Delete building'],
+            'print' => ['طباعة المباني', 'Print building'],
+        ],
+
+        // صلاحيات الخيام - إدارة الخيام
+        'tents' => [
+            'add' => ['اضافة خيمة', 'Add tent'],
+            'update' => ['تعديل خيمة', 'Update tent'],
+            'delete' => ['حذف خيمة', 'Delete tent'],
+            'add_beds' => ['اضافة عدد السرر في كل خيمة', 'Add beds count per tent'],
+            'update_beds' => ['تعديل عدد السرر في كل خيمة', 'Update beds count per tent'],
+            'add_type' => ['اضافة نوع الخيام رجال او نساء او خاصة', 'Add tent type (men/women/special)'],
+            'update_type' => ['تعديل نوع الخيام رجال او نساء او خاصة', 'Update tent type (men/women/special)'],
+            'add_bed_type' => ['اضافة نوع السرير مفرد ثنائي', 'Add bed type (single/double)'],
+            'update_bed_type' => ['تعديل نوع السرير مفرد ثنائي', 'Update bed type (single/double)'],
+            'add_capacity' => ['اضافة عدد الحجاج للخيمة', 'Add tent pilgrim capacity'],
+            'update_capacity' => ['تعديل عدد الحجاج للخيمة', 'Update tent pilgrim capacity'],
+        ],
+
+        // صلاحيات القدوم والمغادرة - إدارة حركة الحجاج
+        'arrival_departure' => [
+            'add' => ['ادخال بيانات القدوم والمغادرة', 'Add arrival/departure data'],
+            'update' => ['تعديل بيانات القدوم والمغادرة', 'Update arrival/departure data'],
+            'delete' => ['حذف بيانات القدوم والمغادرة', 'Delete arrival/departure data'],
+        ],
+
+        // صلاحيات الأقسام الوظيفية - إدارة الأقسام
+        'departments' => [
+            'add' => ['اضافة قسم وظيفي', 'Add department'],
+            'update' => ['تعديل قسم وظيفي', 'Update department'],
+            'delete' => ['حذف قسم وظيفي', 'Delete department'],
+        ],
+
+        // صلاحيات المسميات الوظيفية - إدارة المسميات
+        'job_titles' => [
+            'add' => ['اضافة مسمى وظيفي', 'Add job title'],
+            'update' => ['تعديل مسمى وظيفي', 'Update job title'],
+            'delete' => ['حذف مسمى وظيفي', 'Delete job title'],
+        ],
+        'messaging' => [
+            'whatsapp' => ['ارسال رسائل الواتساب', 'Send WhatsApp messages'],
+            'sms' => ['ارسال رسائل SMS', 'Send SMS messages']
+        ],
+        'exports' => [
+            'excel' => ['تصدير ملف اكسل', 'Export Excel file'],
+            'pdf' => ['تصدير ملف PDF', 'Export PDF file']
+        ],
+        'table_columns' => [
+            'toggle' => ['امكانية اظهار واخفاء الاعمدة في الجدول', 'Toggle table columns visibility']
+        ],
+        'reports' => [
+            'show' => ['اظهار التقارير', 'Show reports'],
+            'hide' => ['اخفاء التقارير', 'Hide reports']
+        ],
+        'stickers' => [
+            'show_print' => ['اظهار خيار طباعة الاستكر', 'Show sticker print option'],
+            'hide_print' => ['اخفاء خيار طباعة الاستكر', 'Hide sticker print option'],
+            'select_fields' => ['اختيار حقول الاستكر', 'Select sticker fields']
+        ],
+        'maps' => [
+            'add' => ['اضافة خرائط المخيمات والخيام والمرافق', 'Add camps, tents and facilities maps'],
+            'update' => ['تعديل خرائط المخيمات والخيام والمرافق', 'Update camps, tents and facilities maps'],
+            'delete' => ['حذف خرائط المخيمات والخيام والمرافق', 'Delete camps, tents and facilities maps'],
+            'add_google_maps' => ['اضافة روابط قوقل ماب في المخيمات والخيام والمرافق', 'Add Google Maps links for camps, tents and facilities'],
+            'update_google_maps' => ['تعديل روابط قوقل ماب في المخيمات والخيام والمرافق', 'Update Google Maps links for camps, tents and facilities'],
+            'delete_google_maps' => ['حذف روابط قوقل ماب في المخيمات والخيام والمرافق', 'Delete Google Maps links for camps, tents and facilities']
+        ],
+        'print' => [
+            'show_png' => ['اظهار خيار طباعة البطاقة png', 'Show PNG card print option'],
+            'hide_png' => ['اخفاء خيار طباعة البطاقة png', 'Hide PNG card print option'],
+            'show_pdf' => ['اظهار خيار طباعة البطاقة pdf', 'Show PDF card print option'],
+            'hide_pdf' => ['اخفاء خيار طباعة البطاقة pdf', 'Hide PDF card print option'],
+            'show_direct' => ['اظهار خيار طباعة البطاقة امر الطباعة المباشرة', 'Show direct print option'],
+            'hide_direct' => ['اخفاء خيار طباعة البطاقة امر الطباعة المباشرة', 'Hide direct print option'],
+            'count_show' => ['اظهار عدد مرات طباعة البطاقات لكل حاج وموظف', 'Show card print count per pilgrim and employee'],
+            'count_hide' => ['اخفاء عدد مرات طباعة البطاقات لكل حاج وموظف', 'Hide card print count per pilgrim and employee']
+
+        ],
+        'notes' => [
+            'add' => ['اضافة ملاحظات', 'Add notes']
+        ],
+    ];
+
+    private array $defaultUsers = [
+        'super_admin' => [
+            'name' => 'Super Admin',
+            'email' => 'betalamoud@gmail.com',
+            'password' => 'Admin_123@#',
+        ],
+        'admin' => [
+            'name' => 'Admin',
+            'email' => 'admin@betalamoud.com',
+            'password' => 'Admin_123@#',
+        ],
+    ];
+
     public function run(): void
     {
-        $superAdminRole = Role::create(['guard_name'=>'web','name' => 'super_admin', 'display_name'=> 'المدير العام', 'display_name_en'=> 'Super Administrator', 'color'=> 'purple']);
-        $adminRole = Role::create(['guard_name'=>'web','name' => 'admin', 'display_name'=> 'مدير', 'display_name_en'=> 'Administrator']);
-        $userRole = Role::create(['guard_name'=>'web','name' => 'user', 'display_name'=> 'مستخدم', 'display_name_en'=> 'User']);
-    
-        $admin_view = Permission::create(['guard_name'=>'web','name' => 'admin_view', 'display_name'=> 'عرض  لوحة التحكم', 'display_name_en'=> 'View dashboard']);
+        $this->createRoles();
+        $this->createPermissions();
+        $this->assignPermissionsToRoles();
+        $this->createDefaultUsers();
+    }
 
-        $roles_view = Permission::create(['guard_name'=>'web','name' => 'roles_view', 'display_name'=> 'عرض  الصلاحيات', 'display_name_en'=> 'View roles']);
-        $roles_add = Permission::create(['guard_name'=>'web','name' => 'roles_add', 'display_name'=> 'إضافة صلاحيات', 'display_name_en'=> 'Add roles']);
-        $roles_update = Permission::create(['guard_name'=>'web','name' => 'roles_update', 'display_name'=> 'تعديل الصلاحيات', 'display_name_en'=> 'Update roles']);
-        $roles_delete = Permission::create(['guard_name'=>'web','name' => 'roles_delete', 'display_name'=> 'حذف صلاحيات', 'display_name_en'=> 'Delete roles']);
+    private function createRoles(): void
+    {
+        foreach ($this->roles as $name => $attributes) {
+            $roleData = ['guard_name' => 'web', 'name' => $name] + $attributes;
+            Role::create($roleData);
+        }
+    }
 
-        $users_view = Permission::create(['guard_name'=>'web','name' => 'users_view', 'display_name'=> 'عرض  المستخدمين', 'display_name_en'=> 'View users']);
-        $users_add = Permission::create(['guard_name'=>'web','name' => 'users_add', 'display_name'=> 'إضافة مستخدمين', 'display_name_en'=> 'Add users']);
-        $users_update = Permission::create(['guard_name'=>'web','name' => 'users_update', 'display_name'=> 'تعديل مستخدمين', 'display_name_en'=> 'Update users']);
-        $users_delete = Permission::create(['guard_name'=>'web','name' => 'users_delete', 'display_name'=> 'حذف مستخدمين', 'display_name_en'=> 'Delete users']);
+    private function createPermissions(): void
+    {
+        foreach ($this->permissionGroups as $group => $permissions) {
+            foreach ($permissions as $action => $labels) {
+                $name = ($group === 'admin') ? 'admin_view' : "{$group}_{$action}";
+                Permission::create([
+                    'guard_name' => 'web',
+                    'name' => $name,
+                    'display_name' => $labels[0],
+                    'display_name_en' => $labels[1],
+                ]);
+            }
+        }
+    }
 
-        $settings_view = Permission::create(['guard_name'=>'web','name' => 'settings_view', 'display_name'=> 'عرض الإعدادات', 'display_name_en'=> 'View settings']);
-        $settings_update = Permission::create(['guard_name'=>'web','name' => 'settings_update', 'display_name'=> 'تعديل الإعدادات', 'display_name_en'=> 'Update settings']);
-
-        $media_view = Permission::create(['guard_name'=>'web','name' => 'media_view', 'display_name'=> 'عرض  الجهات', 'display_name_en'=> 'View media']);
-        $media_add = Permission::create(['guard_name'=>'web','name' => 'media_add', 'display_name'=> 'إضافة جهة', 'display_name_en'=> 'Add media']);
-        $media_update = Permission::create(['guard_name'=>'web','name' => 'media_update', 'display_name'=> 'تعديل جهة', 'display_name_en'=> 'Update media']);
-        $media_delete = Permission::create(['guard_name'=>'web','name' => 'media_delete', 'display_name'=> 'حذف جهة', 'display_name_en'=> 'Delete media']);
-
-        $season_view = Permission::create(['guard_name'=>'web','name' => 'season_view', 'display_name'=> 'عرض مواسم الحج', 'display_name_en'=> 'View season']);
-        $season_add = Permission::create(['guard_name'=>'web','name' => 'season_add', 'display_name'=> 'إضافة موسم حج', 'display_name_en'=> 'Add season']);
-        $season_update = Permission::create(['guard_name'=>'web','name' => 'season_update', 'display_name'=> 'تعديل موسم حج', 'display_name_en'=> 'Update aseason']);
-        $season_delete = Permission::create(['guard_name'=>'web','name' => 'season_delete', 'display_name'=> 'حذف موسم حج', 'display_name_en'=> 'Delete season']);
-
-        $agency_view = Permission::create(['guard_name'=>'web','name' => 'agency_view', 'display_name'=> 'عرض  الجهات', 'display_name_en'=> 'View agency']);
-        $agency_add = Permission::create(['guard_name'=>'web','name' => 'agency_add', 'display_name'=> 'إضافة جهة', 'display_name_en'=> 'Add agency']);
-        $agency_update = Permission::create(['guard_name'=>'web','name' => 'agency_update', 'display_name'=> 'تعديل جهة', 'display_name_en'=> 'Update agency']);
-        $agency_delete = Permission::create(['guard_name'=>'web','name' => 'agency_delete', 'display_name'=> 'حذف جهة', 'display_name_en'=> 'Delete agency']);
-
-        $camps_view = Permission::create(['guard_name'=>'web','name' => 'camps_view', 'display_name'=> 'عرض  المحيمات', 'display_name_en'=> 'View camps']);
-        $camps_add = Permission::create(['guard_name'=>'web','name' => 'camps_add', 'display_name'=> 'إضافة مخيم', 'display_name_en'=> 'Add camp']);
-        $camps_update = Permission::create(['guard_name'=>'web','name' => 'camps_update', 'display_name'=> 'تعديل مخيم', 'display_name_en'=> 'Update camp']);
-        $camps_delete = Permission::create(['guard_name'=>'web','name' => 'camps_delete', 'display_name'=> 'حذف مخيم', 'display_name_en'=> 'Delete camp']);
-
-        $units_view = Permission::create(['guard_name'=>'web','name' => 'units_view', 'display_name'=> 'عرض  الوحدات', 'display_name_en'=> 'View units']);
-        $units_add = Permission::create(['guard_name'=>'web','name' => 'units_add', 'display_name'=> 'إضافة وحدة', 'display_name_en'=> 'Add unit']);
-        $units_update = Permission::create(['guard_name'=>'web','name' => 'units_update', 'display_name'=> 'تعديل وحدة', 'display_name_en'=> 'Update unit']);
-        $units_delete = Permission::create(['guard_name'=>'web','name' => 'units_delete', 'display_name'=> 'حذف وحدة', 'display_name_en'=> 'Delete unit']);
-
-        $pilgrims_view = Permission::create(['guard_name'=>'web','name' => 'pilgrims_view', 'display_name'=> 'عرض  الحجاج', 'display_name_en'=> 'View pilgrims']);
-        $pilgrims_add = Permission::create(['guard_name'=>'web','name' => 'pilgrims_add', 'display_name'=> 'إضافة حاج', 'display_name_en'=> 'Add pilgrim']);
-        $pilgrims_update = Permission::create(['guard_name'=>'web','name' => 'pilgrims_update', 'display_name'=> 'تعديل حاج', 'display_name_en'=> 'Update pilgrim']);
-        $pilgrims_delete = Permission::create(['guard_name'=>'web','name' => 'pilgrims_delete', 'display_name'=> 'حذف حاج', 'display_name_en'=> 'Delete pilgrim']);
-
-        $buses_view = Permission::create(['guard_name'=>'web','name' => 'buses_view', 'display_name'=> 'عرض الباصات', 'display_name_en'=> 'View buses']);
-        $buses_add = Permission::create(['guard_name'=>'web','name' => 'buses_add', 'display_name'=> 'إضافة باص', 'display_name_en'=> 'Add bus']);
-        $buses_update = Permission::create(['guard_name'=>'web','name' => 'buses_update', 'display_name'=> 'تعديل ياص', 'display_name_en'=> 'Update bus']);
-        $buses_delete = Permission::create(['guard_name'=>'web','name' => 'buses_delete', 'display_name'=> 'حذف ياص', 'display_name_en'=> 'Delete bus']);
-
-        $gifts_view = Permission::create(['guard_name'=>'web','name' => 'gifts_view', 'display_name'=> 'عرض الهدايا', 'display_name_en'=> 'View gifts']);
-        $gift_add = Permission::create(['guard_name'=>'web','name' => 'gift_add', 'display_name'=> 'إضافة هدية', 'display_name_en'=> 'Add gift']);
-        $gift_update = Permission::create(['guard_name'=>'web','name' => 'gift_update', 'display_name'=> 'تعديل هدية', 'display_name_en'=> 'Update gift']);
-        $gift_delete = Permission::create(['guard_name'=>'web','name' => 'gift_delete', 'display_name'=> 'حذف هدية', 'display_name_en'=> 'Delete gift']);
-        $gift_distribution = Permission::create(['guard_name'=>'web','name' => 'gift_distribution', 'display_name'=> 'توزيع الهدايا', 'display_name_en'=> 'Gift distribution']);
-
-        $services_view = Permission::create(['guard_name'=>'web','name' => 'services_view', 'display_name'=> 'عرض الخدمات', 'display_name_en'=> 'View services']);
-        $service_add = Permission::create(['guard_name'=>'web','name' => 'service_add', 'display_name'=> 'إضافة خدمة', 'display_name_en'=> 'Add service']);
-        $service_update = Permission::create(['guard_name'=>'web','name' => 'service_update', 'display_name'=> 'تعديل خدمة', 'display_name_en'=> 'Update service']);
-        $service_delete = Permission::create(['guard_name'=>'web','name' => 'service_delete', 'display_name'=> 'حذف خدمة', 'display_name_en'=> 'Delete service']);
-        $service_providing = Permission::create(['guard_name'=>'web','name' => 'service_providing', 'display_name'=> 'تقديم خدمة', 'display_name_en'=> 'Service providing']);
-
-        $attachments_view = Permission::create(['guard_name'=>'web','name' => 'attachments_view', 'display_name'=> 'عرض الأساور والإستيكرات', 'display_name_en'=> 'View attachments']);
-        $attachment_add = Permission::create(['guard_name'=>'web','name' => 'attachment_add', 'display_name'=> 'إضافة أساور &استيكرات', 'display_name_en'=> 'Add attachment']);
-        $attachment_update = Permission::create(['guard_name'=>'web','name' => 'attachment_update', 'display_name'=> 'تعديل أساور &استيكرات', 'display_name_en'=> 'Update attachment']);
-        $attachment_delete = Permission::create(['guard_name'=>'web','name' => 'attachment_delete', 'display_name'=> 'حذف أساور &استيكرات', 'display_name_en'=> 'Delete attachment']);
-        $attachment_print = Permission::create(['guard_name'=>'web','name' => 'attachment_print', 'display_name'=> 'طباعة أساور &استيكرات', 'display_name_en'=> 'print attachment']);
-        $attachment_delivery = Permission::create(['guard_name'=>'web','name' => 'attachment_delivery', 'display_name'=> 'تسليم أساور &استيكرات', 'display_name_en'=> 'Delivery attachment']);
-
-        $employees_view = Permission::create(['guard_name'=>'web','name' => 'employees_view', 'display_name'=> 'عرض الموظفين', 'display_name_en'=> 'View employees']);
-        $employee_add = Permission::create(['guard_name'=>'web','name' => 'employee_add', 'display_name'=> 'إضافة موظف', 'display_name_en'=> 'Add employee']);
-        $employee_update = Permission::create(['guard_name'=>'web','name' => 'employee_update', 'display_name'=> 'تعديل موظف', 'display_name_en'=> 'Update employee']);
-        $employee_delete = Permission::create(['guard_name'=>'web','name' => 'employee_delete', 'display_name'=> 'حذف موظف', 'display_name_en'=> 'Delete employee']);
-        $employee_print = Permission::create(['guard_name'=>'web','name' => 'employee_print', 'display_name'=> 'طباعة بطاقة موظف', 'display_name_en'=> 'print employee card']);
-        $employee_delivery = Permission::create(['guard_name'=>'web','name' => 'employee_delivery', 'display_name'=> 'تسليم راتب موظف', 'display_name_en'=> 'Delivery employee salary']);
-
-        $buildings_view = Permission::create(['guard_name'=>'web','name' => 'buildings_view', 'display_name'=> 'عرض البنايات', 'display_name_en'=> 'View buildings']);
-        $building_add = Permission::create(['guard_name'=>'web','name' => 'building_add', 'display_name'=> 'إضافة مبنى', 'display_name_en'=> 'Add building']);
-        $building_update = Permission::create(['guard_name'=>'web','name' => 'building_update', 'display_name'=> 'تعديل مبنى', 'display_name_en'=> 'Update building']);
-        $building_delete = Permission::create(['guard_name'=>'web','name' => 'building_delete', 'display_name'=> 'حذف مبنى', 'display_name_en'=> 'Delete building']);
-        $building_print = Permission::create(['guard_name'=>'web','name' => 'building_print', 'display_name'=> 'طباعة المباني', 'display_name_en'=> 'print building']);
-        
+    private function assignPermissionsToRoles(): void
+    {
         $permissions = Permission::pluck('name')->toArray();
-        $adminRole->syncPermissions($permissions);
-        $superAdminRole->syncPermissions($permissions);
+        Role::findByName('admin')->syncPermissions($permissions);
+        Role::findByName('super_admin')->syncPermissions($permissions);
+    }
 
-
-        $superAdmin = User::create([
-            'name'               => 'Super Admin',
-            'email'              => 'betalamoud@gmail.com',
-            'email_verified_at'  => Carbon::now(),
-            'password'           => Hash::make('Admin_123@#')
-        ]);
-
-        $superAdmin->assignRole('super_admin');
-    
-        $admin = User::create([
-            'name'               => 'Admin',
-            'email'              => 'admin@betalamoud.com',
-            'email_verified_at'  => Carbon::now(),
-            'password'           => Hash::make('Admin_123@#')
-        ]);
-
-        $admin->assignRole('admin');
-    
+    private function createDefaultUsers(): void
+    {
+        foreach ($this->defaultUsers as $role => $userData) {
+            $user = User::create([
+                'name' => $userData['name'],
+                'email' => $userData['email'],
+                'email_verified_at' => Carbon::now(),
+                'password' => Hash::make($userData['password']),
+            ]);
+            
+            $user->assignRole($role);
+        }
     }
 }

@@ -6,6 +6,9 @@ use App\Models\Agency;
 use App\Models\Building;
 use App\Models\Bus;
 use App\Models\Camp;
+use App\Models\Employe;
+use App\Models\EmployesJob;
+use App\Models\EmploymentApplication;
 use App\Models\Pilgrim;
 use App\Models\Setting;
 use App\Models\Unit;
@@ -29,6 +32,9 @@ class AdminController extends Controller
         $users = User::count();
         $roles = Role::count();
         $buses = Bus::count();
+        $jobs = EmployesJob::count();
+        $emloyes = Employe::count();
+        $emloyReq = EmploymentApplication::count();
         $SEOData = new SEOData(
             title: $title,
             description: settings('appName'),
@@ -47,6 +53,9 @@ class AdminController extends Controller
             'users',
             'roles',
             'buses',
+            'jobs',
+            'emloyes',
+            'emloyReq',
             'pageType'
         ));
     }
@@ -337,6 +346,63 @@ class AdminController extends Controller
         return view('admin.attachments.stickers_management', compact('title', 'pageType', 'SEOData'));
 
     }
+    // End attachments_management
+    // Start employees_management
+    public function employees_management()
+    {
+        $title = __('Employees management');
+        $pageType = 'employees_management';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.employees.employees_management', compact('title', 'pageType', 'SEOData'));
+    }
+    public function employees_positions_categories()
+    {
+        $title = 'تصنيفات الوظائف';
+        $pageType = 'employees_positions_categories';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.employees.employees_positions_categories', compact('title', 'pageType', 'SEOData'));
+    }
+
+    public function employee_positions()
+    {
+        $title = __('Positions');
+        $pageType = 'employee_positions';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.employees.employee_positions', compact('title', 'pageType', 'SEOData'));
+    }
+
+    public function employee_requests ()
+    {
+        $title = __('Employment applications');
+        $pageType = 'employee_requests';
+        $SEOData = new SEOData(
+            title: $title,
+            description: settings('appName'),
+            author: settings('appName'),
+            site_name: settings('appName'),
+            image: settings('appLogo'),
+        );
+        return view('admin.employees.employees_requests', compact('title', 'pageType', 'SEOData'));
+    }
+
     // End attachments_management
     // Start media
     public function admin_media ()

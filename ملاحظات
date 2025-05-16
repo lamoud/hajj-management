@@ -25,6 +25,7 @@ _________________________________________
 التصعيد للباص
 استيراد من الإكسيل
 الأرشفة... soft delete
+
 _______________________________
 ## إدارة جهات المغادرة
 ____________________________
@@ -47,3 +48,17 @@ ____________________________
 إضافة فورم طلب وظيفة
 
 #تذاكر الدعم
+
+
+
+
+
+
+
+                     //     //var imgURL = event.detail.url;
+        //     // var w = window.open('', 'Print Card', 'width=800,height=600');
+        //     // w.document.write('<html><head><title>Print Card</title></head><body>');
+        //     // w.document.write('<img src="' + imgURL + '" style="max-width: 100%; height: auto;">');
+        //     // w.document.write('</body></html>');
+        //     // w.document.close();
+        //     // w.print();

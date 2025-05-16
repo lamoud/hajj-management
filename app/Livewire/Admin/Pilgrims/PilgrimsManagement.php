@@ -115,8 +115,8 @@ class PilgrimsManagement extends Component
         $this->up_swap_name = $this->current_swaps->name;
         $this->up_swap_number = $this->current_swaps->number;
         $this->up_swap_national_id = $this->current_swaps->national_id;
-        $this->up_swap_camp_id = $this->current_swaps->camp_id;
-        $this->up_swap_unit_id = $this->current_swaps->unit->name;
+        $this->up_swap_camp_id = $this->current_swaps->camp_id ??  '';
+        $this->up_swap_unit_id = $this->current_swaps->unit->name ?? '';
 
     }
     

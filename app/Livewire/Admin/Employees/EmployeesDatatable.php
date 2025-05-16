@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Admin\Pilgrims;
+namespace App\Livewire\Admin\Employees;
 
-use App\Exports\PilgrimsExport;
+use App\Exports\EmployeesExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Pilgrim;
+use App\Models\Employe;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
@@ -16,9 +16,9 @@ use Intervention\Image\Drivers\Imagick\Driver;
 
 use function PHPSTORM_META\type;
 
-class PilgrimsDatatable extends DataTableComponent
+class EmployeesDatatable extends DataTableComponent
 {
-    protected $model = Pilgrim::class;
+    protected $model = Employe::class;
 
     
     public function configure(): void
@@ -59,7 +59,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->where('pilgrims.name', 'like', '%'.$value.'%');
+                    $builder->where('employes.name', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('number')
                 ->config([
@@ -67,7 +67,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->where('pilgrims.number', 'like', '%'.$value.'%');
+                    $builder->where('employes.number', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('declaration')
                 ->config([
@@ -75,7 +75,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->where('pilgrims.declaration', 'like', '%'.$value.'%');
+                    $builder->where('employes.declaration', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('national_id')
                 ->config([
@@ -83,7 +83,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->where('pilgrims.national_id', 'like', '%'.$value.'%');
+                    $builder->where('employes.national_id', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('national_id')
                 ->config([
@@ -91,7 +91,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->where('pilgrims.national_id', 'like', '%'.$value.'%');
+                    $builder->where('employes.national_id', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('phone')
                 ->config([
@@ -99,7 +99,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->where('pilgrims.phone', 'like', '%'.$value.'%');
+                    $builder->where('employes.phone', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('phone2')
                 ->config([
@@ -107,7 +107,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->where('pilgrims.phone2', 'like', '%'.$value.'%');
+                    $builder->where('employes.phone2', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('agency')
                 ->config([
@@ -115,7 +115,7 @@ class PilgrimsDatatable extends DataTableComponent
                     'maxlength' => '25',
                 ])
                 ->filter(function(Builder $builder, string $value) {
-                    $builder->join('agencies', 'pilgrims.agency_id', '=', 'agencies.id')
+                    $builder->join('agencies', 'employees.agency_id', '=', 'agencies.id')
                             ->where('agencies.name', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('camp')
@@ -125,7 +125,7 @@ class PilgrimsDatatable extends DataTableComponent
                 ])
                 ->filter(function(Builder $builder, string $value) {
                     // تأكد من أن هناك join على جدول 'camps' للوصول إلى الحقل 'name'
-                    $builder->join('camps', 'pilgrims.camp_id', '=', 'camps.id')
+                    $builder->join('camps', 'employes.camp_id', '=', 'camps.id')
                             ->where('camps.name', 'like', '%'.$value.'%');
                 }),
             TextFilter::make('unit')
@@ -135,7 +135,7 @@ class PilgrimsDatatable extends DataTableComponent
                 ])
                 ->filter(function(Builder $builder, string $value) {
                     // تأكد من أن هناك join على جدول 'camps' للوصول إلى الحقل 'name'
-                    $builder->join('units', 'pilgrims.unit_id', '=', 'unit.id')
+                    $builder->join('units', 'employes.unit_id', '=', 'unit.id')
                             ->where('units.name', 'like', '%'.$value.'%');
                 }),
             SelectFilter::make('gender')
@@ -157,7 +157,20 @@ class PilgrimsDatatable extends DataTableComponent
                 ->searchable()
                 ->secondaryHeaderFilter('name')
                 ->excludeFromColumnSelect(),
-            Column::make(__('Pilgrim number'), "number")
+            Column::make('الصورة الشخصية', 'image')
+                ->format(function($value, $row, $column) {
+                    if (isset($row->image) && !empty($row->image)) {
+                        return '<a href="'.$row->image.'" target="_blank"><img src="'.$row->image.'" style="width:50px"></img></a>';
+                    } else {
+                        return '';
+                    }
+                })
+                ->sortable()
+                ->searchable()
+                ->html(),
+            Column::make('الوظيفة', "position.name")
+                ->sortable(),
+            Column::make(__('Employe number'), "number")
                 ->sortable()
                 ->secondaryHeaderFilter('number')
                 ->searchable(),
@@ -175,9 +188,6 @@ class PilgrimsDatatable extends DataTableComponent
             Column::make(__('The gender'), "gender")
                 ->sortable()
                 ->secondaryHeaderFilter('gender')
-                ->searchable(),
-            Column::make(__('Arrival'), "arrival_type")
-                ->sortable()
                 ->searchable(),
             Column::make(__('Phone'), 'phone')
                 ->format(function($value, $row, $column) {
@@ -203,10 +213,6 @@ class PilgrimsDatatable extends DataTableComponent
                 ->sortable()
                 ->searchable()
                 ->html(),
-                Column::make(__('Agency'), "agency.name")
-                ->sortable()
-                ->secondaryHeaderFilter('agency')
-                ->searchable(),
                 Column::make(__('Camp'), "camp.name")
                 ->sortable()
                 ->secondaryHeaderFilter('camp')
@@ -226,21 +232,42 @@ class PilgrimsDatatable extends DataTableComponent
                 ->deselected(),
             Column::make(__('Print' ))
                 ->label(
-                    fn ($row, Column $column) => view('components.datatables.pilgrims.print-column')->with(
+                    fn ($row, Column $column) => view('components.datatables.employees.print-column')->with(
                         [
                             'unit_id' => $row->unit_id,
                             'number' => $row->number,
                             'national_id' => $row->national_id,
-                            'pilgrims_id' => $row->id,
+                            'employees_id' => $row->id,
                         ]
                     )
                 )->html()
                 ->deselected(),
+            Column::make('ظهر الهوية', 'back_id_card')
+                ->format(function($value, $row, $column) {
+                    if (isset($row->back_id_card) && !empty($row->back_id_card)) {
+                        return '<a href="'.$row->back_id_card.'" target="_blank"><img src="'.$row->back_id_card.'" style="width:50px"></img></a>';
+                    } else {
+                        return '';
+                    }
+                })
+                ->sortable()
+                ->searchable()
+                ->html(),
+            Column::make('وجه الهوية', 'front_id_card')
+                ->format(function($value, $row, $column) {
+                    if (isset($row->front_id_card) && !empty($row->front_id_card)) {
+                        return '<a href="'.$row->front_id_card.'" target="_blank"><img src="'.$row->front_id_card.'" style="width:50px"></img></a>';
+                    } else {
+                        return '';
+                    }
+                })
+                ->sortable()
+                ->searchable()
+                ->html(),
             Column::make(__('Action' ))
                 ->label(
-                    fn ($row, Column $column) => view('components.datatables.pilgrims.action-column')->with(
+                    fn ($row, Column $column) => view('components.datatables.employees.action-column')->with(
                         [
-                            'swapLink' => $row->id,
                             'editLink' => $row->id,
                             'deleteLink' => $row->id,
                         ]
@@ -250,28 +277,28 @@ class PilgrimsDatatable extends DataTableComponent
         ];
     }
 
-    public function printCard($type, $pilgrimIdd)
+    public function printCard($type, $employeIdd)
     {
-        $pilgrim = Pilgrim::find($pilgrimIdd);
+        $employe = Employe::find($employeIdd);
     
-        if (!$pilgrim) {
+        if (!$employe) {
             return $this->dispatch('makeAction', type: 'error', title: __('Error'), msg: 'لم يتم العثور على بطاقة الحاج!');
         }
     
-        if (!isset($pilgrim->camp) || !isset($pilgrim->camp->front_pilgrim_card) || !isset($pilgrim->unit)) {
+        if (!isset($employe->camp) || !isset($employe->camp->front_employe_card) || !isset($employe->unit)) {
             return $this->dispatch('makeAction', type: 'error', title: __('Error'), msg: 'لم يتم العثور على سكن الحاج، أو أن المخيم ليس له بطاقة!');
         }
     
-        $imagePath = $pilgrim->camp->front_pilgrim_card;
+        $imagePath = $employe->camp->front_employe_card;
     
         return $this->dispatch(
             'printImage',
             type: $type,
             url: $imagePath,
-            name: $pilgrim->name,
-            id: $pilgrim->national_id,
-            unit: $pilgrim->unit->name,
-            number: $pilgrim->number,
+            name: $employe->name,
+            id: $employe->national_id,
+            unit: $employe->unit->name,
+            number: $employe->number,
         );
     }
     
@@ -292,33 +319,33 @@ class PilgrimsDatatable extends DataTableComponent
             
             // If there are no selected agencies, return with an error message
             if (empty($selectedIds)) {
-                return back()->withError('No pilgrims selected for export.');
+                return back()->withError('No employees selected for export.');
             }
     
             // Create a new export instance with the selected IDs
-            $export = new PilgrimsExport($selectedIds);
+            $export = new EmployeesExport($selectedIds);
     
             $this->clearSelected();
 
             // Download the file
-            return Excel::download($export, 'pilgrims.xlsx');
+            return Excel::download($export, 'employees.xlsx');
     
         } catch (\Exception $e) {
             // Handle any exceptions and return with an error message
-            return back()->withError('Failed to export selected pilgrims: ' . $e->getMessage());
+            return back()->withError('Failed to export selected employees: ' . $e->getMessage());
         }
     }
     
     public function deleteSelected()
     {
 
-        $selectedPilgrimIds = $this->getSelected();
+        $selectedEmployeIds = $this->getSelected();
     
         // التحقق مما إذا كانت هناك جهات محددة لحذفها
-        if (!empty($selectedPilgrimIds)) {
-            Pilgrim::whereIn('id', $selectedPilgrimIds)->delete();
+        if (!empty($selectedEmployeIds)) {
+            Employe::whereIn('id', $selectedEmployeIds)->delete();
             $this->clearSelected();
-            $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف المخيمات بنجاح.'));
+            $this->dispatch('makeAction', type: 'success', title: __('Ok'), msg: __('تم حذف الموظفين بنجاح.'));
         }
     }
 
@@ -326,20 +353,20 @@ class PilgrimsDatatable extends DataTableComponent
     {
 
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('editPilgrim', id: $id);
+        return $this->dispatch('editEmploye', id: $id);
     }
 
-    public function startDelete( $id, $type )
+    public function startDelete( $id, $type = 'delete' )
     {
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('deletePilgrim', id: $id);
+        return $this->dispatch('deleteEmploye', id: $id, type: $type);
 
     }
 
     public function startSwapAddress( $id )
     {
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('swapPilgrim', id: $id);
+        return $this->dispatch('swapEmploye', id: $id);
 
     }
 

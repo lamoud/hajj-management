@@ -59,9 +59,9 @@ class BuildingsManagement extends Component
     public function addNewBuilding()
     {
         
-        if( ! $this->user->can('building_add') ){
-            return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
-        }
+        // if( ! $this->user->can('building_add') ){
+        //     return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
+        // }
 
         $this->validate([
             'name' => ['required', 'string', 'min:3', 'max:100'],
