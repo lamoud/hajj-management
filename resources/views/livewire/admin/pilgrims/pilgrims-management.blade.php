@@ -677,6 +677,49 @@
         </div>
         </div>
     </div>
+
+    <div class="modal modal-blur fade" id="modal-swapPus" tabindex="-1" style="display: none;" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">تصعيد: {{ $up_name }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+                <form class="w-100" wire:submit.prevent="swapBus_current_pilgrim">
+                    <div class="modal-body">
+                        <!-- unit -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text required" id="up_bus_id">{{ __('us') }}</span>
+                                </div>
+
+                                <select class="custom-select" id="up_bus_id" aria-label="{{ __('Bus') }}" aria-describedby="up_bus_id" wire:model.defer="up_bus_id">
+                                    <option value="0">--اختر--</option>
+                                    @forelse ($buses as $bus)
+                                        <option value="{{ $bus->id }}">{{ $bus->name }}</option>
+                                    @empty
+                                        <option value="0">{{ __('No data') }}</option>
+                                    @endforelse
+                                </select>
+
+                            </div>
+                            @if($errors->has('up_bus_id'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_bus_id') }}</small>
+                            @endif
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn me-auto" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-primary">تصعيد</button>
+                    </div>
+                </form>
+        </div>
+        </div>
+    </div>
     
     <div class="modal modal-blur fade" id="modal-import" tabindex="-1" style="display: none;" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -722,6 +765,7 @@
                 $('#modal-pilgrim').modal('hide');
                 $('#modal-editpilgrim').modal('hide');
                 $('#modal-swappilgrim').modal('hide');
+                $('#modal-swapPus').modal('hide');
         })
 
         window.addEventListener('editPilgrim', event => {
@@ -780,6 +824,17 @@
         window.addEventListener('swapPilgrimConfirm', event => {
 
             $('#modal-swappilgrim').modal('show');
+
+        })
+        window.addEventListener('swapPus', event => {
+
+            @this.confirm_swapPus(event.detail.id)
+
+        })
+
+        window.addEventListener('swapPusConfirm', event => {
+
+            $('#modal-swapPus').modal('show');
 
         })
 

@@ -117,7 +117,6 @@ class BusesDatatable extends DataTableComponent
 
         $selectedBusIds = $this->getSelected();
     
-        // التحقق مما إذا كانت هناك جهات محددة لحذفها
         if (!empty($selectedBusIds)) {
             Bus::whereIn('id', $selectedBusIds)->delete();
             $this->clearSelected();

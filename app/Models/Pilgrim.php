@@ -41,4 +41,9 @@ class Pilgrim extends Model
     {
         return $this->belongsTo(Agency::class, 'agency_id');
     }
+    
+    public function bus()
+    {
+        return $this->belongsTo(Bus::class, 'bus_id');
+    }
 }

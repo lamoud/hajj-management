@@ -138,6 +138,15 @@ class PilgrimsDatatable extends DataTableComponent
                     $builder->join('units', 'pilgrims.unit_id', '=', 'unit.id')
                             ->where('units.name', 'like', '%'.$value.'%');
                 }),
+            TextFilter::make('bus')
+                ->config([
+                    'placeholder' => __('Search'),
+                    'maxlength' => '25',
+                ])
+                ->filter(function(Builder $builder, string $value) {
+                    $builder->join('buses', 'pilgrims.bus_id', '=', 'buses.id')
+                            ->where('buses.name', 'like', '%'.$value.'%');
+                }),
             SelectFilter::make('gender')
             ->options([
                 '' => __('All'),
@@ -216,8 +225,16 @@ class PilgrimsDatatable extends DataTableComponent
                 ->sortable()
                 ->secondaryHeaderFilter('unit')
                 ->searchable(),
-                Column::make(__('Season'), "season.name")
-                    ->deselected(),
+            Column::make(__('Season'), "season.name")
+                ->deselected(),
+            Column::make(__('Bus'), 'bus.name')
+                ->format(fn($value, $row) => view('components.datatables.buses.bus-name-button', [
+                    'busName' => $value,
+                    'pilgrimId' => $row->id,
+                ]))
+                ->sortable()
+                ->searchable()
+                ->secondaryHeaderFilter('bus'),
             Column::make(__('Created at'), "created_at")
                 ->sortable()
                 ->deselected(),
@@ -341,6 +358,11 @@ class PilgrimsDatatable extends DataTableComponent
         // Emit event to pass data to AgencyManagement page
         return $this->dispatch('swapPilgrim', id: $id);
 
+    }
+
+    public function openBusModal($pilgrimId)
+    {
+        return $this->dispatch('swapPus', id: $pilgrimId);
     }
 
 }

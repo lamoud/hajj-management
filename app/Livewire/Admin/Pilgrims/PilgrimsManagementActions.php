@@ -55,6 +55,22 @@ class PilgrimsManagementActions extends Component
     //     }
     // }
 
+    public function confirmAction()
+    {
+        switch ($this->actions) {
+            case 'accommodation':
+                # code...
+                break;
+            case 'escalation':
+                $this->swapBus_current_pilgrim();
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
+
     public function updatedPilgrimsSearch()
     {
         $this->searchPilgrim();
@@ -83,6 +99,35 @@ class PilgrimsManagementActions extends Component
         
         
     }
+
+    public function swapBus_current_pilgrim()
+{
+    if (! $this->user->can('pilgrims_update')) {
+        return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
+    }
+
+    $this->validate([
+        'bus_id' => ['required', 'exists:buses,id'],
+    ]);
+
+    $bus = Bus::withCount('pilgrims')->find($this->bus_id);
+
+    if ($bus && $bus->pilgrims_count >= $bus->capacity) {
+        return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('لا يمكن التصعيد في هذا الباص العدد مكتمل.'));
+    }
+
+    if (!$this->pilgrim) {
+        return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('لم يتم تحديد حاج للتعديل.'));
+    }
+
+    $this->pilgrim->update([
+        'bus_id' => $this->bus_id
+    ]);
+
+    // $this->reset();
+    $this->mount();
+    return $this->dispatch('makeAction', type: 'success', title: __('Success'), msg: 'تم التصعيد بنجاح!');
+}
 
     public function mount()
     {

@@ -27,10 +27,6 @@ Route::middleware([
         return redirect()->to(route('dashboard'));
     });
 
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
     Route::middleware([
         'can:admin_view',
     ])->controller(AdminController::class)->group(function () {
@@ -97,16 +93,22 @@ Route::middleware([
 
     });
 
-    Route::controller(ProfileSettingsController::class)->group(function () {
-        Route::get('/user/profile/settings', 'profile_settings')->name('profile_settings');
-        Route::get('/user/profile/posts', 'profile_posts')->name('profile_posts');
-        Route::get('/user/profile/platforms', 'profile_platforms')->name('profile_platforms');
-        Route::get('/user/profile-show/{email}', 'user_profile')->name('user_profile');
-    });
-
 });
 
 
 Route::controller(EmploymentApplicationController::class)->group(function () {
     Route::get('/employment_application', 'show')->name('employment_application');
 });
+
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/user/profile', function () {
+//         if (!auth()->user()->hasAnyRole(['admin', 'supedr_admin'])) {
+//             abort(403); // ممنوع الوصول
+//         }
+
+//         //return Inertia::render('Profile/Show'); // في حالة استخدام Inertia
+//         // أو:
+//         return view('profile.show'); // إذا كنت تستخدم Blade
+//     })->name('profile.show.override');
+// });

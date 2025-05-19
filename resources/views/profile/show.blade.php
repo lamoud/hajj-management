@@ -5,6 +5,13 @@
         </h2>
     </x-slot>
 
+    @if (auth()->check() && !auth()->user()->hasAnyRole(['admin', 'super_admin']))
+        @php
+            abort(403);
+        @endphp
+    @endif
+
+
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())

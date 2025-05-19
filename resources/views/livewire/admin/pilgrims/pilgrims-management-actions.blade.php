@@ -115,9 +115,10 @@
                         <p>رقم الهاتف: {{ $pilgrim->phone }}</p>
                         <p>المخيم: {{ $pilgrim->camp->name ?? '' }}</p>
                         <p>الخيمة: {{ $pilgrim->unit->name ?? '' }}</p>
+                        <p>الباص: {{ $pilgrim->bus->name ?? '' }}</p>
                     </div>
 
-                    <a class="button d-grid" href="#">تنفيذ الإجراء</a>
+                    <a class="button d-grid" href="javascript:void(0)" wire:click="confirmAction">تنفيذ الإجراء</a>
                 @else
                     <div class="alert alert-primary" role="alert">
                         ستظهر هنا بيانات الحاج بمجرد أن تكون متاحة!
@@ -128,4 +129,16 @@
         </div>
         </div>
     </div>
+
+    <script>
+        window.addEventListener('makeAction', event => {
+
+            window["iziToast"][event.detail.type]({
+                    title: `${event.detail.title}`,
+                    message: `${event.detail.msg}`,
+                    position: 'topLeft',
+                    rtl: true,
+                });
+        })
+    </script>
 </div>

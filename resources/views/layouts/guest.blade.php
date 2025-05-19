@@ -17,10 +17,23 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body style="background-image: url('filemanager/bg-main.jpeg');background-size: cover;background-position:center;">
+
+    @php
+        $background = settings('apppPackground');
+    @endphp
+
+    <body style="
+        background-color: #f3f4f6;
+        background-size: cover;
+        background-position: center;
+        {{ $background
+            ? "background-image: url('$background');"
+            : 'background-color: #f3f4f6;' }}
+    ">
         <div class="font-sans antialiased">
             {{ $slot }}
         </div>
         @livewireScripts
     </body>
+
 </html>

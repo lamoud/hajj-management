@@ -25,4 +25,10 @@ class Bus extends Model
     {
         return $this->belongsTo(Season::class, 'season_id');
     }
+
+    public function pilgrims()
+{
+    return $this->hasMany(Pilgrim::class, 'bus_id');
+}
+
 }

@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Pilgrims;
 use App\Exports\PilgrimsExport;
 use App\Imports\PilgrimsImport;
 use App\Models\Agency;
+use App\Models\Bus;
 use App\Models\Camp;
 use App\Models\Nationality;
 use App\Models\Pilgrim;
@@ -25,6 +26,7 @@ class PilgrimsManagement extends Component
     public $current_season;
     public $user;
     public $camps;
+    public $buses;
     public $units;
     public $nationalities;
     public $agencys;
@@ -51,6 +53,7 @@ class PilgrimsManagement extends Component
     public $up_gender;
     public $up_camp_id;
     public $up_unit_id;
+    public $up_bus_id;
     public $up_arrival_type;
     public $up_agency_id;
     public $up_phone;
@@ -143,6 +146,7 @@ class PilgrimsManagement extends Component
         $this->up_phone = $pilgrim->phone;
         $this->up_phone2 = $pilgrim->phone2;
         $this->up_unit_id = $pilgrim->unit_id;
+        $this->up_bus_id = $pilgrim->bus_id;
         
         
     }
@@ -402,8 +406,6 @@ class PilgrimsManagement extends Component
 
     public function swap_current_pilgrim()
     {
-        //$this->current_pilgrim->delete();
-
         if( $this->current_pilgrim->camp_id && $this->current_pilgrim->camp_id === $this->current_swaps->camp_id ){
 
             if ( $this->current_pilgrim->unit_id && $this->current_swaps->unit_id ) {
@@ -445,6 +447,64 @@ class PilgrimsManagement extends Component
 
         return  $this->dispatch('makeAction', type: 'success', title: __('Success'), msg: 'تم التبديل بنجاح!');
     }
+    public function confirm_swapPus( $pilgrim_id )
+    {
+        if( ! $this->user->can('pilgrims_update') ){
+            return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
+        }
+
+        $this->active_pilgrim($pilgrim_id);
+
+        if( $this->current_pilgrim && $this->current_pilgrim->id == $pilgrim_id ){
+            return $this->dispatch('swapPusConfirm', type: 'question', msg: 'هل أنت متأكد من رغبتك في حذف: '.$this->current_pilgrim->name);
+        }
+
+        return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: 'لم نتمكن من تنفيذ طلبك، برجاء المحاولة بعد قليل.');
+    }
+
+public function swapBus_current_pilgrim()
+{
+    if (! $this->user->can('pilgrims_update')) {
+        return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
+    }
+
+    $this->validate([
+        'up_bus_id' => ['required', 'exists:buses,id'],
+    ]);
+
+    $bus = Bus::withCount('pilgrims')->find($this->up_bus_id);
+
+    if ($bus && $bus->pilgrims_count >= $bus->capacity) {
+        return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('لا يمكن التصعيد في هذا الباص العدد مكتمل.'));
+    }
+
+    if (!$this->current_pilgrim) {
+        return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('لم يتم تحديد حاج للتعديل.'));
+    }
+
+    $this->current_pilgrim->update([
+        'bus_id' => $this->up_bus_id
+    ]);
+
+    $this->dispatch('refreshDatatable');
+
+    $this->reset(
+        'up_name',
+        'up_pilgrim_number',
+        'up_national_id',
+        'up_nationality',
+        'up_gender',
+        'up_camp_id',
+        'up_unit_id',
+        'up_bus_id',
+        'up_arrival_type',
+        'up_agency_id',
+        'up_phone',
+    );
+
+    return $this->dispatch('makeAction', type: 'success', title: __('Success'), msg: 'تم التبديل بنجاح!');
+}
+
 
     public function updateCamp($input)
     {
@@ -483,6 +543,7 @@ class PilgrimsManagement extends Component
             $this->active_season( $date->id, $date->slug);
         }
         $this->camps = Camp::where('season_id', $this->current_season->id ?? null)->get();
+        $this->buses = Bus::where('season_id', $this->current_season->id ?? null)->get();
         $this->updateCamp('unit_id');
         //$this->units = Unit::where('season_id', $this->current_season->id ?? null)->get();
         $this->agencys = Agency::where('season_id', $this->current_season->id ?? null)->get();

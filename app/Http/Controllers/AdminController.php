@@ -642,6 +642,7 @@ class AdminController extends Controller
             'appDarkLogo'    =>  ['sometimes', 'nullable', 'exists:filemanager,absolute_url'],
             'appMiniDarkLogo'    =>  ['sometimes', 'nullable', 'exists:filemanager,absolute_url'],
             'appIcon'    =>  ['sometimes', 'nullable', 'exists:filemanager,absolute_url'],
+            'apppPackground'    =>  ['sometimes', 'nullable', 'exists:filemanager,absolute_url'],
 
         ]);
             
@@ -654,7 +655,8 @@ class AdminController extends Controller
                 ['key'=>'appMiniLogo', 'value'=> $request['appMiniLogo']],
                 ['key'=>'appDarkLogo', 'value'=> $request['appDarkLogo']], 
                 ['key'=>'appMiniDarkLogo', 'value'=> $request['appMiniDarkLogo']], 
-                ['key'=>'appIcon', 'value'=> $request['appIcon']]
+                ['key'=>'appIcon', 'value'=> $request['appIcon']],
+                ['key'=>'apppPackground', 'value'=> $request['apppPackground']]
             ],'key'
         );
 
