@@ -276,13 +276,13 @@ class RolesSeeder extends Seeder
     private array $defaultUsers = [
         'super_admin' => [
             'name' => 'Super Admin',
-            'email' => 'betalamoud@gmail.com',
-            'password' => 'Admin_123@#',
+            'email' => 'info@dlaaz.com',
+            'password' => 'Dlaaz_123@#',
         ],
         'admin' => [
             'name' => 'Admin',
-            'email' => 'admin@betalamoud.com',
-            'password' => 'Admin_123@#',
+            'email' => 'support@dalaaz.com',
+            'password' => 'Dlaaz_123@#',
         ],
     ];
 
