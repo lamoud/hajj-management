@@ -264,7 +264,7 @@ class EmployeesRequestsDatatable extends DataTableComponent
     {
 
         // Emit event to pass data to AgencyManagement page
-        return $this->dispatch('editEmploye', id: $id);
+        return $this->dispatch('editEmployeRequest', id: $id);
     }
 
     public function startDelete( $id, $type = 'delete' )

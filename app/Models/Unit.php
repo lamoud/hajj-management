@@ -38,4 +38,9 @@ class Unit extends Model
     {
         return $this->belongsTo(UnitType::class, 'unit_type');
     }
+
+    public function employees()
+    {
+        return $this->hasMany(Employe::class, 'unit_id');
+    }
 }

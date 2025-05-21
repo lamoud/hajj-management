@@ -153,6 +153,16 @@ class EmployeesDatatable extends DataTableComponent
             Column::make("Id", "id")
                 ->sortable(),
             Column::make(__('Name'), "name")
+                ->format(function($value, $row, $column) {
+                    $image = isset($row->image) && !empty($row->image)
+                        ? '<img src="'.$row->image.'" style="width:30px; height:30px; border-radius:50%; margin-right:10px;" />'
+                        : '<div style="width:30px; height:30px; border-radius:50%; background:#ccc; display:inline-block; margin-right:10px;"></div>';
+
+                    $name = e($row->name);
+
+                    return '<div style="display:flex; align-items:center;">'.$image.'<span>'.$name.'</span></div>';
+                })
+                ->html()
                 ->sortable()
                 ->searchable()
                 ->secondaryHeaderFilter('name')
@@ -285,11 +295,11 @@ class EmployeesDatatable extends DataTableComponent
             return $this->dispatch('makeAction', type: 'error', title: __('Error'), msg: 'لم يتم العثور على بطاقة الحاج!');
         }
     
-        if (!isset($employe->camp) || !isset($employe->camp->front_employe_card) || !isset($employe->unit)) {
+        if (!isset($employe->camp) || !isset($employe->camp->front_pilgrim_card) || !isset($employe->unit)) {
             return $this->dispatch('makeAction', type: 'error', title: __('Error'), msg: 'لم يتم العثور على سكن الحاج، أو أن المخيم ليس له بطاقة!');
         }
     
-        $imagePath = $employe->camp->front_employe_card;
+        $imagePath = $employe->camp->front_pilgrim_card;
     
         return $this->dispatch(
             'printImage',
@@ -351,7 +361,6 @@ class EmployeesDatatable extends DataTableComponent
 
     public function startEdit( $id )
     {
-
         // Emit event to pass data to AgencyManagement page
         return $this->dispatch('editEmploye', id: $id);
     }

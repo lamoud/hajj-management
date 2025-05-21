@@ -27,16 +27,16 @@
         <livewire:admin.employees.employees-requests-datatable />
     </div>
 
-    {{-- <div class="modal modal-blur fade" id="modal-employe" tabindex="-1" style="display: none;" aria-hidden="true" wire:ignore.self>
+    <div class="modal modal-blur fade" id="modal-editEmployeRequest" tabindex="-1" style="display: none;" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title">{{ __('Add a new employe') }}</h5>
+            <h5 class="modal-title">{{ __('Edit') .': '. $name }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-                <form class="w-100" wire:submit.prevent="addNewEmploye">
+                <form class="w-100" wire:submit.prevent="updateEmployeRequest">
                     <div class="modal-body">
 
                         <!-- Employe name -->
@@ -52,44 +52,32 @@
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('name') }}</small>
                             @endif
                         </div>
-                        <!-- Employe number -->
+                        
                         <div class="mb-3">
                             <div class="input-group">
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="employe_number">{{ __('Employe number') }}</span>
+                                    <span class="input-group-text" id="age">العمر</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="{{ __('Employe number') }}" aria-label="{{ __('Employe number') }}" aria-describedby="employe_number" wire:model.defer="employe_number">
+                                <input type="number" class="form-control" placeholder="العمر" aria-label="{{ __('age') }}" aria-describedby="age" wire:model.defer="age">
                                 
                             </div>
-                            @if($errors->has('employe_number'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('employe_number') }}</small>
+                            @if($errors->has('age'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('age') }}</small>
                             @endif
                         </div>
+                        
                         <div class="mb-3">
                             <div class="input-group">
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="employe_declaration">{{ __('Declaration') }}</span>
+                                    <span class="input-group-text" id="years_experience">سنوات الخبرة</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="{{ __('Declaration') }}" aria-label="{{ __('Declaration') }}" aria-describedby="employe_declaration" wire:model.defer="employe_declaration">
-                                
+                                <input type="number" class="form-control" placeholder="سنوات الخبرة" aria-label="{{ __('age') }}" aria-describedby="years_experience" wire:model.defer="years_experience">
                             </div>
-                            @if($errors->has('employe_declaration'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('employe_declaration') }}</small>
+                            @if($errors->has('years_experience'))
+                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('years_experience') }}</small>
                             @endif
                         </div>
-                        <!-- Employe id -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="national_id">{{ __('National id') }}</span>
-                                </div>
-                                <input type="number" class="form-control" placeholder="{{ __('National id') }}" aria-label="{{ __('Employe id') }}" aria-describedby="national_id" wire:model.defer="national_id">
-                                
-                            </div>
-                            @if($errors->has('national_id'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('national_id') }}</small>
-                            @endif
-                        </div>
+                        
                         <!-- Employe nationality -->
                         <div class="mb-3">
                             <div class="input-group">
@@ -107,64 +95,6 @@
                             </div>
                             @if($errors->has('nationality'))
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('nationality') }}</small>
-                            @endif
-                        </div>
-                        <!-- Employe gender -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="gender">{{ __('The gender') }}</span>
-                                </div>
-                                <select class="custom-select" aria-describedby="gender" wire:model.defer="gender">
-                                    <option value="0">--اختر--</option>
-                                        <option value="male">{{ __('Male') }}</option>
-                                        <option value="female">{{ __('Female') }}</option>
-                                </select>
-                            </div>
-                            @if($errors->has('gender'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('gender') }}</small>
-                            @endif
-                        </div>
-                        <!-- camps -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="camp_id">{{ __('Camp') }}</span>
-                                </div>
-
-                                <select class="custom-select" id="camp_id" aria-label="{{ __('camp_id') }}" aria-describedby="camp_id" wire:model.defer="camp_id" wire:change="updateCamp('camp_id')">
-                                    <option value="0">--اختر--</option>
-                                    @forelse ($camps as $camp)
-                                        <option value="{{ $camp->id }}">{{ $camp->name }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-
-                            </div>
-                            @if($errors->has('camp_id'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('camp_id') }}</small>
-                            @endif
-                        </div>
-                        <!-- unit -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="unit_id">{{ __('Unit') }}</span>
-                                </div>
-
-                                <select class="custom-select" id="unit_id" aria-label="{{ __('unit_id') }}" aria-describedby="unit_id" wire:model.defer="unit_id">
-                                    <option value="0">--اختر--</option>
-                                    @forelse ($units as $unit)
-                                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-
-                            </div>
-                            @if($errors->has('unit_id'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('unit_id') }}</small>
                             @endif
                         </div>
                         <!-- job_id -->
@@ -202,298 +132,15 @@
                                 <small class="invalid-feedback mt-1 d-block">{{ $errors->first('phone') }}</small>
                             @endif
                         </div>
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="phone2">{{ __('Phone') }}</span>
-                                </div>
-                                <input type="number" class="form-control" placeholder="{{ __('Phone') }}" aria-label="{{ __('Phone') }}" aria-describedby="phone2" wire:model.defer="phone2">
-                                
-                            </div>
-                            @if($errors->has('phone2'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('phone2') }}</small>
-                            @endif
-                        </div>
-
-                        <!-- front_employe_card -->
-                        <div class="form-group">
-                            <label for="description">وجه الهوية</label>
-                            <input onclick="filemanager.selectFile('front_id_card')" name="front_id_card" type="text" class="form-control" id="front_id_card" wire:model.blur="front_id_card">
-                            @if($errors->has('front_id_card'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('front_id_card') }}</small>
-                            @else
-                                <small class="mt-1 d-block">أضف وجه بطاقة الهوية.</small>
-                            @endif
-                        </div>
-
-                        <!-- back_employe_card -->
-                        <div class="form-group">
-                            <label for="description">ظهر الهوية</label>
-                            <input onclick="filemanager.selectFile('back_id_card')" name="back_id_card" type="text" class="form-control" id="back_id_card" wire:model.blur="back_id_card">
-                            @if($errors->has('back_id_card'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('back_id_card') }}</small>
-                            @else
-                                <small class="mt-1 d-block">أضف ظهر بطاقة الهوية.</small>
-                            @endif
-                        </div>
-                        <!-- employe_image -->
-                        <div class="form-group">
-                            <label for="description">الصورة الشخصية</label>
-                            <input onclick="filemanager.selectFile('image')" name="image" type="text" class="form-control" id="image" wire:model.blur="image">
-                            @if($errors->has('image'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('image') }}</small>
-                            @else
-                                <small class="mt-1 d-block">أضف صورة الموظف.</small>
-                            @endif
-                        </div>
-                        <!-- Employe season -->
-                        <div class="form-group">
-                            <label for="description">{{ __('Season') }}</label>
-                            <input type="text" class="form-control" placeholder="{{ __('Season name') }}" aria-label="{{ __('Season') }}" aria-describedby="season_name" wire:model.defer="season_name" disabled readonly>
-                            @if($errors->has('season_name'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('season_name') }}</small>
-                            @else
-                                <small class="mt-1 d-block">يتم اختيار موسم الحج تلقائياً بدلالة الموسم النشط.</small>
-                            @endif
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn me-auto" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button  onclick="@this.frontBackImageChanged(document.querySelector('#front_id_card').value, document.querySelector('#back_id_card').value, document.querySelector('#image').value)" type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                        <button type="submit" class="btn btn-primary">حفظ & قبول</button>
                     </div>
                 </form>
         </div>
         </div>
     </div>
-
-    <div class="modal modal-blur fade" id="modal-editemploye" tabindex="-1" style="display: none;" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title">{{ __('Edit') .': '. $up_name }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-                <form class="w-100" wire:submit.prevent="updateEmploye">
-                    <div class="modal-body">
-
-                        <!-- Employe up_name -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text required" id="up_name">{{ __('Employe name') }}</span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="{{ __('Employe name') }}" aria-label="{{ __('Employe name') }}" aria-describedby="up_name" wire:model.defer="up_name">
-                                
-                            </div>
-                            @if($errors->has('up_name'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_name') }}</small>
-                            @endif
-                        </div>
-                        <!-- Employe number -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_employe_number">{{ __('Employe number') }}</span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="{{ __('Employe number') }}" aria-label="{{ __('Employe number') }}" aria-describedby="up_employe_number" wire:model.defer="up_employe_number">
-                                
-                            </div>
-                            @if($errors->has('up_employe_number'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_employe_number') }}</small>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_employe_declaration">{{ __('Declaration') }}</span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="{{ __('Declaration') }}" aria-label="{{ __('Declaration') }}" aria-describedby="up_employe_declaration" wire:model.defer="up_employe_declaration">
-                                
-                            </div>
-                            @if($errors->has('up_employe_declaration'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_employe_declaration') }}</small>
-                            @endif
-                        </div>
-                        <!-- Employe id -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_national_id">{{ __('National id') }}</span>
-                                </div>
-                                <input type="number" class="form-control" placeholder="{{ __('National id') }}" aria-label="{{ __('Employe id') }}" aria-describedby="up_national_id" wire:model.defer="up_national_id">
-                                
-                            </div>
-                            @if($errors->has('up_national_id'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_national_id') }}</small>
-                            @endif
-                        </div>
-                        <!-- Employe nationality -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_nationality">{{ __('Nationality') }}</span>
-                                </div>
-                                <select class="custom-select" aria-describedby="up_nationality" wire:model.defer="up_nationality">
-                                    <option value="0">--اختر--</option>
-                                    @forelse ($nationalities as $nat)
-                                        <option value="{{ $nat->slug }}">{{ $nat->name_ar }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-                            </div>
-                            @if($errors->has('up_nationality'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_nationality') }}</small>
-                            @endif
-                        </div>
-                        <!-- Employe gender -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_gender">{{ __('The gender') }}</span>
-                                </div>
-                                <select class="custom-select" aria-describedby="up_gender" wire:model.defer="up_gender">
-                                    <option value="0">--اختر--</option>
-                                        <option value="male">{{ __('Male') }}</option>
-                                        <option value="female">{{ __('Female') }}</option>
-                                </select>
-                            </div>
-                            @if($errors->has('up_gender'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_gender') }}</small>
-                            @endif
-                        </div>
-                        <!-- camps -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_camp_id">{{ __('Camp') }}</span>
-                                </div>
-
-                                <select class="custom-select" id="up_camp_id" aria-label="{{ __('up_camp_id') }}" aria-describedby="up_camp_id" wire:model.defer="up_camp_id" wire:change="updateCamp('up_camp_id')">
-                                    <option value="0">--اختر--</option>
-                                    @forelse ($camps as $camp)
-                                        <option value="{{ $camp->id }}">{{ $camp->name }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-
-                            </div>
-                            @if($errors->has('up_camp_id'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_camp_id') }}</small>
-                            @endif
-                        </div>
-                        <!-- unit -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_unit_id">{{ __('Unit') }}</span>
-                                </div>
-
-                                <select class="custom-select" id="up_unit_id" aria-label="{{ __('up_unit_id') }}" aria-describedby="up_unit_id" wire:model.defer="up_unit_id">
-                                    <option value="0">--اختر--</option>
-                                    @forelse ($units as $unit)
-                                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-
-                            </div>
-                            @if($errors->has('up_unit_id'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_unit_id') }}</small>
-                            @endif
-                        </div>
-                        <!-- job_id -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_job_id">المسمى الوظيفي</span>
-                                </div>
-
-                                <select class="custom-select" id="up_job_id" aria-label="{{ __('up_job_id') }}" aria-describedby="up_job_id" wire:model.defer="up_job_id">
-                                    <option value="0">--اختر--</option>
-                                    @forelse ($jobs as $job)
-                                        <option value="{{ $job->id }}">{{ $job->name }}</option>
-                                    @empty
-                                        <option value="0">{{ __('No data') }}</option>
-                                    @endforelse
-                                </select>
-
-                            </div>
-                            @if($errors->has('up_job_id'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_job_id') }}</small>
-                            @endif
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_phone">{{ __('Phone') }}</span>
-                                </div>
-                                <input type="number" class="form-control" placeholder="{{ __('Phone') }}" aria-label="{{ __('Phone') }}" aria-describedby="up_phone" wire:model.defer="up_phone">
-                                
-                            </div>
-                            @if($errors->has('up_phone'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_phone') }}</small>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="up_phone2">{{ __('Phone') }}</span>
-                                </div>
-                                <input type="number" class="form-control" placeholder="{{ __('Phone') }}" aria-label="{{ __('Phone') }}" aria-describedby="up_phone2" wire:model.defer="up_phone2">
-                                
-                            </div>
-                            @if($errors->has('up_phone2'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_phone2') }}</small>
-                            @endif
-                        </div>
-
-                        <!-- front_employe_card -->
-                        <div class="form-group">
-                            <label for="description">وجه الهوية</label>
-                            <input onclick="filemanager.selectFile('up_front_id_card')" name="up_front_id_card" type="text" class="form-control" id="up_front_id_card" wire:model.blur="up_front_id_card">
-                            @if($errors->has('up_front_id_card'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_front_id_card') }}</small>
-                            @else
-                                <small class="mt-1 d-block">أضف وجه بطاقة الهوية.</small>
-                            @endif
-                        </div>
-
-                        <!-- back_employe_card -->
-                        <div class="form-group">
-                            <label for="description">ظهر الهوية</label>
-                            <input onclick="filemanager.selectFile('up_back_id_card')" name="up_back_id_card" type="text" class="form-control" id="up_back_id_card" wire:model.blur="up_back_id_card">
-                            @if($errors->has('up_back_id_card'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_back_id_card') }}</small>
-                            @else
-                                <small class="mt-1 d-block">أضف ظهر بطاقة الهوية.</small>
-                            @endif
-                        </div>
-                        <!-- employe_image -->
-                        <div class="form-group">
-                            <label for="description">الصورة الشخصية</label>
-                            <input onclick="filemanager.selectFile('up_image')" name="up_image" type="text" class="form-control" id="up_image" wire:model.blur="up_image">
-                            @if($errors->has('up_image'))
-                                <small class="invalid-feedback mt-1 d-block">{{ $errors->first('up_image') }}</small>
-                            @else
-                                <small class="mt-1 d-block">أضف صورة الموظف.</small>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn me-auto" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button  onclick="@this.frontBackImageChanged(document.querySelector('#up_front_id_card').value, document.querySelector('#up_back_id_card').value, document.querySelector('#up_image').value)" type="submit" class="btn btn-primary">{{ __('Save') }}</button>
-                    </div>
-                </form>
-        </div>
-        </div>
-    </div> --}}
 
     <script>
         window.addEventListener('makeAction', event => {
@@ -506,11 +153,11 @@
                 });
 
                 $('#modal-employe').modal('hide');
-                $('#modal-editemploye').modal('hide');
+                $('#modal-editEmployeRequest').modal('hide');
                 $('#modal-swapemploye').modal('hide');
         })
 
-        window.addEventListener('editEmploye', event => {
+        window.addEventListener('editEmployeRequest', event => {
 
             @this.confirm_edit(event.detail.id)
 
@@ -518,7 +165,7 @@
 
         window.addEventListener('showEditEmployeModal', event => {
 
-            $('#modal-editemploye').modal('show');
+            $('#modal-editEmployeRequest').modal('show');
 
         })
 

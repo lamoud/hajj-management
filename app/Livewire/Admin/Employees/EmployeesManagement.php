@@ -127,7 +127,7 @@ class EmployeesManagement extends Component
 
     public function confirm_edit( $employe_id )
     {
-        if( ! $this->user->can('employee_update') ){
+        if( ! $this->user->can('employees_update') ){
             return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
         }
 
@@ -143,7 +143,7 @@ class EmployeesManagement extends Component
     public function confirm_delete( $employe_id, $type )
     {
         
-        if( ! $this->user->can('employee_delete') ){
+        if( ! $this->user->can('employees_delete') ){
             return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
         }
 
@@ -191,9 +191,9 @@ class EmployeesManagement extends Component
     public function addNewEmploye()
     {
         
-        // if( ! $this->user->can('employee_add') ){
-        //     return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
-        // }
+        if( ! $this->user->can('employees_add') ){
+            return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
+        }
 
         $this->validate([
             'name' => ['required', 'string', 'min:3', 'max:100'],
@@ -214,6 +214,8 @@ class EmployeesManagement extends Component
                         return;
                     }
                         
+                    //dd($unit->employees);
+
                     if ($unit->capacity <= $unit->employees->count()) {
                         $fail('اكتمل العدد في هذه الوحدة.');
                     }
@@ -287,7 +289,7 @@ class EmployeesManagement extends Component
     public function updateEmploye()
     {
         
-        if( ! $this->user->can('employee_update') ){
+        if( ! $this->user->can('employees_update') ){
             return $this->dispatch('makeAction', type: 'error', title: __('Oops'), msg: __('Sorry! You are not authorized to perform this action.'));
         }
 
