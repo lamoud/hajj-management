@@ -6,6 +6,11 @@
 
 <body>
 
+    <style>
+        .my-5.p-2.bg-white{
+            min-height: 100vh
+        }
+    </style>
     <div class="wrapper">
 
         <!--Start preloader -->
