@@ -118,7 +118,8 @@
             @can('pilgrims_view')
             {{-- Start pilgrims-management --}}
                     @php
-                        $pilgrims_route = ['pilgrims_management', 'pilgrims_management_actions'];
+                        $pilgrims_route = ['pilgrims_management'];
+                        $pilgrims_ac_route = ['pilgrims_management_actions'];
                     @endphp
                     <li class="{{ in_array($pageType, $pilgrims_route) ? 'active' : '' }}">
                         <a href="{{ route('pilgrims_management') }}" data-toggle="collapse" data-target="#pilgrims" aria-expanded="{{ in_array($pageType, $pilgrims_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $pilgrims_route) ? '' : 'collapsed' }}">
@@ -129,6 +130,17 @@
                         </a>
                         <ul id="pilgrims" class="{{ in_array($pageType, $pilgrims_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'pilgrims_management' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management') }}">{{ __('Pilgrims management') }}</a> </li>
+                        </ul>
+                    </li>
+
+                    <li class="{{ in_array($pageType, $pilgrims_ac_route) ? 'active' : '' }}">
+                        <a href="{{ route('pilgrims_management_actions') }}" data-toggle="collapse" data-target="#pilgrimsac" aria-expanded="{{ in_array($pageType, $pilgrims_ac_route) ? 'true' : 'false' }}" class="{{ in_array($pageType, $pilgrims_ac_route) ? '' : 'collapsed' }}">
+                            <div class="pull-left"><i class="fa fa-user-secret "></i><span class="right-nav-text">عمليات فردية</span>
+                            </div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="pilgrimsac" class="{{ in_array($pageType, $pilgrims_ac_route) ? 'collapse show' : 'collapse' }}" data-parent="#sidebarnav">
                             <li class="{{ $pageType === 'pilgrims_management_actions' ? 'active' : '' }}"> <a href="{{ route('pilgrims_management_actions') }}">{{ __('عمليات فردية') }}</a> </li>
                         </ul>
                     </li>
