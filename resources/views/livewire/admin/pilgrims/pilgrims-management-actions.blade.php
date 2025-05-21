@@ -8,8 +8,8 @@
             <select class="form-select custom-select my-1 me-sm-2" id="actions" wire:model.live="actions">
                 <option value="accommodation">تسكين</option>
                 <option value="escalation">تصعيد</option>
-                <option value="inter">دخول</option>
-                <option value="exit">خروج</option>
+                {{-- <option value="inter">دخول</option>
+                <option value="exit">خروج</option> --}}
             </select>
             </div>
         </div>
